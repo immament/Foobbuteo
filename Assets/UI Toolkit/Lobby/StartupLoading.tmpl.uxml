@@ -1,0 +1,7 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Template name="session-loading-content" src="SessionLoading.tmpl.uxml"/>
+    <ui:Style src="SessionLoading.style.uss"/>
+    <ui:VisualElement name="startup-loading" class="session-background">
+        <ui:Instance template="session-loading-content"/>
+    </ui:VisualElement>
+</ui:UXML>

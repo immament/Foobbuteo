@@ -1,0 +1,28 @@
+#TooltipRoot {
+  position: absolute;
+  background-color: rgba(12, 18, 26, 1);
+  padding-left: 8px;
+  padding-right: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px;
+  display: none;
+  max-width: 500px;
+}
+
+#TitleLabel {
+  font-size: 20px;
+  color: rgb(255, 255, 255);
+  max-width: 100%;
+  white-space: normal;
+}
+
+#DescriptionLabel {
+  font-size: 16px;
+  color: rgb(255, 255, 255);
+  white-space: normal;
+  -unity-paragraph-spacing: 24px;
+}

@@ -1,0 +1,25 @@
+{
+    "name": "Foobbuteo.MainLib",
+    "rootNamespace": "Imma.Foobbuteo",
+    "references": [
+        "GUID:faf1f57ce53e91342bd1a0b421da91ae",
+        "GUID:2270b5c854c5e5f4691655ea4d47ef66",
+        "GUID:c7579b536211f7444b16f2e7cfef0853",
+        "GUID:1491147abca9d7d4bb7105af628b223e"
+    ],
+    "includePlatforms": [
+        "Android",
+        "Editor",
+        "WebGL",
+        "WindowsStandalone64",
+        "WindowsStandalone64Server"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

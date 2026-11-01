@@ -1,0 +1,10 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Template name="user-list" src="UserListView.tmpl.uxml" />
+    <ui:VisualElement name="onlineUsersOverlay" class="online-users-overlay user-list-hidden">
+        <ui:VisualElement class="user-list-header">
+            <ui:Label text="Online users" class="user-list-title" />
+            <ui:Button name="closeOnlineUsersButton" text="Close" class="btn-default" />
+        </ui:VisualElement>
+        <ui:Instance template="user-list" class="user-list-content" />
+    </ui:VisualElement>
+</ui:UXML>

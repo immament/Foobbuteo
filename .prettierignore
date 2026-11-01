@@ -1,0 +1,12 @@
+**/Assets/WebGLTemplates/DefaultCustom/index.html
+
+# Unity serialized files — formatting can corrupt them
+**/*.asset
+**/*.meta
+**/*.unity
+**/*.prefab
+**/*.mat
+**/*.anim
+**/*.controller
+**/*.overrideController
+**/*.playable

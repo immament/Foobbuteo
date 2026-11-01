@@ -1,0 +1,113 @@
+.ft-login {
+  align-self: center;
+  width: 100%;
+  max-width: 440px;
+  padding: 20px;
+  /* margin-top: 12px;
+  margin-bottom: 12px; */
+  margin: 0;
+  flex-shrink: 0;
+  font-size: 16px;
+}
+
+#remember-login,
+#login-retry {
+  display: none;
+}
+
+#main-view.lobby--short .ft-login {
+  padding: 10px 20px;
+  margin: 0;
+}
+
+.ft-login__title {
+  font-size: 24px;
+  -unity-font-style: bold;
+  margin-bottom: 12px;
+}
+
+#main-view.lobby--short .ft-login__title {
+  font-size: 20px;
+  margin-bottom: 6px;
+}
+
+.ft-login__field.unity-text-field {
+  margin-bottom: 10px;
+  /* min-height: 44px; */
+  flex-direction: column;
+}
+#main-view.lobby--short .ft-login__field.unity-text-field {
+  margin-bottom: 5px;
+  flex-direction: row;
+}
+
+.ft-login__field.unity-toggle .unity-toggle__checkmark {
+  margin-right: 10px;
+}
+
+.ft-login__field > .unity-base-field__label {
+  margin-bottom: 5px;
+}
+.ft-login__field:focus:enabled > .unity-base-field__label {
+  color: #bac5c9;
+  -unity-font-style: bold;
+}
+
+.ft-login__field .unity-text-field__input {
+  /* min-height: 44px; */
+  background-color: rgb(245, 245, 245);
+  color: rgb(25, 25, 25);
+}
+
+.ft-login__status {
+  white-space: normal;
+  color: rgb(235, 235, 235);
+  margin-bottom: 10px;
+}
+
+.ft-login__button {
+  /* min-height: 44px; */
+  margin-bottom: 6px;
+}
+#main-view.lobby--short .ft-login__buttons {
+  flex-direction: row-reverse;
+}
+#main-view.lobby--short .ft-login__button {
+  padding: 7px 16px;
+}
+
+.ft-login__signup-panel {
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.text-link {
+  background-color: transparent;
+  border-width: 0;
+  padding: 0;
+  margin: 0;
+  color: #4da3ff;
+  -unity-font-style: bold;
+}
+
+.text-link:hover {
+  color: #80c0ff;
+}
+
+.ft-login .unity-text-field:focus {
+  border-width: 0;
+}
+
+.ft-login__title,
+.ft-login__field > .unity-base-field__label,
+.ft-login__button {
+  white-space: normal;
+}
+
+#main-view.lobby--short .ft-login__field > .unity-base-field__input {
+  padding: 8px 10px;
+}

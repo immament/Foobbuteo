@@ -1,0 +1,4409 @@
+fileFormatVersion: 2
+guid: 8235c89d64d873e478227142084a00a0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7572639551759485017
+    second: zone_long_pass_0
+  - first:
+      213: 7511339112444113373
+    second: zone_long_pass_1
+  - first:
+      213: -3807122187806595522
+    second: zone_long_pass_2
+  - first:
+      213: -326932522262403065
+    second: zone_long_pass_3
+  - first:
+      213: 8141493925450029189
+    second: zone_long_pass_4
+  - first:
+      213: 3480848431035646351
+    second: zone_long_pass_5
+  - first:
+      213: 9044768513527240584
+    second: zone_long_pass_6
+  - first:
+      213: 6487851272662348225
+    second: zone_long_pass_7
+  - first:
+      213: 1396515857934646179
+    second: zone_long_pass_8
+  - first:
+      213: 3257864898739633015
+    second: zone_long_pass_9
+  - first:
+      213: 6838416198941211170
+    second: zone_long_pass_10
+  - first:
+      213: -1882153155888580496
+    second: zone_long_pass_11
+  - first:
+      213: 5845925545662196717
+    second: zone_long_pass_12
+  - first:
+      213: -6286350980857607944
+    second: zone_long_pass_13
+  - first:
+      213: 7090642023965900831
+    second: zone_long_pass_14
+  - first:
+      213: -9008699047314084994
+    second: zone_long_pass_15
+  - first:
+      213: 658437615238583562
+    second: zone_long_pass_16
+  - first:
+      213: 6635294269421277619
+    second: zone_long_pass_17
+  - first:
+      213: -9212934129955310454
+    second: zone_long_pass_18
+  - first:
+      213: -1235580274497031905
+    second: zone_long_pass_19
+  - first:
+      213: -1975336802436297390
+    second: zone_long_pass_20
+  - first:
+      213: 40494221241648858
+    second: zone_long_pass_21
+  - first:
+      213: -3644401455374419559
+    second: zone_long_pass_22
+  - first:
+      213: 6767922944186168585
+    second: zone_long_pass_23
+  - first:
+      213: 549670348139306847
+    second: zone_long_pass_24
+  - first:
+      213: 69445787017297805
+    second: zone_long_pass_25
+  - first:
+      213: 1942916182088664135
+    second: zone_long_pass_26
+  - first:
+      213: 701278984197593518
+    second: zone_long_pass_27
+  - first:
+      213: -7958609504381973212
+    second: zone_long_pass_28
+  - first:
+      213: 3883148794999970896
+    second: zone_long_pass_29
+  - first:
+      213: 645402941133287021
+    second: zone_long_pass_30
+  - first:
+      213: -1279920408437858118
+    second: zone_long_pass_31
+  - first:
+      213: 5047247756057670437
+    second: zone_long_pass_32
+  - first:
+      213: 6657611960573614706
+    second: zone_long_pass_33
+  - first:
+      213: 7564612256443523501
+    second: zone_long_pass_34
+  - first:
+      213: 2700214181392344570
+    second: zone_long_pass_35
+  - first:
+      213: 1014237232125007486
+    second: zone_long_pass_36
+  - first:
+      213: 224536827441120876
+    second: zone_long_pass_37
+  - first:
+      213: -582588837210930631
+    second: zone_long_pass_38
+  - first:
+      213: -5776334539361642518
+    second: zone_long_pass_39
+  - first:
+      213: -6801938962267051916
+    second: zone_long_pass_40
+  - first:
+      213: 7806776488591819999
+    second: zone_long_pass_41
+  - first:
+      213: -4266994154839673423
+    second: zone_long_pass_42
+  - first:
+      213: 1195800687585912204
+    second: zone_long_pass_43
+  - first:
+      213: -8732812535626876390
+    second: zone_long_pass_44
+  - first:
+      213: -1641097686032542038
+    second: zone_long_pass_45
+  - first:
+      213: 6286833403970208225
+    second: zone_long_pass_46
+  - first:
+      213: 7761981137013499107
+    second: zone_long_pass_47
+  - first:
+      213: 8835804883902290968
+    second: zone_long_pass_48
+  - first:
+      213: 1943181678144078202
+    second: zone_long_pass_49
+  - first:
+      213: 8586957244470923223
+    second: zone_long_pass_50
+  - first:
+      213: 5264085892916659438
+    second: zone_long_pass_51
+  - first:
+      213: 1526627911387290952
+    second: zone_long_pass_52
+  - first:
+      213: 7600397313603893025
+    second: zone_long_pass_53
+  - first:
+      213: 8376252951038624812
+    second: zone_long_pass_54
+  - first:
+      213: 3715369021905573940
+    second: zone_long_pass_55
+  - first:
+      213: 2288585493286487067
+    second: zone_long_pass_56
+  - first:
+      213: -6848619726945385831
+    second: zone_long_pass_57
+  - first:
+      213: -2877503459408590105
+    second: zone_long_pass_58
+  - first:
+      213: -4424357592807763132
+    second: zone_long_pass_59
+  - first:
+      213: -2569336829013606168
+    second: zone_long_pass_60
+  - first:
+      213: -7094863000453570571
+    second: zone_long_pass_61
+  - first:
+      213: 5285137088325854388
+    second: zone_long_pass_62
+  - first:
+      213: 1095323099427181184
+    second: zone_long_pass_63
+  - first:
+      213: -7011532692444202924
+    second: zone_long_pass_64
+  - first:
+      213: 3009375522764127265
+    second: zone_long_pass_65
+  - first:
+      213: 4715226331740146972
+    second: zone_long_pass_66
+  - first:
+      213: -3164322771229531290
+    second: zone_long_pass_67
+  - first:
+      213: 1990094926390536819
+    second: zone_long_pass_68
+  - first:
+      213: -7483705733782558899
+    second: zone_long_pass_69
+  - first:
+      213: 8378271558729303631
+    second: zone_long_pass_70
+  - first:
+      213: -3351740833216681167
+    second: zone_long_pass_71
+  - first:
+      213: 3634823047325612330
+    second: zone_long_pass_72
+  - first:
+      213: 3399320285273179820
+    second: zone_long_pass_73
+  - first:
+      213: 916905762477080046
+    second: zone_long_pass_74
+  - first:
+      213: 5124959318047183409
+    second: zone_long_pass_75
+  - first:
+      213: 2072616530168086475
+    second: zone_long_pass_76
+  - first:
+      213: 8527208300849941533
+    second: zone_long_pass_77
+  - first:
+      213: -6425987818937929100
+    second: zone_long_pass_78
+  - first:
+      213: 861161056691432383
+    second: zone_long_pass_79
+  - first:
+      213: -4309561111253368832
+    second: zone_long_pass_80
+  - first:
+      213: -6542394084661792433
+    second: zone_long_pass_81
+  - first:
+      213: 9192998194022371980
+    second: zone_long_pass_82
+  - first:
+      213: 6683575590900504154
+    second: zone_long_pass_83
+  - first:
+      213: -2629245409912172175
+    second: zone_long_pass_84
+  - first:
+      213: 1378571813766390754
+    second: zone_long_pass_85
+  - first:
+      213: -3014463243826046523
+    second: zone_long_pass_86
+  - first:
+      213: 9009273090313874429
+    second: zone_long_pass_87
+  - first:
+      213: 7211105420497576107
+    second: zone_long_pass_88
+  - first:
+      213: 802444615113056169
+    second: zone_long_pass_89
+  - first:
+      213: 4294161765486399476
+    second: zone_long_pass_90
+  - first:
+      213: 3923878400467355795
+    second: zone_long_pass_91
+  - first:
+      213: -2643243902712394285
+    second: zone_long_pass_92
+  - first:
+      213: 5237003681766524394
+    second: zone_long_pass_93
+  - first:
+      213: 8071819934045742421
+    second: zone_long_pass_94
+  - first:
+      213: 2186140418340251832
+    second: zone_long_pass_95
+  - first:
+      213: -4932876271566463279
+    second: zone_long_pass_96
+  - first:
+      213: -5301301002850048533
+    second: zone_long_pass_97
+  - first:
+      213: 4154556831868214635
+    second: zone_long_pass_98
+  - first:
+      213: -1634653714193268403
+    second: zone_long_pass_99
+  - first:
+      213: 5444847070604061072
+    second: zone_long_pass_100
+  - first:
+      213: 1704397421101036113
+    second: zone_long_pass_101
+  - first:
+      213: 5846184630301352296
+    second: zone_long_pass_102
+  - first:
+      213: 4882732915339901392
+    second: zone_long_pass_103
+  - first:
+      213: 7845730754128184659
+    second: zone_long_pass_104
+  - first:
+      213: -7625649144554497047
+    second: zone_long_pass_105
+  - first:
+      213: -8969347835381223226
+    second: zone_long_pass_106
+  - first:
+      213: 1526609402259748342
+    second: zone_long_pass_107
+  - first:
+      213: -3079338904916540019
+    second: zone_long_pass_108
+  - first:
+      213: 1531572246189131224
+    second: zone_long_pass_109
+  - first:
+      213: 1223285455940321220
+    second: zone_long_pass_110
+  - first:
+      213: 3732075634015100142
+    second: zone_long_pass_111
+  - first:
+      213: 6030720548938180089
+    second: zone_long_pass_112
+  - first:
+      213: 2891855025604943302
+    second: zone_long_pass_113
+  - first:
+      213: -4603952827203416634
+    second: zone_long_pass_114
+  - first:
+      213: -2813601295950508566
+    second: zone_long_pass_115
+  - first:
+      213: -7907644409815263836
+    second: zone_long_pass_116
+  - first:
+      213: 7448238813201935282
+    second: zone_long_pass_117
+  - first:
+      213: -4018843595071466102
+    second: zone_long_pass_118
+  - first:
+      213: 6144377882207709960
+    second: zone_long_pass_119
+  - first:
+      213: 8537405108258466934
+    second: zone_long_pass_120
+  - first:
+      213: 7699771601280797496
+    second: zone_long_pass_121
+  - first:
+      213: -5049619355527993408
+    second: zone_long_pass_122
+  - first:
+      213: 5946652500116784366
+    second: zone_long_pass_123
+  - first:
+      213: -8468020554086891503
+    second: zone_long_pass_124
+  - first:
+      213: 6134492170958131039
+    second: zone_long_pass_125
+  - first:
+      213: -5456976989482833898
+    second: zone_long_pass_126
+  - first:
+      213: 8640489222292998059
+    second: zone_long_pass_127
+  - first:
+      213: 8276883821850929183
+    second: zone_long_pass_128
+  - first:
+      213: 3622521590545594386
+    second: zone_long_pass_129
+  - first:
+      213: 211868384725733493
+    second: zone_long_pass_130
+  - first:
+      213: 2025764334259271282
+    second: zone_long_pass_131
+  - first:
+      213: -8073488566036103621
+    second: zone_long_pass_132
+  - first:
+      213: 6898655939833726130
+    second: zone_long_pass_133
+  - first:
+      213: -6726079639309972954
+    second: zone_long_pass_134
+  - first:
+      213: 8573283862725308162
+    second: zone_long_pass_135
+  - first:
+      213: 7513083792856086194
+    second: zone_long_pass_136
+  - first:
+      213: -8594885893300846035
+    second: zone_long_pass_137
+  - first:
+      213: -3335983196689931259
+    second: zone_long_pass_138
+  - first:
+      213: 5733098359061638639
+    second: zone_long_pass_139
+  - first:
+      213: 3196222412251888274
+    second: zone_long_pass_140
+  - first:
+      213: -2306894607691158485
+    second: zone_long_pass_141
+  - first:
+      213: 4161375991538059457
+    second: zone_long_pass_142
+  - first:
+      213: -6390078780652157751
+    second: zone_long_pass_143
+  - first:
+      213: -7218740859776373971
+    second: zone_long_pass_144
+  - first:
+      213: -2302022041838059991
+    second: zone_long_pass_145
+  - first:
+      213: 7800547869101266269
+    second: zone_long_pass_146
+  - first:
+      213: -6718342490527279664
+    second: zone_long_pass_147
+  - first:
+      213: -4669047226042865088
+    second: zone_long_pass_148
+  - first:
+      213: 4714134445764433977
+    second: zone_long_pass_149
+  - first:
+      213: -5876143683574962697
+    second: zone_long_pass_150
+  - first:
+      213: 2064577144056361749
+    second: zone_long_pass_151
+  - first:
+      213: 8046357387562275665
+    second: zone_long_pass_152
+  - first:
+      213: -8467869109680038732
+    second: zone_long_pass_153
+  - first:
+      213: -8928902745213080664
+    second: zone_long_pass_154
+  - first:
+      213: -8989353560907558725
+    second: zone_long_pass_155
+  - first:
+      213: -166167542681234936
+    second: zone_long_pass_156
+  - first:
+      213: -3863493139803076227
+    second: zone_long_pass_157
+  - first:
+      213: -8043161496223450137
+    second: zone_long_pass_158
+  - first:
+      213: 3900712618058343811
+    second: zone_long_pass_159
+  - first:
+      213: 7639045365320135066
+    second: zone_long_pass_160
+  - first:
+      213: -3500730913530322162
+    second: zone_long_pass_161
+  - first:
+      213: 6493333120969292763
+    second: zone_long_pass_162
+  - first:
+      213: -2828711334611175980
+    second: zone_long_pass_163
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 489
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationMethod: 0
+  spriteTessellationDetail: -1
+  spriteGeometrySubdivision: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: zone_long_pass_0
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 478
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 95882befc8b671960800000000000000
+      internalID: 7572639551759485017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_1
+      rect:
+        serializedVersion: 2
+        x: 201
+        y: 479
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd1bab04023ad3860800000000000000
+      internalID: 7511339112444113373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_2
+      rect:
+        serializedVersion: 2
+        x: 210
+        y: 481
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e36a74b8a826a2bc0800000000000000
+      internalID: -3807122187806595522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_3
+      rect:
+        serializedVersion: 2
+        x: 219
+        y: 482
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 708e6096a90867bf0800000000000000
+      internalID: -326932522262403065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_4
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 482
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5881377f6956cf070800000000000000
+      internalID: 8141493925450029189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_5
+      rect:
+        serializedVersion: 2
+        x: 238
+        y: 483
+        width: 10
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f810bd8a4357e4030800000000000000
+      internalID: 3480848431035646351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_6
+      rect:
+        serializedVersion: 2
+        x: 251
+        y: 482
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 887dd64ba09758d70800000000000000
+      internalID: 9044768513527240584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_7
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 482
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c1fa9ebb5a790a50800000000000000
+      internalID: 6487851272662348225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_8
+      rect:
+        serializedVersion: 2
+        x: 269
+        y: 481
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3abf46316cb616310800000000000000
+      internalID: 1396515857934646179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_9
+      rect:
+        serializedVersion: 2
+        x: 278
+        y: 480
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77bf69f4dd2463d20800000000000000
+      internalID: 3257864898739633015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_10
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 478
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22afa2c2d4fe6ee50800000000000000
+      internalID: 6838416198941211170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_11
+      rect:
+        serializedVersion: 2
+        x: 296
+        y: 476
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 07871624daf31e5e0800000000000000
+      internalID: -1882153155888580496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_12
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 471
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: deba39c8f46e02150800000000000000
+      internalID: 5845925545662196717
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_13
+      rect:
+        serializedVersion: 2
+        x: 174
+        y: 473
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f8cd84e61562c8a0800000000000000
+      internalID: -6286350980857607944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_14
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 476
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f10c1fb5a55076260800000000000000
+      internalID: 7090642023965900831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_15
+      rect:
+        serializedVersion: 2
+        x: 305
+        y: 474
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7ba17452fbaaf280800000000000000
+      internalID: -9008699047314084994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_16
+      rect:
+        serializedVersion: 2
+        x: 314
+        y: 472
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a051d03c58d332900800000000000000
+      internalID: 658437615238583562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_17
+      rect:
+        serializedVersion: 2
+        x: 148
+        y: 464
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3b15a059bfc451c50800000000000000
+      internalID: 6635294269421277619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_18
+      rect:
+        serializedVersion: 2
+        x: 157
+        y: 468
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a84f0f49835152080800000000000000
+      internalID: -9212934129955310454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_19
+      rect:
+        serializedVersion: 2
+        x: 323
+        y: 469
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f11ff1769465adee0800000000000000
+      internalID: -1235580274497031905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_20
+      rect:
+        serializedVersion: 2
+        x: 331
+        y: 466
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 25d470bd4a13694e0800000000000000
+      internalID: -1975336802436297390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_21
+      rect:
+        serializedVersion: 2
+        x: 340
+        y: 462
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ad68098974ddf8000800000000000000
+      internalID: 40494221241648858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_22
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 457
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 999bd796f2c7c6dc0800000000000000
+      internalID: -3644401455374419559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_23
+      rect:
+        serializedVersion: 2
+        x: 140
+        y: 461
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 905be6b4f0e7ced50800000000000000
+      internalID: 6767922944186168585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_24
+      rect:
+        serializedVersion: 2
+        x: 349
+        y: 458
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5f9864f442d0a700800000000000000
+      internalID: 549670348139306847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_25
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 453
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8f305a4398b6f000800000000000000
+      internalID: 69445787017297805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_26
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 447
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 744c0cd39ff96fa10800000000000000
+      internalID: 1942916182088664135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_27
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 452
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea95b8545817bb900800000000000000
+      internalID: 701278984197593518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_28
+      rect:
+        serializedVersion: 2
+        x: 365
+        y: 449
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 42dc34182d65d8190800000000000000
+      internalID: -7958609504381973212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_29
+      rect:
+        serializedVersion: 2
+        x: 107
+        y: 442
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 05c95f75147b3e530800000000000000
+      internalID: 3883148794999970896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_30
+      rect:
+        serializedVersion: 2
+        x: 372
+        y: 444
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6eed333e8ee4f800800000000000000
+      internalID: 645402941133287021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_31
+      rect:
+        serializedVersion: 2
+        x: 380
+        y: 439
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab0e94a7b2fcc3ee0800000000000000
+      internalID: -1279920408437858118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_32
+      rect:
+        serializedVersion: 2
+        x: 93
+        y: 431
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5237439b71d6b0640800000000000000
+      internalID: 5047247756057670437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_33
+      rect:
+        serializedVersion: 2
+        x: 100
+        y: 437
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 27ad16afdc6946c50800000000000000
+      internalID: 6657611960573614706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_34
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 433
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da1e1e8a4c6eaf860800000000000000
+      internalID: 7564612256443523501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_35
+      rect:
+        serializedVersion: 2
+        x: 85
+        y: 426
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af5ec5bdd76197520800000000000000
+      internalID: 2700214181392344570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_36
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 428
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e7659c2936b431e00800000000000000
+      internalID: 1014237232125007486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_37
+      rect:
+        serializedVersion: 2
+        x: 402
+        y: 422
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c660f9e0e07bd1300800000000000000
+      internalID: 224536827441120876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_38
+      rect:
+        serializedVersion: 2
+        x: 71
+        y: 413
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9324feb0a8a3ae7f0800000000000000
+      internalID: -582588837210930631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_39
+      rect:
+        serializedVersion: 2
+        x: 78
+        y: 420
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae7978d375656dfa0800000000000000
+      internalID: -5776334539361642518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_40
+      rect:
+        serializedVersion: 2
+        x: 409
+        y: 416
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 478ee225d88aa91a0800000000000000
+      internalID: -6801938962267051916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_41
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 407
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd40363badd375c60800000000000000
+      internalID: 7806776488591819999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_42
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 409
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b5fc167c6798c4c0800000000000000
+      internalID: -4266994154839673423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_43
+      rect:
+        serializedVersion: 2
+        x: 421
+        y: 402
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c85e9b5c366589010800000000000000
+      internalID: 1195800687585912204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_44
+      rect:
+        serializedVersion: 2
+        x: 53
+        y: 392
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a1ab1eb6441dec680800000000000000
+      internalID: -8732812535626876390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_45
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 399
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aa690567956a939e0800000000000000
+      internalID: -1641097686032542038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_46
+      rect:
+        serializedVersion: 2
+        x: 427
+        y: 395
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e144bdfba15f3750800000000000000
+      internalID: 6286833403970208225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_47
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 385
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3e4e8f828b818bb60800000000000000
+      internalID: 7761981137013499107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_48
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 388
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81c58a15ab51f9a70800000000000000
+      internalID: 8835804883902290968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_49
+      rect:
+        serializedVersion: 2
+        x: 42
+        y: 378
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7143dbd07197fa10800000000000000
+      internalID: 1943181678144078202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_50
+      rect:
+        serializedVersion: 2
+        x: 438
+        y: 380
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7df08224e100b2770800000000000000
+      internalID: 8586957244470923223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_51
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 373
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee44172ba3acd0940800000000000000
+      internalID: 5264085892916659438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_52
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 370
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84d9f6a3ffbaf2510800000000000000
+      internalID: 1526627911387290952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_53
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 365
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 127713d86190a7960800000000000000
+      internalID: 7600397313603893025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_54
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 362
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c24897ffdad6e3470800000000000000
+      internalID: 8376252951038624812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_55
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 357
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4381c28c074af8330800000000000000
+      internalID: 3715369021905573940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_56
+      rect:
+        serializedVersion: 2
+        x: 27
+        y: 354
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1404757160b2cf10800000000000000
+      internalID: 2288585493286487067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_57
+      rect:
+        serializedVersion: 2
+        x: 458
+        y: 348
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99200b5d4a0d4f0a0800000000000000
+      internalID: -6848619726945385831
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_58
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 345
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7ea4efd69dd0118d0800000000000000
+      internalID: -2877503459408590105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_59
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 340
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4431469e5368992c0800000000000000
+      internalID: -4424357592807763132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_60
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 337
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e0c05654c1e75cd0800000000000000
+      internalID: -2569336829013606168
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_61
+      rect:
+        serializedVersion: 2
+        x: 465
+        y: 332
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5ff17e7f0bbf98d90800000000000000
+      internalID: -7094863000453570571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_62
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 329
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b4a7e21e24985940800000000000000
+      internalID: 5285137088325854388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_63
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 323
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08213af3e8e533f00800000000000000
+      internalID: 1095323099427181184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_64
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 320
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 45833d73a2802be90800000000000000
+      internalID: -7011532692444202924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_65
+      rect:
+        serializedVersion: 2
+        x: 471
+        y: 315
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12c7c16f71373c920800000000000000
+      internalID: 3009375522764127265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_66
+      rect:
+        serializedVersion: 2
+        x: 10
+        y: 312
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1d80facd59df6140800000000000000
+      internalID: 4715226331740146972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_67
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 306
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6632f2274311614d0800000000000000
+      internalID: -3164322771229531290
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_68
+      rect:
+        serializedVersion: 2
+        x: 7
+        y: 303
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37aa0d4aacc3e9b10800000000000000
+      internalID: 1990094926390536819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_69
+      rect:
+        serializedVersion: 2
+        x: 476
+        y: 296
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d4726561949842890800000000000000
+      internalID: -7483705733782558899
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_70
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 293
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f4681d9b799954470800000000000000
+      internalID: 8378271558729303631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_71
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 288
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13ba2f078793c71d0800000000000000
+      internalID: -3351740833216681167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_72
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 284
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a29fe3dad4c717230800000000000000
+      internalID: 3634823047325612330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_73
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 279
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ca6cc710acfcc2f20800000000000000
+      internalID: 3399320285273179820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_74
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 275
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eed74f8dee089bc00800000000000000
+      internalID: 916905762477080046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_75
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 270
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 132d788b8538f1740800000000000000
+      internalID: 5124959318047183409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_76
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 266
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcf7544c0c963cc10800000000000000
+      internalID: 2072616530168086475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_77
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 261
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1c4ce145cab65670800000000000000
+      internalID: 8527208300849941533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_78
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 257
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 472b731002e42d6a0800000000000000
+      internalID: -6425987818937929100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_79
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 251
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fbb2e7e1b6573fb00800000000000000
+      internalID: 861161056691432383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_80
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 247
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 000c7e9900d5134c0800000000000000
+      internalID: -4309561111253368832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_81
+      rect:
+        serializedVersion: 2
+        x: 483
+        y: 241
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f41fd1b3e3fb435a0800000000000000
+      internalID: -6542394084661792433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_82
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 238
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c82d28f9627149f70800000000000000
+      internalID: 9192998194022371980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_83
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 232
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a56981db694d0cc50800000000000000
+      internalID: 6683575590900504154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_84
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 229
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 171dbd2ea3b038bd0800000000000000
+      internalID: -2629245409912172175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_85
+      rect:
+        serializedVersion: 2
+        x: 482
+        y: 223
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e369e8b2cba12310800000000000000
+      internalID: 1378571813766390754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_86
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 220
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c9d64ba6a97a26d0800000000000000
+      internalID: -3014463243826046523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_87
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 214
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dfbe4a8742e570d70800000000000000
+      internalID: 9009273090313874429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_88
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 211
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba0e6a28c2ef21460800000000000000
+      internalID: 7211105420497576107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_89
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 205
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9af1dbb302bd22b00800000000000000
+      internalID: 802444615113056169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_90
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 202
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4ff81efcf5de79b30800000000000000
+      internalID: 4294161765486399476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_91
+      rect:
+        serializedVersion: 2
+        x: 478
+        y: 195
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3984fa99d9a647630800000000000000
+      internalID: 3923878400467355795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_92
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 192
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3dd4c1cccaf415bd0800000000000000
+      internalID: -2643243902712394285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_93
+      rect:
+        serializedVersion: 2
+        x: 477
+        y: 187
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae54b1b0a139da840800000000000000
+      internalID: 5237003681766524394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_94
+      rect:
+        serializedVersion: 2
+        x: 6
+        y: 183
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 555a6b3b67dd40070800000000000000
+      internalID: 8071819934045742421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_95
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 178
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8b86b48b02bb65e10800000000000000
+      internalID: 2186140418340251832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_96
+      rect:
+        serializedVersion: 2
+        x: 9
+        y: 175
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ded350aa27ea8bb0800000000000000
+      internalID: -4932876271566463279
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_97
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 169
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be563bd43defd66b0800000000000000
+      internalID: -5301301002850048533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_98
+      rect:
+        serializedVersion: 2
+        x: 11
+        y: 166
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b6d5da24d63f7a930800000000000000
+      internalID: 4154556831868214635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_99
+      rect:
+        serializedVersion: 2
+        x: 469
+        y: 160
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d41ccb29b1b8059e0800000000000000
+      internalID: -1634653714193268403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_100
+      rect:
+        serializedVersion: 2
+        x: 14
+        y: 157
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0996eab009bff8b40800000000000000
+      internalID: 5444847070604061072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_101
+      rect:
+        serializedVersion: 2
+        x: 466
+        y: 151
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 152b1d89c6c37a710800000000000000
+      internalID: 1704397421101036113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_102
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 148
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 861e57462f1d12150800000000000000
+      internalID: 5846184630301352296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_103
+      rect:
+        serializedVersion: 2
+        x: 462
+        y: 143
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d931f777b3f2c340800000000000000
+      internalID: 4882732915339901392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_104
+      rect:
+        serializedVersion: 2
+        x: 21
+        y: 140
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3550b2b6d82a1ec60800000000000000
+      internalID: 7845730754128184659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_105
+      rect:
+        serializedVersion: 2
+        x: 459
+        y: 135
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eb511561804c2690800000000000000
+      internalID: -7625649144554497047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_106
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 132
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c0fe255aa9768380800000000000000
+      internalID: -8969347835381223226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_107
+      rect:
+        serializedVersion: 2
+        x: 454
+        y: 126
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f5b67cb92b9f2510800000000000000
+      internalID: 1526609402259748342
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_108
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 124
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d85c86db49df345d0800000000000000
+      internalID: -3079338904916540019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_109
+      rect:
+        serializedVersion: 2
+        x: 450
+        y: 119
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8d543f1e7dc314510800000000000000
+      internalID: 1531572246189131224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_110
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 116
+        width: 8
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4cf793414abf9f010800000000000000
+      internalID: 1223285455940321220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_111
+      rect:
+        serializedVersion: 2
+        x: 445
+        y: 111
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eec5c58040ffac330800000000000000
+      internalID: 3732075634015100142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_112
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 108
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f5eb1b136c61b350800000000000000
+      internalID: 6030720548938180089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_113
+      rect:
+        serializedVersion: 2
+        x: 439
+        y: 103
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cd5c17f2dee12820800000000000000
+      internalID: 2891855025604943302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_114
+      rect:
+        serializedVersion: 2
+        x: 45
+        y: 100
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cd82e3eb497b10c0800000000000000
+      internalID: -4603952827203416634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_115
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 95
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aed8a47478414f8d0800000000000000
+      internalID: -2813601295950508566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_116
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 92
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a59bd64e47624290800000000000000
+      internalID: -7907644409815263836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_117
+      rect:
+        serializedVersion: 2
+        x: 56
+        y: 85
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2bbad27fcb57d5760800000000000000
+      internalID: 7448238813201935282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_118
+      rect:
+        serializedVersion: 2
+        x: 428
+        y: 88
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a8559e30b033a38c0800000000000000
+      internalID: -4018843595071466102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_119
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 79
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80be1ca2127354550800000000000000
+      internalID: 6144377882207709960
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_120
+      rect:
+        serializedVersion: 2
+        x: 416
+        y: 74
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67ce95d76b4fa7670800000000000000
+      internalID: 8537405108258466934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_121
+      rect:
+        serializedVersion: 2
+        x: 422
+        y: 81
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83b8bf9e9751bda60800000000000000
+      internalID: 7699771601280797496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_122
+      rect:
+        serializedVersion: 2
+        x: 68
+        y: 72
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c721de33f52ce9b0800000000000000
+      internalID: -5049619355527993408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_123
+      rect:
+        serializedVersion: 2
+        x: 75
+        y: 65
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee4462031f0c68250800000000000000
+      internalID: 5946652500116784366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_124
+      rect:
+        serializedVersion: 2
+        x: 410
+        y: 68
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 110c1faeb2c8b7a80800000000000000
+      internalID: -8468020554086891503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_125
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 59
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f5fcf57a028122550800000000000000
+      internalID: 6134492170958131039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_126
+      rect:
+        serializedVersion: 2
+        x: 396
+        y: 56
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6182562275ce444b0800000000000000
+      internalID: -5456976989482833898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_127
+      rect:
+        serializedVersion: 2
+        x: 403
+        y: 62
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ba78d5c1b2f29e770800000000000000
+      internalID: 8640489222292998059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_128
+      rect:
+        serializedVersion: 2
+        x: 89
+        y: 53
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f182a90bbf56dd270800000000000000
+      internalID: 8276883821850929183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_129
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 47
+        width: 6
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 21837a39138c54230800000000000000
+      internalID: 3622521590545594386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_130
+      rect:
+        serializedVersion: 2
+        x: 389
+        y: 49
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57096b26c25b0f200800000000000000
+      internalID: 211868384725733493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_131
+      rect:
+        serializedVersion: 2
+        x: 104
+        y: 42
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 276fd26dde5fc1c10800000000000000
+      internalID: 2025764334259271282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_132
+      rect:
+        serializedVersion: 2
+        x: 374
+        y: 39
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3e7d33ace435ff80800000000000000
+      internalID: -8073488566036103621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_133
+      rect:
+        serializedVersion: 2
+        x: 381
+        y: 44
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b48d61d603fcbf50800000000000000
+      internalID: 6898655939833726130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_134
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 37
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62a01ff443a28a2a0800000000000000
+      internalID: -6726079639309972954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_135
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 32
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20fa45cff3c6af670800000000000000
+      internalID: 8573283862725308162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_136
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 34
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b67ee057e5d34860800000000000000
+      internalID: 7513083792856086194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_137
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 28
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2289c451d4d8b880800000000000000
+      internalID: -8594885893300846035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_138
+      rect:
+        serializedVersion: 2
+        x: 135
+        y: 23
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 504ef9815f434b1d0800000000000000
+      internalID: -3335983196689931259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_139
+      rect:
+        serializedVersion: 2
+        x: 350
+        y: 25
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fed6e32159e009f40800000000000000
+      internalID: 5733098359061638639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_140
+      rect:
+        serializedVersion: 2
+        x: 358
+        y: 29
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29a7a6189534b5c20800000000000000
+      internalID: 3196222412251888274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_141
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 20
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2ced46a3934cffd0800000000000000
+      internalID: -2306894607691158485
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_142
+      rect:
+        serializedVersion: 2
+        x: 153
+        y: 16
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c807789a6d20c930800000000000000
+      internalID: 4161375991538059457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_143
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 14
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c487708431e157a0800000000000000
+      internalID: -6390078780652157751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_144
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 17
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d2b6e6f3f61e1db90800000000000000
+      internalID: -7218740859776373971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_145
+      rect:
+        serializedVersion: 2
+        x: 342
+        y: 21
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 92e7f1b46239d00e0800000000000000
+      internalID: -2302022041838059991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_146
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 13
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d55163735fc114c60800000000000000
+      internalID: 7800547869101266269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_147
+      rect:
+        serializedVersion: 2
+        x: 170
+        y: 10
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d555b4a917a3c2a0800000000000000
+      internalID: -6718342490527279664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_148
+      rect:
+        serializedVersion: 2
+        x: 179
+        y: 8
+        width: 6
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 04a213c1946343fb0800000000000000
+      internalID: -4669047226042865088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_149
+      rect:
+        serializedVersion: 2
+        x: 298
+        y: 6
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 938d8374d48fb6140800000000000000
+      internalID: 4714134445764433977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_150
+      rect:
+        serializedVersion: 2
+        x: 307
+        y: 8
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f5eb53f37eb37ea0800000000000000
+      internalID: -5876143683574962697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_151
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 11
+        width: 6
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 513bed259f9d6ac10800000000000000
+      internalID: 2064577144056361749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_152
+      rect:
+        serializedVersion: 2
+        x: 188
+        y: 5
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1535d7d99676aaf60800000000000000
+      internalID: 8046357387562275665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_153
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 4
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bc9401d8e51c7a80800000000000000
+      internalID: -8467869109680038732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_154
+      rect:
+        serializedVersion: 2
+        x: 206
+        y: 1
+        width: 7
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ab6095b24a261480800000000000000
+      internalID: -8928902745213080664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_155
+      rect:
+        serializedVersion: 2
+        x: 215
+        y: 1
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb056b160966f3380800000000000000
+      internalID: -8989353560907558725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_156
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 0
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 80219451087a1bdf0800000000000000
+      internalID: -166167542681234936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_157
+      rect:
+        serializedVersion: 2
+        x: 233
+        y: 0
+        width: 8
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7901e1857d126ac0800000000000000
+      internalID: -3863493139803076227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_158
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 0
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7eb7082db33f06090800000000000000
+      internalID: -8043161496223450137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_159
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 0
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3856042957d122630800000000000000
+      internalID: 3900712618058343811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_160
+      rect:
+        serializedVersion: 2
+        x: 261
+        y: 0
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a91300f4947530a60800000000000000
+      internalID: 7639045365320135066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_161
+      rect:
+        serializedVersion: 2
+        x: 270
+        y: 1
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e03ebc428c7ea6fc0800000000000000
+      internalID: -3500730913530322162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_162
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 3
+        width: 7
+        height: 6
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bdb37a30214fc1a50800000000000000
+      internalID: 6493333120969292763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: zone_long_pass_163
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 4
+        width: 7
+        height: 7
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d5316047066eb8d0800000000000000
+      internalID: -2828711334611175980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      zone_long_pass_0: 7572639551759485017
+      zone_long_pass_1: 7511339112444113373
+      zone_long_pass_10: 6838416198941211170
+      zone_long_pass_100: 5444847070604061072
+      zone_long_pass_101: 1704397421101036113
+      zone_long_pass_102: 5846184630301352296
+      zone_long_pass_103: 4882732915339901392
+      zone_long_pass_104: 7845730754128184659
+      zone_long_pass_105: -7625649144554497047
+      zone_long_pass_106: -8969347835381223226
+      zone_long_pass_107: 1526609402259748342
+      zone_long_pass_108: -3079338904916540019
+      zone_long_pass_109: 1531572246189131224
+      zone_long_pass_11: -1882153155888580496
+      zone_long_pass_110: 1223285455940321220
+      zone_long_pass_111: 3732075634015100142
+      zone_long_pass_112: 6030720548938180089
+      zone_long_pass_113: 2891855025604943302
+      zone_long_pass_114: -4603952827203416634
+      zone_long_pass_115: -2813601295950508566
+      zone_long_pass_116: -7907644409815263836
+      zone_long_pass_117: 7448238813201935282
+      zone_long_pass_118: -4018843595071466102
+      zone_long_pass_119: 6144377882207709960
+      zone_long_pass_12: 5845925545662196717
+      zone_long_pass_120: 8537405108258466934
+      zone_long_pass_121: 7699771601280797496
+      zone_long_pass_122: -5049619355527993408
+      zone_long_pass_123: 5946652500116784366
+      zone_long_pass_124: -8468020554086891503
+      zone_long_pass_125: 6134492170958131039
+      zone_long_pass_126: -5456976989482833898
+      zone_long_pass_127: 8640489222292998059
+      zone_long_pass_128: 8276883821850929183
+      zone_long_pass_129: 3622521590545594386
+      zone_long_pass_13: -6286350980857607944
+      zone_long_pass_130: 211868384725733493
+      zone_long_pass_131: 2025764334259271282
+      zone_long_pass_132: -8073488566036103621
+      zone_long_pass_133: 6898655939833726130
+      zone_long_pass_134: -6726079639309972954
+      zone_long_pass_135: 8573283862725308162
+      zone_long_pass_136: 7513083792856086194
+      zone_long_pass_137: -8594885893300846035
+      zone_long_pass_138: -3335983196689931259
+      zone_long_pass_139: 5733098359061638639
+      zone_long_pass_14: 7090642023965900831
+      zone_long_pass_140: 3196222412251888274
+      zone_long_pass_141: -2306894607691158485
+      zone_long_pass_142: 4161375991538059457
+      zone_long_pass_143: -6390078780652157751
+      zone_long_pass_144: -7218740859776373971
+      zone_long_pass_145: -2302022041838059991
+      zone_long_pass_146: 7800547869101266269
+      zone_long_pass_147: -6718342490527279664
+      zone_long_pass_148: -4669047226042865088
+      zone_long_pass_149: 4714134445764433977
+      zone_long_pass_15: -9008699047314084994
+      zone_long_pass_150: -5876143683574962697
+      zone_long_pass_151: 2064577144056361749
+      zone_long_pass_152: 8046357387562275665
+      zone_long_pass_153: -8467869109680038732
+      zone_long_pass_154: -8928902745213080664
+      zone_long_pass_155: -8989353560907558725
+      zone_long_pass_156: -166167542681234936
+      zone_long_pass_157: -3863493139803076227
+      zone_long_pass_158: -8043161496223450137
+      zone_long_pass_159: 3900712618058343811
+      zone_long_pass_16: 658437615238583562
+      zone_long_pass_160: 7639045365320135066
+      zone_long_pass_161: -3500730913530322162
+      zone_long_pass_162: 6493333120969292763
+      zone_long_pass_163: -2828711334611175980
+      zone_long_pass_17: 6635294269421277619
+      zone_long_pass_18: -9212934129955310454
+      zone_long_pass_19: -1235580274497031905
+      zone_long_pass_2: -3807122187806595522
+      zone_long_pass_20: -1975336802436297390
+      zone_long_pass_21: 40494221241648858
+      zone_long_pass_22: -3644401455374419559
+      zone_long_pass_23: 6767922944186168585
+      zone_long_pass_24: 549670348139306847
+      zone_long_pass_25: 69445787017297805
+      zone_long_pass_26: 1942916182088664135
+      zone_long_pass_27: 701278984197593518
+      zone_long_pass_28: -7958609504381973212
+      zone_long_pass_29: 3883148794999970896
+      zone_long_pass_3: -326932522262403065
+      zone_long_pass_30: 645402941133287021
+      zone_long_pass_31: -1279920408437858118
+      zone_long_pass_32: 5047247756057670437
+      zone_long_pass_33: 6657611960573614706
+      zone_long_pass_34: 7564612256443523501
+      zone_long_pass_35: 2700214181392344570
+      zone_long_pass_36: 1014237232125007486
+      zone_long_pass_37: 224536827441120876
+      zone_long_pass_38: -582588837210930631
+      zone_long_pass_39: -5776334539361642518
+      zone_long_pass_4: 8141493925450029189
+      zone_long_pass_40: -6801938962267051916
+      zone_long_pass_41: 7806776488591819999
+      zone_long_pass_42: -4266994154839673423
+      zone_long_pass_43: 1195800687585912204
+      zone_long_pass_44: -8732812535626876390
+      zone_long_pass_45: -1641097686032542038
+      zone_long_pass_46: 6286833403970208225
+      zone_long_pass_47: 7761981137013499107
+      zone_long_pass_48: 8835804883902290968
+      zone_long_pass_49: 1943181678144078202
+      zone_long_pass_5: 3480848431035646351
+      zone_long_pass_50: 8586957244470923223
+      zone_long_pass_51: 5264085892916659438
+      zone_long_pass_52: 1526627911387290952
+      zone_long_pass_53: 7600397313603893025
+      zone_long_pass_54: 8376252951038624812
+      zone_long_pass_55: 3715369021905573940
+      zone_long_pass_56: 2288585493286487067
+      zone_long_pass_57: -6848619726945385831
+      zone_long_pass_58: -2877503459408590105
+      zone_long_pass_59: -4424357592807763132
+      zone_long_pass_6: 9044768513527240584
+      zone_long_pass_60: -2569336829013606168
+      zone_long_pass_61: -7094863000453570571
+      zone_long_pass_62: 5285137088325854388
+      zone_long_pass_63: 1095323099427181184
+      zone_long_pass_64: -7011532692444202924
+      zone_long_pass_65: 3009375522764127265
+      zone_long_pass_66: 4715226331740146972
+      zone_long_pass_67: -3164322771229531290
+      zone_long_pass_68: 1990094926390536819
+      zone_long_pass_69: -7483705733782558899
+      zone_long_pass_7: 6487851272662348225
+      zone_long_pass_70: 8378271558729303631
+      zone_long_pass_71: -3351740833216681167
+      zone_long_pass_72: 3634823047325612330
+      zone_long_pass_73: 3399320285273179820
+      zone_long_pass_74: 916905762477080046
+      zone_long_pass_75: 5124959318047183409
+      zone_long_pass_76: 2072616530168086475
+      zone_long_pass_77: 8527208300849941533
+      zone_long_pass_78: -6425987818937929100
+      zone_long_pass_79: 861161056691432383
+      zone_long_pass_8: 1396515857934646179
+      zone_long_pass_80: -4309561111253368832
+      zone_long_pass_81: -6542394084661792433
+      zone_long_pass_82: 9192998194022371980
+      zone_long_pass_83: 6683575590900504154
+      zone_long_pass_84: -2629245409912172175
+      zone_long_pass_85: 1378571813766390754
+      zone_long_pass_86: -3014463243826046523
+      zone_long_pass_87: 9009273090313874429
+      zone_long_pass_88: 7211105420497576107
+      zone_long_pass_89: 802444615113056169
+      zone_long_pass_9: 3257864898739633015
+      zone_long_pass_90: 4294161765486399476
+      zone_long_pass_91: 3923878400467355795
+      zone_long_pass_92: -2643243902712394285
+      zone_long_pass_93: 5237003681766524394
+      zone_long_pass_94: 8071819934045742421
+      zone_long_pass_95: 2186140418340251832
+      zone_long_pass_96: -4932876271566463279
+      zone_long_pass_97: -5301301002850048533
+      zone_long_pass_98: 4154556831868214635
+      zone_long_pass_99: -1634653714193268403
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

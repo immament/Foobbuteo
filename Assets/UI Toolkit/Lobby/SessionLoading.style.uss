@@ -1,0 +1,47 @@
+.session-background {
+  flex-grow: 1;
+  background-color: rgb(2, 9, 20);
+  background-image: url("project://database/Assets/UI Toolkit/Lobby/LobbyBackground.png");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  padding: 8px;
+  font-size: 16px;
+  justify-content: center;
+}
+
+.session-loading__content,
+#startup-loading > TemplateContainer {
+  flex-grow: 1;
+  justify-content: center;
+  align-items: center;
+}
+
+.session-loading__content {
+  color: rgb(240, 245, 255);
+}
+
+.session-loading__title {
+  font-size: 32px;
+  -unity-font-style: bold;
+  margin-bottom: 12px;
+}
+
+.session-loading__spinner {
+  width: 28px;
+  height: 28px;
+  margin-top: 16px;
+  border-width: 3px;
+  border-color: rgba(240, 245, 255, 0.25);
+  border-top-color: rgb(240, 245, 255);
+  border-radius: 14px;
+}
+
+#startup-loading.session-loading--failed #session-loading-spinner {
+  display: none;
+}
+
+#startup-loading #session-loading-message {
+  white-space: normal;
+  -unity-text-align: middle-center;
+}

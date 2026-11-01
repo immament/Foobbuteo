@@ -1,0 +1,137 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="login-form" src="project://database/Assets/UI%20Toolkit/Auth/Login.tmpl.uxml?fileID=9197481963319205126&amp;guid=defe4bf5d50003244a67f22ca2b4cb91&amp;type=3#Login.tmpl"/>
+    <ui:Template name="session-loading-content" src="SessionLoading.tmpl.uxml"/>
+    <ui:Style src="SessionLoading.style.uss"/>
+    <ui:Template name="new-game-form" src="project://database/Assets/UI%20Toolkit/Lobby/NewGameView.tmpl.uxml?fileID=9197481963319205126&amp;guid=8a0d628a85ab31148ab8449ad5960919&amp;type=3#NewGameView.tmpl"/>
+    <ui:Template name="online-users-panel" src="project://database/Assets/UI%20Toolkit/Users/OnlineUsersPanel.tmpl.uxml?fileID=9197481963319205126&amp;guid=03fb4dadf3e2720449ada95f0fc0ceeb&amp;type=3#OnlineUsersPanel.tmpl"/>
+    <Style src="project://database/Assets/UI%20Toolkit/Lobby/LobbyView.style.uss?fileID=7433441132597879392&amp;guid=53dfd565ce06fc74fa76a1c86707fe51&amp;type=3#LobbyView.style"/>
+    <Style src="project://database/Assets/UI%20Toolkit/Lobby/LobbyListEntry.style.uss?fileID=7433441132597879392&amp;guid=23c3d7c817ba45e4c8307fd7a3702f27&amp;type=3#LobbyListEntry.style"/>
+    <Style src="project://database/Assets/UI%20Toolkit/Users/UserLists.style.uss?fileID=7433441132597879392&amp;guid=a663d49976fadf84eb861b1f86906ec6&amp;type=3#UserLists.style"/>
+    <Style src="project://database/Assets/UI%20Toolkit/Auth/Login.style.uss?fileID=7433441132597879392&amp;guid=36330cb32838bf448b13739120ddda47&amp;type=3#Login.style"/>
+    <Style src="project://database/Assets/UI%20Toolkit/Lobby/NewGameView.style.uss?fileID=7433441132597879392&amp;guid=ae755e1d5483adf4eb4250232b0e09f8&amp;type=3#NewGameView.style"/>
+    <Style src="project://database/Assets/UI%20Toolkit/Common.style.uss?fileID=7433441132597879392&amp;guid=8361f49c9922b6142ac6723225d1e4a1&amp;type=3#Common.style"/>
+    <ui:VisualElement name="main-view" class="session-background">
+        <ui:Instance name="session-loading" template="session-loading-content">
+            <Bindings><ui:DataBinding property="style.display" data-source-path="IsLoadingVisible" binding-mode="ToTarget"/></Bindings>
+        </ui:Instance>
+        <ui:VisualElement name="connection-problem" class="connection-problem">
+            <Bindings><ui:DataBinding property="style.display" data-source-path="IsProblemVisible" binding-mode="ToTarget"/></Bindings>
+            <ui:Label text="Foobbuteo" class="session-loading__title"/>
+            <ui:Label class="connection-problem__message">
+                <Bindings><ui:DataBinding property="text" data-source-path="ConnectionProblem" binding-mode="ToTarget"/></Bindings>
+            </ui:Label>
+            <ui:Button name="connection-retry" text="Retry connection" class="ft__btn--primary"/>
+        </ui:VisualElement>
+        <ui:ScrollView name="main-view__login" class="lobby-login-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden">
+            <Bindings>
+                <ui:DataBinding property="style.display" data-source-path="IsLoginVisible" binding-mode="ToTarget"/>
+            </Bindings>
+            <ui:Instance template="login-form"/>
+        </ui:ScrollView>
+        <ui:VisualElement name="main-view__lobby">
+            <Bindings>
+                <ui:DataBinding property="style.display" data-source-path="IsSessionVisible" binding-mode="ToTarget"/>
+            </Bindings>
+            <ui:VisualElement name="main-view__main-container">
+                <ui:VisualElement name="main-view__left-container">
+                    <ui:ListView name="main-view__game-list" binding-source-selection-mode="Manual" virtualization-method="DynamicHeight" item-template="project://database/Assets/UI%20Toolkit/Lobby/LobbyListEntry.tmpl.uxml?fileID=9197481963319205126&amp;guid=20de2f1c38ac4654da6a6eed5a3fee72&amp;type=3#LobbyListEntry.tmpl" class="ft__panel--default">
+                        <Bindings>
+                            <ui:DataBinding property="itemsSource" data-source-path="Games"/>
+                        </Bindings>
+                    </ui:ListView>
+                </ui:VisualElement>
+                <ui:VisualElement name="main-view__right-container" class="ft__panel--default">
+                    <Bindings>
+                        <ui:DataBinding property="style.display" data-source-path="IsSelectedGame" binding-mode="ToTarget"/>
+                    </Bindings>
+                    <ui:VisualElement name="main-view__details-container">
+                        <ui:ScrollView name="details-container__game-data" data-source-path="SelectedGameDetails" mode="Vertical">
+                            <ui:VisualElement class="details-container__row details-container__game-name-row">
+                                <ui:Label class="details-container__label">
+                                    <Bindings>
+                                        <ui:DataBinding property="text" data-source-path="GameName" binding-mode="ToTarget"/>
+                                    </Bindings>
+                                </ui:Label>
+                                <ui:Label class="details-container__value">
+                                    <Bindings>
+                                        <ui:DataBinding property="style.display" data-source-path="HasResult" binding-mode="ToTarget"/>
+                                        <ui:DataBinding property="text" data-source-path="ResultText" binding-mode="ToTarget"/>
+                                    </Bindings>
+                                </ui:Label>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="details-container__row">
+                                <ui:Label text="Status" class="details-container__label"/>
+                                <ui:Label class="details-container__value">
+                                    <Bindings>
+                                        <ui:DataBinding property="text" data-source-path="StatusText" binding-mode="ToTarget"/>
+                                    </Bindings>
+                                </ui:Label>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="details-container__row">
+                                <ui:Label text="Start time" class="details-container__label"/>
+                                <ui:Label class="details-container__value">
+                                    <Bindings>
+                                        <ui:DataBinding property="text" data-source-path="StartText" binding-mode="ToTarget"/>
+                                    </Bindings>
+                                </ui:Label>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="details-container__row">
+                                <ui:Label text="Current turn / Number of turns" class="details-container__label"/>
+                                <ui:Label class="details-container__value">
+                                    <Bindings>
+                                        <ui:DataBinding property="text" data-source-path="TurnText" binding-mode="ToTarget"/>
+                                    </Bindings>
+                                </ui:Label>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="details-container__row">
+                                <ui:Label text="Game Id" class="details-container__label"/>
+                                <ui:Label class="details-container__value">
+                                    <Bindings>
+                                        <ui:DataBinding property="text" data-source-path="GameIdText" binding-mode="ToTarget"/>
+                                    </Bindings>
+                                </ui:Label>
+                            </ui:VisualElement>
+                        </ui:ScrollView>
+                        <ui:VisualElement class="lobby-details__actions">
+                            <ui:Button text="Join" name="details-container__join-btn" class="ft__btn--primary"/>
+                            <ui:Button text="Delete" name="details-container__delete-btn" class="ft__btn--secondary">
+                                <Bindings>
+                                    <ui:DataBinding property="style.display" data-source-path="IsAdmin" binding-mode="ToTarget"/>
+                                </Bindings>
+                            </ui:Button>
+                        </ui:VisualElement>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+            <ui:VisualElement name="main-view__info" class="ft__panel--default">
+                <ui:VisualElement>
+                    <ui:Button text="Player Name" name="profile-menu-toggle" class="profile-menu__toggle">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="PlayerDesc" binding-mode="ToTarget"/>
+                            <ui:DataBinding property="enabledSelf" data-source-path="CanLogout" binding-mode="ToTarget"/>
+                        </Bindings>
+                    </ui:Button>
+                    <ui:VisualElement name="profile-menu" class="profile-menu">
+                        <Bindings><ui:DataBinding property="style.display" data-source-path="IsProfileMenuVisible" binding-mode="ToTarget"/></Bindings>
+                        <ui:Button text="Log Out" name="login-logout" class="ft__btn--primary">
+                            <Bindings><ui:DataBinding property="style.display" data-source-path="CanLogout" binding-mode="ToTarget"/></Bindings>
+                        </ui:Button>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+                <ui:VisualElement name="info__tools">
+                    <ui:Button text="Online users" name="onlineUsersButton" class="ft__btn--primary"/>
+                    <ui:Button text="New Game" name="main-view__new-game-btn" class="ft__btn--primary">
+                        <Bindings>
+                            <ui:DataBinding property="enabledSelf" data-source-path="CanCreateNewGame" binding-mode="ToTarget"/>
+                            <ui:DataBinding property="style.display" data-source-path="IsClientConnected" binding-mode="ToTarget"/>
+                        </Bindings>
+                    </ui:Button>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:Instance template="new-game-form" picking-mode="Ignore" class="new-game-template"/>
+        <ui:Instance template="online-users-panel" name="onlineUsersLayer" picking-mode="Position" class="online-users-layer user-list-hidden"/>
+    </ui:VisualElement>
+    <ui:VisualElement name="toast-container" class="lobby-toast-container" picking-mode="Ignore"/>
+    <ui:VisualElement name="banner-container" class="lobby-banner-container" picking-mode="Ignore"/>
+</ui:UXML>

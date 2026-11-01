@@ -1,0 +1,10 @@
+{
+  "prompts": [
+    {
+      "id": "unity-csharp-verify-symbols",
+      "title": "Verify C# symbols",
+      "description": "Verify that generated C# code uses only existing symbols",
+      "prompt": "Inspect the opened Unity/C# solution, all loaded projects, and relevant .csproj/.asmdef files. Resolve every type, namespace, using, enum member, and member access against the actual Roslyn symbols available in the current workspace. Do not invent types, namespaces, usings, or members. If a symbol cannot be resolved, report it explicitly as 'type not found' or 'symbol not found' and suggest the closest existing symbol from the current codebase. If the symbol is ambiguous, ask before choosing. For switch statements, first determine the actual type of the expression and use only existing cases or members from that type."
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+-keep class com.imma.foobbuteo.RememberedSessionStorage { public static *; }

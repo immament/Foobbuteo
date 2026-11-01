@@ -1,0 +1,215 @@
+/* #ActionsContainer {
+    margin-top: 8px;
+} */
+
+#ActionsContainer #BoxWithBackground {
+  background-color: var(--panel-bg);
+  border-radius: 10px;
+  border-width: 1px;
+  border-color: var(--panel-border);
+  padding: 16px;
+}
+
+#ActionsContainer #PlayerInfo {
+  flex-direction: row-reverse;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+#ActionsContainer #PlayerName {
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0;
+  min-width: 0;
+  font-size: 18px;
+  -unity-font-style: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  margin-left: 8px;
+}
+
+#ActionsContainer #TeamShirt {
+  background-image: url("project://database/Assets/ClientAssets/TeamSprites/Blue-Shirt_0.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 40px;
+  height: 44px;
+  flex-shrink: 0;
+  -unity-text-align: middle-center;
+  -unity-font-style: bold;
+  font-size: 14px;
+  padding: 0;
+}
+
+#ActionsContainer #Content {
+  flex-direction: column;
+}
+#ActionsContainer #Actions {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#ActionsContainer #Actions .toggle-button-group {
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+#ActionsContainer #Actions #PlayerActionMenu {
+  margin-right: 20px;
+}
+
+#ActionsContainer .btn-icon-rect {
+  background-size: 40px 40px;
+  background-repeat: no-repeat;
+  background-position-x: center;
+  background-position-y: top 3px;
+  width: 60px;
+  height: 60px;
+  padding: 2px 2px 2px 2px;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  -unity-text-align: lower-center;
+  font-size: 12px;
+  background-color: rgba(38, 53, 69, 0);
+  color: var(--text-color);
+  border-radius: 8px;
+  border-width: 0;
+}
+
+#ActionsContainer .btn-icon-rect.selected {
+  background-color: rgb(38, 53, 69);
+  border-width: 1px;
+  border-color: rgb(9, 18, 31);
+}
+
+#ActionsContainer .btn-icon-rect:focus {
+  border-color: rgb(92, 173, 255);
+  border-width: 1px;
+}
+
+#ActionsContainer .btn-icon-rect:disabled {
+  opacity: 0.45;
+}
+
+#ActionsContainer #MoveButton {
+  background-image: url("project://database/Assets/ClientAssets/Buttons/Actions/opw_mover.png");
+}
+
+#ActionsContainer #PassButton {
+  background-image: url("project://database/Assets/ClientAssets/Buttons/Actions/opw_passe.png");
+}
+
+#ActionsContainer #LongPassButton {
+  background-image: url("project://database/Assets/ClientAssets/Buttons/Actions/opw_passelongo.png");
+}
+
+#ActionsContainer #ShotButton {
+  background-image: url("project://database/Assets/ClientAssets/Buttons/Actions/opw_remate.png");
+}
+
+#ActionsContainer #ConfrontationButton {
+  background-image: url("project://database/Assets/ClientAssets/Buttons/Modes/opw_rb.png");
+}
+
+#ActionsContainer #InterceptionButton {
+  background-image: url("project://database/Assets/ClientAssets/Buttons/Modes/opw_inter.png");
+}
+
+#ActionsContainer #GkSaveButton {
+  background-image: url("project://database/Assets/ClientAssets/Buttons/Modes/opw_defesa.png");
+}
+
+#ActionsContainer #GkOutOfAreaButton {
+  background-image: url("project://database/Assets/ClientAssets/Buttons/Modes/opw_saida.png");
+}
+
+#ActionsContainer #GkFieldPlayerButton {
+  background-image: url("project://database/Assets/ClientAssets/Buttons/Modes/opw_jogador.png");
+}
+
+#ActionsContainer #Buttons {
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 4px;
+}
+
+#ActionsContainer #Buttons .btn-icon-row {
+  background-size: 24px 24px;
+  background-repeat: no-repeat;
+  margin-right: 4px;
+  margin-bottom: 4px;
+  background-color: rgb(38, 53, 69);
+  color: var(--text-color);
+  border-radius: 8px;
+  border-width: 1px;
+  border-color: var(--panel-border);
+  height: 36px;
+  padding: 4px 8px 4px 38px;
+  background-position-x: left 8px;
+  background-position-y: center;
+  -unity-text-align: middle-left;
+  font-size: 12px;
+}
+
+#ActionsContainer .btn-icon-rect:hover,
+#ActionsContainer #Buttons .btn-icon-row:hover {
+  background-color: rgb(53, 73, 94);
+  scale: 1.02;
+}
+
+#ActionsContainer #PlayerWithBallBtn {
+  background-image: url("project://database/Assets/ClientAssets/Buttons/soccerball2.png");
+}
+
+#ActionsContainer #Buttons #CurrentUserPlayerBtn.btn-icon-row {
+  background-image: url("project://database/Assets/ClientAssets/Buttons/person.png");
+  background-size: 18px 18px;
+}
+
+#DevButtons {
+  flex-direction: row;
+}
+
+#MainLayout.compact-landscape #ActionsContainer #BoxWithBackground {
+  padding: 12px;
+}
+
+#MainLayout.short-landscape #ActionsContainer #PlayerInfo {
+  margin-bottom: 4px;
+}
+
+#MainLayout.short-landscape #ActionsContainer #Content .btn-icon-rect {
+  height: 48px;
+  background-size: 22px 22px;
+  background-position-y: top 4px;
+  padding-top: 22px;
+}
+
+#MainLayout.short-landscape #ActionsContainer #BoxWithBackground {
+  padding: 8px;
+}
+
+#MainLayout #ActionsContainer #Content {
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+#MainLayout #ActionsContainer #Content #Buttons {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+#ClaimPlayerBtn {
+  max-width: 200px;
+}
+
+.stacked-layout #ClaimPlayerBtn,
+.stacked-layout #CurrentUserPlayerBtn,
+.stacked-layout #PlayerWithBallBtn {
+  min-height: auto;
+  padding: 5px 8px;
+  margin: 2px;
+  border-radius: 4px;
+}

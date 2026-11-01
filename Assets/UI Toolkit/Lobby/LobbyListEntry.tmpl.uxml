@@ -1,0 +1,53 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/Lobby/LobbyListEntry.style.uss?fileID=7433441132597879392&amp;guid=23c3d7c817ba45e4c8307fd7a3702f27&amp;type=3#LobbyListEntry.style"/>
+    <ui:VisualElement name="list-entry" data-source-type="Imma.Foobbuteo.Client.Lobby.UI.GameListItemVM, Foobbuteo.ClientLib" class="ft__btn--primary">
+        <Bindings>
+            <ui:DataBinding property="style.backgroundColor" data-source-path="StatusBackgroundColor" binding-mode="ToTarget"/>
+        </Bindings>
+        <ui:VisualElement name="list-entry__names-col" class="list-entry__col list-entry__col--border" >
+            <ui:Label text="Team A" name="list-entry__team-a" class="list-entry__team-name">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="OwnerName" binding-mode="ToTarget"/>
+                </Bindings>
+            </ui:Label>
+            <ui:Label text="Team B" name="list-entry__team-b" class="list-entry__team-name">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="OpponentName" binding-mode="ToTarget"/>
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:VisualElement class="lobby-game-row__metadata">
+            <ui:VisualElement name="list-entry__id-col" class="list-entry__col list-entry__col--border">
+                <ui:Label text="#99001" name="list-entry__id">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="GameIdText" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+            <ui:VisualElement name="list-entry__date-col" class="list-entry__col list-entry__col--border" >
+                <ui:Label text="11/07/2026" name="list-entry__date" class="list-entry__date" >
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="StartDateText" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Label>
+                <ui:Label text="11:30" name="list-entry_time" class="list-entry__date" >
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="StartTimeText" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+            <ui:VisualElement name="list-entry__status-col" class="list-entry__col" >
+                <ui:Label text="Ongoing" name="list-entry__status" class="list-entry__date">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="StatusText" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Label>
+                <ui:Label text="4/30" name="list-entry__turn" class="list-entry__date">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="TurnText" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

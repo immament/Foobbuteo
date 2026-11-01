@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b28865e62ee39d40ad2160dd825af8b, type: 3}
+  m_Name: GameHudVMData
+  m_EditorClassIdentifier: Foobbuteo.ClientLib::Imma.Foobbuteo.Client.UI.VM.GameHudVM
+  m_user:
+    rid: 3062510729773187378
+  m_onePlayerHasBall: 1
+  m_selectedPlayer:
+    rid: -2
+  m_turnText: Full Time
+  m_timerText: 'Final Result 2 : 1'
+  m_teamA:
+    rid: 3062510729773187379
+  m_teamB:
+    rid: 3062510729773187380
+  m_scoreA: 2
+  m_scoreB: 1
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }
+    - rid: 3062510729773187378
+      type: {class: GameUser, ns: Imma.Foobbuteo.Shared, asm: Foobbuteo.SharedLib}
+      data:
+        m_userId: 92001
+        m_playerId: 93001
+        m_name: Editor host
+        m_role: 0
+        m_inGameRoomId: 95627
+        m_gameSlot:
+          hasValue: 1
+          value:
+            m_gameId: 95627
+            m_teamIdx: 1
+            m_playerIdx: 6
+    - rid: 3062510729773187379
+      type: {class: TeamVM, ns: Imma.Foobbuteo.Client.Game.UI.VM, asm: Foobbuteo.ClientLib}
+      data:
+        m_teamIdx: 0
+        m_teamId: 600177
+        m_name: "Aleksander Ko\u0142odziej-Hajdo Very long name"
+        m_shirtColor: 4
+    - rid: 3062510729773187380
+      type: {class: TeamVM, ns: Imma.Foobbuteo.Client.Game.UI.VM, asm: Foobbuteo.ClientLib}
+      data:
+        m_teamIdx: 1
+        m_teamId: 92001
+        m_name: Player 101
+        m_shirtColor: 3

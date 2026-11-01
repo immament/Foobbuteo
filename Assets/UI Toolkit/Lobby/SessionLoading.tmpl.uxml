@@ -1,0 +1,8 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="SessionLoading.style.uss"/>
+    <ui:VisualElement class="session-loading__content">
+        <ui:Label text="Foobbuteo" class="session-loading__title"/>
+        <ui:Label name="session-loading-message" text="Loading ..."/>
+        <ui:VisualElement name="session-loading-spinner" class="session-loading__spinner"/>
+    </ui:VisualElement>
+</ui:UXML>

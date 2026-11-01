@@ -1,0 +1,50 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:VisualElement class="user-list-row">
+        <ui:VisualElement class="user-list-row-header">
+            <ui:VisualElement class="user-list-row-title" >
+                <ui:Label class="user-list-name" enable-rich-text="false">
+                    <Bindings><ui:DataBinding property="text" data-source-path="PlayerName" binding-mode="ToTarget" /></Bindings>
+                </ui:Label>
+                <ui:Label class="user-list-identifiers" enable-rich-text="false">
+                    <Bindings><ui:DataBinding property="text" data-source-path="Identifiers" binding-mode="ToTarget" /></Bindings>
+                </ui:Label>
+             </ui:VisualElement>
+        </ui:VisualElement>
+   
+        <ui:VisualElement class="user-list-actions">
+          <ui:Label class="user-list-status" enable-rich-text="false" >
+                <Bindings><ui:DataBinding property="text" data-source-path="Status" binding-mode="ToTarget" /></Bindings>
+            </ui:Label>
+            <ui:Button name="userPlayGameBtn" class="btn-default btn-sm">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="PlayGameBtnText" binding-mode="ToTarget" />
+                    <ui:DataBinding property="style.display" data-source-path="PlayGameBtnVisible" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:Button> 
+            <ui:Button name="userInRoomBtn" class="btn-default btn-sm">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="InRoomBtnText" binding-mode="ToTarget" />
+                    <ui:DataBinding property="style.display" data-source-path="InRoomBtnVisible" binding-mode="ToTarget" />
+                </Bindings>
+            </ui:Button>
+            <ui:Button name="disconnectUserButton" text="Disconnect" class="btn-default btn-sm">
+                <Bindings><ui:DataBinding property="style.display" data-source-path="CanDisconnect" binding-mode="ToTarget" /></Bindings>
+            </ui:Button>
+
+            <ui:VisualElement class="user-shirt">
+                <Bindings>
+                    <ui:DataBinding property="style.display" data-source-path="HasShirt" binding-mode="ToTarget" />
+                    <ui:DataBinding property="style.backgroundImage" data-source-path="Shirt" binding-mode="ToTarget" />
+                </Bindings>
+                <ui:Label class="user-shirt-number">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="ShirtNumber" binding-mode="ToTarget" />
+                        <ui:DataBinding property="style.color" data-source-path="ShirtTextColor" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+
+              
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

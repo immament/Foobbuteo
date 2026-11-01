@@ -1,0 +1,86 @@
+{
+  "currentProfile": "local",
+  "profiles": [
+    {
+      "name": "prod",
+      "authentication": {
+        "loginUrl": "https://www.footstar.org/foobbuteo/api/fbt_login.asp",
+        "refreshUrl": "https://www.footstar.org/foobbuteo/api/fbt_login_refresh.asp",
+        "revokeUrl": "https://www.footstar.org/foobbuteo/api/fbt_login_revoke.asp",
+        "signupUrl": "https://www.footstar.org/default.asp#registo"
+      },
+      "connection": {
+        "host": "www.footstar.org",
+        "port": 443,
+        "webSocketPath": "/foobbuteo/unity-ws/",
+        "useEncryption": true
+      }
+    },
+    {
+      "name": "dev",
+      "authentication": {
+        "loginUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login.asp",
+        "refreshUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login_refresh.asp",
+        "revokeUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login_revoke.asp",
+        "signupUrl": "https://nd.footstar.org/default.asp#registo"
+      },
+      "connection": {
+        "host": "nd.footstar.org",
+        "port": 443,
+        "webSocketPath": "/foobbuteo/unity-ws/",
+        "useEncryption": true
+      }
+    },
+    {
+      "name": "local",
+      "authentication": {
+        "loginUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login.asp",
+        "refreshUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login_refresh.asp",
+        "revokeUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login_revoke.asp",
+        "signupUrl": "https://nd.footstar.org/default.asp#registo"
+      },
+      "connection": {
+        "host": "127.0.0.1",
+        "port": 7777,
+        "webSocketPath": "/",
+        "useEncryption": false
+      }
+    }
+  ],
+  "devAuth": {
+    "hostProfile": "host",
+    "clientProfile": "client",
+    "users": [
+      {
+        "profile": "host",
+        "token": "",
+        "userId": 92001,
+        "playerId": 93001,
+        "name": "Editor host",
+        "role": "Player",
+        "managedTeams": []
+      },
+      {
+        "profile": "client",
+        "token": "",
+        "userId": 92002,
+        "playerId": 93002,
+        "name": "Editor client 1",
+        "role": "Player",
+        "managedTeams": []
+      },
+      {
+        "profile": "client2",
+        "token": "",
+        "userId": 92003,
+        "playerId": 93003,
+        "name": "Editor client 2",
+        "role": "Player",
+        "managedTeams": []
+      }
+    ]
+  },
+  "logging": {
+    "categories": {}
+  }
+}

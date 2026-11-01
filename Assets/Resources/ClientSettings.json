@@ -1,0 +1,22 @@
+{
+  "prod": {
+    "webSessionTokenUrl": "",
+    "loginUrl": "https://www.footstar.org/foobbuteo/api/fbt_login.asp",
+    "refreshUrl": "https://www.footstar.org/foobbuteo/api/fbt_login_refresh.asp",
+    "revokeUrl": "https://www.footstar.org/foobbuteo/api/fbt_login_revoke.asp",
+    "signupUrl": "https://www.footstar.org/default.asp",
+    "logging": {
+      "categories": {}
+    }
+  },
+  "dev": {
+    "webSessionTokenUrl": "",
+    "loginUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login.asp",
+    "refreshUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login_refresh.asp",
+    "revokeUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login_revoke.asp",
+    "signupUrl": "https://nd.footstar.org/default.asp",
+    "logging": {
+      "categories": {}
+    }
+  }
+}

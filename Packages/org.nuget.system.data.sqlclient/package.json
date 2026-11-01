@@ -1,0 +1,20 @@
+{
+  "name": "org.nuget.system.data.sqlclient",
+  "displayName": "System.Data.SqlClient (NuGet)",
+  "version": "4.8.6",
+  "unity": "2019.1",
+  "description": "Provides the data provider for SQL Server. These classes provide access to versions of SQL Server and encapsulate database-specific protocols, including tabular data stream (TDS)\n\nCommonly Used Types:\nSystem.Data.SqlClient.SqlConnection\nSystem.Data.SqlClient.SqlException\nSystem.Data.SqlClient.SqlParameter\nSystem.Data.SqlDbType\nSystem.Data.SqlClient.SqlDataReader\nSystem.Data.SqlClient.SqlCommand\nSystem.Data.SqlClient.SqlTransaction\nSystem.Data.SqlClient.SqlParameterCollection\nSystem.Data.SqlClient.SqlClientFactory\n \nWhen using NuGet 3.x this package requires at least version 3.4.",
+  "keywords": [
+    "nuget"
+  ],
+  "category": null,
+  "dependencies": {
+    "org.nuget.microsoft.win32.registry": "4.7.0",
+    "org.nuget.system.buffers": "4.5.1",
+    "org.nuget.system.diagnostics.diagnosticsource": "4.7.0",
+    "org.nuget.system.memory": "4.5.4",
+    "org.nuget.system.security.principal.windows": "4.7.0",
+    "org.nuget.system.text.encoding.codepages": "4.7.0"
+  },
+  "_fingerprint": "4dc87f8c61c90e9405b12b9bb699c8da60d7b9f8"
+}

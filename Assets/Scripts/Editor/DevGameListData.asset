@@ -1,0 +1,42 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb47ab87f73fa40428ec43252ed69a9a, type: 3}
+  m_Name: DevGameListData
+  m_EditorClassIdentifier: Assembly-CSharp::Imma.Foobbuteo.Editor.DevGameListData
+  GamesVm:
+    m_user:
+      rid: -2
+    m_games:
+    - GameId: 99001
+      GameIdText: '#99001'
+      Turn: 30
+      NumberOfTurns: 30
+    - GameId: 99002
+      GameIdText: '#99002'
+      Turn: 11
+      NumberOfTurns: 30
+    - GameId: 99003
+      GameIdText: '#99003'
+      Turn: 0
+      NumberOfTurns: 30
+    - GameId: 99004
+      GameIdText: '#99004'
+      Turn: 0
+      NumberOfTurns: 30
+    m_selectedGame:
+      rid: -2
+  SelectFirstOnReset: 0
+  references:
+    version: 2
+    RefIds:
+    - rid: -2
+      type: {class: , ns: , asm: }

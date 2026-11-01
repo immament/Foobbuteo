@@ -1,0 +1,72 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False" class="dev-tmp stacked-layout_off">
+    <Style src="project://database/Assets/UI%20Toolkit/Game/GameRoom.style.uss?fileID=7433441132597879392&amp;guid=a988cd52bfa4d2f418d091682b2dc080&amp;type=3#GameRoom.style"/>
+    <Style src="project://database/Assets/UI%20Toolkit/Game/GameActionsContainer.style.uss?fileID=7433441132597879392&amp;guid=8673d447385fc7b4998d6abf2e93ecab&amp;type=3#GameActionsContainer.style"/>
+    <ui:VisualElement name="ActionsContainer" data-source="project://database/Assets/UI%20Toolkit/Game/GameHudVMData.asset?fileID=11400000&amp;guid=03084d53eb9aaf549a1a41e0a2647c0f&amp;type=2#GameHudVMData">
+        <ui:VisualElement name="ChangePlayerToolbar"/>
+        <ui:VisualElement name="BoxWithBackground">
+            <ui:VisualElement>
+                <ui:VisualElement name="PlayerInfo" data-source-path="SelectedPlayer">
+                    <ui:Label name="PlayerName" enable-rich-text="false" emoji-fallback-support="false" focusable="false">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="Name" binding-mode="ToTarget"/>
+                            <ui:DataBinding property="tooltip" data-source-path="Name" binding-mode="ToTarget"/>
+                        </Bindings>
+                    </ui:Label>
+                    <ui:Label text="10" name="TeamShirt">
+                        <Bindings>
+                            <ui:DataBinding property="text" data-source-path="ShirtNumber" binding-mode="ToTarget"/>
+                            <ui:DataBinding property="style.backgroundImage" data-source-path="Shirt" binding-mode="ToTarget"/>
+                            <ui:DataBinding property="style.color" data-source-path="ShirtTextColor" binding-mode="ToTarget"/>
+                        </Bindings>
+                    </ui:Label>
+                </ui:VisualElement>
+                <Bindings>
+                    <ui:DataBinding property="style.visibility" data-source-path="HasSelectedPlayer" binding-mode="ToTarget"/>
+                </Bindings>
+            </ui:VisualElement>
+            <ui:VisualElement name="Content">
+                <ui:VisualElement name="ActionsParent">
+                    <ui:VisualElement name="Actions">
+                        <Imma.Foobbuteo.Client.Game.UI.PlayerActionMenu name="PlayerActionMenu" data-source-path="SelectedPlayer" data-source-type="Imma.Foobbuteo.Client.Game.UI.VM.PlayerVM, Foobbuteo.ClientLib">
+                            <Bindings>
+                                <ui:DataBinding property="SelectedKey" data-source-path="SelectedPlayerAction" binding-mode="TwoWay"/>
+                            </Bindings>
+                        </Imma.Foobbuteo.Client.Game.UI.PlayerActionMenu>
+                        <Imma.Foobbuteo.Client.Game.UI.PlayerModeMenu name="PlayerModeMenu" data-source-path="SelectedPlayer" data-source-type="Imma.Foobbuteo.Client.Game.UI.VM.PlayerVM, Foobbuteo.ClientLib">
+                            <Bindings>
+                                <ui:DataBinding property="SelectedKey" data-source-path="SelectedPlayerMode" binding-mode="TwoWay"/>
+                            </Bindings>
+                        </Imma.Foobbuteo.Client.Game.UI.PlayerModeMenu>
+                        <Bindings>
+                            <ui:DataBinding property="style.display" data-source-path="CanMoveSelectedPlayer" binding-mode="ToTarget"/>
+                        </Bindings>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="ChoosePlayerContent">
+                        <ui:Button text="Choose Player" name="ClaimPlayerBtn" class="btn-default"/>
+                        <Bindings>
+                            <ui:DataBinding property="style.display" data-source-path="CanClaimPlayer" binding-mode="ToTarget"/>
+                        </Bindings>
+                    </ui:VisualElement>
+                    <Bindings>
+                        <ui:DataBinding property="style.visibility" data-source-path="HasSelectedPlayer" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:VisualElement>
+                <ui:VisualElement name="Buttons">
+                    <ui:Button text="My player" tooltip="Select my player" name="CurrentUserPlayerBtn" class="btn-icon-row">
+                        <Bindings>
+                            <ui:DataBinding property="style.visibility" data-source-path="ShowCurrentUserPlayerBtn" binding-mode="ToTarget"/>
+                        </Bindings>
+                    </ui:Button>
+                    <ui:Button text="Ball carrier" tooltip="Select ball carrier" name="PlayerWithBallBtn" class="btn-icon-row">
+                        <Bindings>
+                            <ui:DataBinding property="style.display" data-source-path="OnePlayerHasBall" binding-mode="ToTarget"/>
+                        </Bindings>
+                    </ui:Button>
+                    <ui:VisualElement name="DevButtons" style="display: none;">
+                        <ui:Button text="Test" name="TestButton" class="btn-default btn-sm" style="display: none;"/>
+                    </ui:VisualElement>
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

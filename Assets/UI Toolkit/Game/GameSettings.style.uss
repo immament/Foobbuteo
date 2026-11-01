@@ -1,0 +1,32 @@
+#game-settings-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.45);
+}
+#game-settings-panel {
+  width: 90%;
+  max-width: 420px;
+  padding: 15px 20px;
+  background-color: rgb(28, 38, 50);
+  border-width: 1px;
+  border-color: rgb(99, 173, 255);
+  border-radius: 8px;
+  color: rgb(243, 246, 250);
+}
+.game-settings-title {
+  font-size: 24px;
+  margin-bottom: 8px;
+}
+#sound-volume-slider {
+  min-height: 32px;
+  flex-shrink: 0;
+}
+
+#close-game-settings-btn {
+  margin-top: 16px;
+}

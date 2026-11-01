@@ -1,0 +1,15 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="userListRoot" class="user-list-content">
+        <ui:Label name="usersStatus" class="user-list-status" enable-rich-text="false">
+            <Bindings>
+                <ui:DataBinding property="text" data-source-path="Status" binding-mode="ToTarget" />
+                <ui:DataBinding property="style.display" data-source-path="StatusVisible" binding-mode="ToTarget" />
+            </Bindings>
+        </ui:Label>
+        <ui:ListView name="usersList" class="user-list" binding-source-selection-mode="Manual" selection-type="None" virtualization-method="DynamicHeight" item-template="UserListEntry.tmpl.uxml">
+            <Bindings>
+                <ui:DataBinding property="itemsSource" data-source-path="Rows" binding-mode="ToTarget" />
+            </Bindings>
+        </ui:ListView>
+    </ui:VisualElement>
+</ui:UXML>

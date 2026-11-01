@@ -1,0 +1,213 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b863d74ccd23d54478090864c29b1a5d, type: 3}
+  m_Name: ClientImageCatalog
+  m_EditorClassIdentifier: Foobbuteo.ClientLib::Imma.Foobbuteo.Client.ClientImageCatalog
+  m_countryFlags:
+  - CountryId: 1
+    Texture: {fileID: 2800000, guid: a5c515666b7f3de4e9880949d7595b71, type: 3}
+  - CountryId: 10
+    Texture: {fileID: 2800000, guid: 421a5d5416a111e478bc276540450abe, type: 3}
+  - CountryId: 101
+    Texture: {fileID: 2800000, guid: 85e920d9ce981d14c8ae17aec6684031, type: 3}
+  - CountryId: 103
+    Texture: {fileID: 2800000, guid: 43f5a0bb69a0b294bb0833116a3d9ede, type: 3}
+  - CountryId: 105
+    Texture: {fileID: 2800000, guid: f61b32cfa5a46ff4793d401d6e22a566, type: 3}
+  - CountryId: 107
+    Texture: {fileID: 2800000, guid: 3ace0d7a25e0fd14da99e57abb40224a, type: 3}
+  - CountryId: 109
+    Texture: {fileID: 2800000, guid: d86aa44ab56e9134f987c1b3be575640, type: 3}
+  - CountryId: 11
+    Texture: {fileID: 2800000, guid: f58df06bd8f119648a88c6c244d96697, type: 3}
+  - CountryId: 111
+    Texture: {fileID: 2800000, guid: 56851b55ce6eb49459693a6f63b34e65, type: 3}
+  - CountryId: 113
+    Texture: {fileID: 2800000, guid: 658dbc3e66cc3d84098056587f5b863a, type: 3}
+  - CountryId: 115
+    Texture: {fileID: 2800000, guid: 7d1086e351bc3ee4dab4cc8831d57808, type: 3}
+  - CountryId: 117
+    Texture: {fileID: 2800000, guid: fb8277d12bde43144926075346c479fd, type: 3}
+  - CountryId: 119
+    Texture: {fileID: 2800000, guid: 3f8a4df26f85cc440b59c02023547ad8, type: 3}
+  - CountryId: 12
+    Texture: {fileID: 2800000, guid: 77b8411ebd888294fa42c6c31747b8b3, type: 3}
+  - CountryId: 121
+    Texture: {fileID: 2800000, guid: 8f940048c133f1c499fef6551889424c, type: 3}
+  - CountryId: 123
+    Texture: {fileID: 2800000, guid: 288faefc4edb9cf47bea2e5f54530782, type: 3}
+  - CountryId: 127
+    Texture: {fileID: 2800000, guid: 7e8041a51b6d6cd448a3b25b2ca26191, type: 3}
+  - CountryId: 13
+    Texture: {fileID: 2800000, guid: a868492f960ec4f48a901fec07652717, type: 3}
+  - CountryId: 14
+    Texture: {fileID: 2800000, guid: f1b9f0e171a2a9e46a5344e052fef5f8, type: 3}
+  - CountryId: 15
+    Texture: {fileID: 2800000, guid: 38081216e5a01a0498a5e0926e91a5ef, type: 3}
+  - CountryId: 16
+    Texture: {fileID: 2800000, guid: 91810dc2689a53a48a791aa30edf778d, type: 3}
+  - CountryId: 17
+    Texture: {fileID: 2800000, guid: fb4089fdbc325f6469a035a57f6d0491, type: 3}
+  - CountryId: 18
+    Texture: {fileID: 2800000, guid: a58b710a0436b124fa7df039984214b4, type: 3}
+  - CountryId: 19
+    Texture: {fileID: 2800000, guid: 32d52237fcc2a4c41b0b8a4b256ce4cd, type: 3}
+  - CountryId: 193
+    Texture: {fileID: 2800000, guid: bc2569d57f5ad3647a1d8baf3bcab6a1, type: 3}
+  - CountryId: 196
+    Texture: {fileID: 2800000, guid: 3dcb4939efb271f458699b4735fb97a8, type: 3}
+  - CountryId: 199
+    Texture: {fileID: 2800000, guid: f83d38579bc549b4d81ce9eaad538e64, type: 3}
+  - CountryId: 2
+    Texture: {fileID: 2800000, guid: f17deef48123dfc4ca1c2a27b4306adf, type: 3}
+  - CountryId: 20
+    Texture: {fileID: 2800000, guid: 1e6c99c94a0423145aaec56ec72c2753, type: 3}
+  - CountryId: 202
+    Texture: {fileID: 2800000, guid: c8dae545e4dc7d446afd8cfbc562ef3a, type: 3}
+  - CountryId: 205
+    Texture: {fileID: 2800000, guid: 50a27cb8f838c73459f1c957f94491e1, type: 3}
+  - CountryId: 208
+    Texture: {fileID: 2800000, guid: bcb43e4e964b28249b97d9621fcc9829, type: 3}
+  - CountryId: 21
+    Texture: {fileID: 2800000, guid: 99c5194718136e149b2f59572a0f7d75, type: 3}
+  - CountryId: 211
+    Texture: {fileID: 2800000, guid: 07128070b2e529648beb3ab391524012, type: 3}
+  - CountryId: 214
+    Texture: {fileID: 2800000, guid: 5c14bf6df842a914f847a1378916f47f, type: 3}
+  - CountryId: 217
+    Texture: {fileID: 2800000, guid: 68b70c249d6283b4ea23c5392a0c7531, type: 3}
+  - CountryId: 22
+    Texture: {fileID: 2800000, guid: 17d86da87bee4094aa450b3aae68ddab, type: 3}
+  - CountryId: 220
+    Texture: {fileID: 2800000, guid: 6fbc3080600eb8c4cb7ce446d5b22979, type: 3}
+  - CountryId: 223
+    Texture: {fileID: 2800000, guid: 03b64efa1562f3942af160b4f75a7eb0, type: 3}
+  - CountryId: 226
+    Texture: {fileID: 2800000, guid: e2bc760a6ed6768499cd3d63fec29905, type: 3}
+  - CountryId: 229
+    Texture: {fileID: 2800000, guid: a9fb8378f554cfe45a711915fd9a2f0d, type: 3}
+  - CountryId: 23
+    Texture: {fileID: 2800000, guid: 95a0b164529b4bf47aec6c3fe4ebfeb3, type: 3}
+  - CountryId: 232
+    Texture: {fileID: 2800000, guid: cf63da74d2a8efb42a92f3e890b97f8e, type: 3}
+  - CountryId: 235
+    Texture: {fileID: 2800000, guid: 6a89ea26386b6b242a4951a5baff237c, type: 3}
+  - CountryId: 238
+    Texture: {fileID: 2800000, guid: 81e04339395b2b34dad93f50c771022b, type: 3}
+  - CountryId: 24
+    Texture: {fileID: 2800000, guid: 3434d4d0d396fa94ba7c32c7bcc5ee5b, type: 3}
+  - CountryId: 241
+    Texture: {fileID: 2800000, guid: 3e46b25157c821f419e631d858c70a02, type: 3}
+  - CountryId: 244
+    Texture: {fileID: 2800000, guid: 1f0698842697df04796c01757e1b7b77, type: 3}
+  - CountryId: 247
+    Texture: {fileID: 2800000, guid: 5bddf86cf05dde14680a0545bb254124, type: 3}
+  - CountryId: 25
+    Texture: {fileID: 2800000, guid: 2cc0c2618d8fb1b48b91ab512a78b096, type: 3}
+  - CountryId: 250
+    Texture: {fileID: 2800000, guid: bd0052bbd87dce440b71a8c93149fa96, type: 3}
+  - CountryId: 253
+    Texture: {fileID: 2800000, guid: 1a91b06c002a4f94781fb2a89ee4efd8, type: 3}
+  - CountryId: 256
+    Texture: {fileID: 2800000, guid: d92674bb6f205484ba6db3bb1b87a392, type: 3}
+  - CountryId: 259
+    Texture: {fileID: 2800000, guid: 895750093ab3d47469559704549255cf, type: 3}
+  - CountryId: 26
+    Texture: {fileID: 2800000, guid: abe592c15162aac42a8f7904e4e7c628, type: 3}
+  - CountryId: 27
+    Texture: {fileID: 2800000, guid: c3c8d6601e8adec4b81a0778bd5385b2, type: 3}
+  - CountryId: 28
+    Texture: {fileID: 2800000, guid: 1fe944055fd852c489b767267f9af4b8, type: 3}
+  - CountryId: 29
+    Texture: {fileID: 2800000, guid: 6d15707a1ef632b40bdb3ab9e62d59b9, type: 3}
+  - CountryId: 3
+    Texture: {fileID: 2800000, guid: 95a671a37b38cb44fba131a832d5b4e5, type: 3}
+  - CountryId: 30
+    Texture: {fileID: 2800000, guid: 043fd5c024dd7af429b6c8669c926d7c, type: 3}
+  - CountryId: 31
+    Texture: {fileID: 2800000, guid: 1e91ee9aef9fea841b5a2ffc63751f49, type: 3}
+  - CountryId: 32
+    Texture: {fileID: 2800000, guid: 251a0dc1087e7614685e3b4f8884d0e6, type: 3}
+  - CountryId: 33
+    Texture: {fileID: 2800000, guid: d7d97f3d8d3412a4ab7e55d132379611, type: 3}
+  - CountryId: 4
+    Texture: {fileID: 2800000, guid: 8474d9272e8cb454dbb47f80619b8116, type: 3}
+  - CountryId: 5
+    Texture: {fileID: 2800000, guid: 5258f10a8a43dbb4d978cff8091b8df9, type: 3}
+  - CountryId: 6
+    Texture: {fileID: 2800000, guid: dd99691afc4f69d4ebb65ab5e587dd7c, type: 3}
+  - CountryId: 66
+    Texture: {fileID: 2800000, guid: cf2180c8164677a44875cb7204079608, type: 3}
+  - CountryId: 67
+    Texture: {fileID: 2800000, guid: 8ca44e9aa8f9d1d4f8e68df2254b00a7, type: 3}
+  - CountryId: 68
+    Texture: {fileID: 2800000, guid: 343256df8e7980e4cb1431160cec3f38, type: 3}
+  - CountryId: 69
+    Texture: {fileID: 2800000, guid: 923d28d7929c72a42b8f3bd194cdd7dc, type: 3}
+  - CountryId: 7
+    Texture: {fileID: 2800000, guid: b2a10713c3c4ebe4badfe9a5b13693fc, type: 3}
+  - CountryId: 75
+    Texture: {fileID: 2800000, guid: 5998c74cd53384f41a3625c19a9f41ec, type: 3}
+  - CountryId: 77
+    Texture: {fileID: 2800000, guid: 07f95a531f22789459d87ee7d589d712, type: 3}
+  - CountryId: 78
+    Texture: {fileID: 2800000, guid: 2cbd0c135c5e55e4d89c2fb0e6d8765d, type: 3}
+  - CountryId: 79
+    Texture: {fileID: 2800000, guid: 9f7f4d9f58f47644c87b03d682541a92, type: 3}
+  - CountryId: 8
+    Texture: {fileID: 2800000, guid: a7e85ffd85a69cb4da03add3ffc31d41, type: 3}
+  - CountryId: 83
+    Texture: {fileID: 2800000, guid: 7608c3d24874b58408f4c2f3fe1cb07d, type: 3}
+  - CountryId: 85
+    Texture: {fileID: 2800000, guid: 09476b244ad126a4dafa393046d27939, type: 3}
+  - CountryId: 87
+    Texture: {fileID: 2800000, guid: 9adc81aa968399047ae2015a219d22b4, type: 3}
+  - CountryId: 89
+    Texture: {fileID: 2800000, guid: 440c3c5ff4ac9974f897ab30bd7b27e3, type: 3}
+  - CountryId: 9
+    Texture: {fileID: 2800000, guid: 3a1c5cb1c1108f840accaf5dc9cfe4d6, type: 3}
+  - CountryId: 91
+    Texture: {fileID: 2800000, guid: 434bc3d2ec2abff42a1cb2fc9255a3fe, type: 3}
+  - CountryId: 93
+    Texture: {fileID: 2800000, guid: f68f2f9fe48b3a647ab2e6bca8607900, type: 3}
+  - CountryId: 95
+    Texture: {fileID: 2800000, guid: b9dfcedc6c81c444a840c076b23a2400, type: 3}
+  - CountryId: 97
+    Texture: {fileID: 2800000, guid: bf37e5b26ed407a46b251d3998db2552, type: 3}
+  - CountryId: 99
+    Texture: {fileID: 2800000, guid: 640b3353bf2d34a49842639740de1ad3, type: 3}
+  m_shirts:
+  - Color: 4
+    Sprite: {fileID: 21300000, guid: 4a675d2664d58014ba980dd491160863, type: 3}
+  - Color: 0
+    Sprite: {fileID: 21300000, guid: 1a1822414098eb74cad62535d0801608, type: 3}
+  - Color: 6
+    Sprite: {fileID: 21300000, guid: e4e627644a49ca840a8519c3266a1a95, type: 3}
+  - Color: 2
+    Sprite: {fileID: 21300000, guid: b2fdf8e5a34db4e4fbaa4216645d440b, type: 3}
+  - Color: 3
+    Sprite: {fileID: 21300000, guid: 66bfb54a23d884042a82d6aaadbfb748, type: 3}
+  - Color: 7
+    Sprite: {fileID: 21300000, guid: 977edc44c68fe8244ae46e20cc28cfbd, type: 3}
+  - Color: 1
+    Sprite: {fileID: 21300000, guid: 4b04c15c0e3c0c64db5324f9c424689b, type: 3}
+  - Color: 5
+    Sprite: {fileID: 21300000, guid: b6f85133ee419a74cb0ea0fb39508aa9, type: 3}
+  m_moveHelpImage: {fileID: 21300000, guid: f359ab1e0fd529148945bc6016645121, type: 3}
+  m_passHelpImage: {fileID: 21300000, guid: 8f8e75c3c68cba34ca6f1e126bdc3b44, type: 3}
+  m_longPassHelpImage: {fileID: 21300000, guid: 113df1520f6ec1c45b89aa982c35815c, type: 3}
+  m_shotHelpImage: {fileID: 21300000, guid: a31b85b794672c24490a2ad56a6021a4, type: 3}
+  m_confrontationHelpImage: {fileID: 21300000, guid: 095a6eb4daa407a449056aee2d617e5b, type: 3}
+  m_interceptionHelpImage: {fileID: 21300000, guid: 4bf39d28a7316bc49b65d51910a8e2ab, type: 3}
+  m_goalkeeperSaveHelpImage: {fileID: 21300000, guid: 973f7af339e2cf542a549a35e6a9d12c, type: 3}
+  m_goalkeeperOutOfAreaHelpImage: {fileID: 21300000, guid: 46ea31edea6864b4a881261fc75f4535, type: 3}
+  m_goalkeeperFieldPlayerHelpImage: {fileID: 21300000, guid: ed573a9126c35c44998e0d352a3786cb, type: 3}

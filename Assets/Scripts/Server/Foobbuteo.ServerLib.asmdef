@@ -1,0 +1,23 @@
+{
+    "name": "Foobbuteo.ServerLib",
+    "rootNamespace": "Imma.Foobbuteo.Server",
+    "references": [
+        "GUID:1491147abca9d7d4bb7105af628b223e",
+        "GUID:faf1f57ce53e91342bd1a0b421da91ae",
+        "GUID:3f99f25c82ca47a19f93c3830d447691",
+        "UnityHFSM"
+    ],
+    "includePlatforms": [
+        "Editor",
+        "WindowsStandalone64",
+        "WindowsStandalone64Server"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

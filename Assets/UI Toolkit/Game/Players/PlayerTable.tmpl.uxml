@@ -1,0 +1,9 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="PlayerTable.style.uss"/>
+    <ui:VisualElement name="player-table" class="player-table">
+        <ui:VisualElement name="player-table-views" class="player-table__views"/>
+        <ui:ScrollView name="player-table-scroll" mode="VerticalAndHorizontal" class="player-table__scroll">
+            <ui:VisualElement name="player-table-content" class="player-table__content"/>
+        </ui:ScrollView>
+    </ui:VisualElement>
+</ui:UXML>

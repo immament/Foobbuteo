@@ -1,0 +1,89 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="NewGameView.style.uss" />
+    <ui:VisualElement name="new-game-modal" class="new-game-modal" focusable="true">
+        <Bindings>
+            <ui:DataBinding property="style.display" data-source-path="Display" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+        </Bindings>
+        <ui:VisualElement class="new-game-dialog ft__panel--default">
+            <ui:Label text="New Game" class="new-game-title" />
+            <ui:ScrollView mode="Vertical" class="new-game-scroll">
+                <ui:VisualElement name="new-game-fields">
+                    <Bindings>
+                        <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                    </Bindings>
+                    <ui:DropdownField label="Start time" name="new-game-start">
+                        <Bindings>
+                            <ui:DataBinding property="value" data-source-path="StartTime" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                        </Bindings>
+                    </ui:DropdownField>
+                    <ui:DropdownField label="Game type" name="new-game-type">
+                        <Bindings>
+                            <ui:DataBinding property="choices" data-source-path="GameTypeChoices" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                            <ui:DataBinding property="value" data-source-path="GameType" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                        </Bindings>
+                    </ui:DropdownField>
+                    <ui:DropdownField label="My team" name="new-game-team">
+                        <Bindings>
+                            <ui:DataBinding property="choices" data-source-path="TeamChoices" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                            <ui:DataBinding property="index" data-source-path="SelectedTeamIndex" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                            <ui:DataBinding property="style.display" data-source-path="TeamDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                        </Bindings>
+                    </ui:DropdownField>
+                    <ui:VisualElement class="new-game-color-row">
+                        <ui:DropdownField label="Home team — shirt color" name="new-game-home">
+                            <Bindings>
+                                <ui:DataBinding property="value" data-source-path="HomeColor" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                            </Bindings>
+                        </ui:DropdownField>
+                        <ui:Image name="new-game-home-swatch" class="new-game-swatch">
+                            <Bindings>
+                                <ui:DataBinding property="tintColor" data-source-path="HomeTint" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                            </Bindings>
+                        </ui:Image>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="new-game-color-row">
+                        <ui:DropdownField label="Away team — shirt color" name="new-game-away">
+                            <Bindings>
+                                <ui:DataBinding property="value" data-source-path="AwayColor" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                            </Bindings>
+                        </ui:DropdownField>
+                        <ui:Image name="new-game-away-swatch" class="new-game-swatch">
+                            <Bindings>
+                                <ui:DataBinding property="tintColor" data-source-path="AwayTint" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                            </Bindings>
+                        </ui:Image>
+                    </ui:VisualElement>
+                    <ui:DropdownField label="My position" name="new-game-position">
+                        <Bindings>
+                            <ui:DataBinding property="value" data-source-path="Position" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                            <ui:DataBinding property="style.display" data-source-path="PositionDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                        </Bindings>
+                    </ui:DropdownField>
+                    <ui:DropdownField label="Turns" name="new-game-turns">
+                        <Bindings>
+                            <ui:DataBinding property="value" data-source-path="Turns" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                        </Bindings>
+                    </ui:DropdownField>
+                </ui:VisualElement>
+                <ui:Label name="new-game-error" class="new-game-error">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="Error" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                    </Bindings>
+                </ui:Label>
+            </ui:ScrollView>
+            <ui:VisualElement class="new-game-actions">
+                <ui:Button text="Cancel" name="new-game-cancel" class="ft__btn--secondary">
+                    <Bindings>
+                        <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                    </Bindings>
+                </ui:Button>
+                <ui:Button text="Create" name="new-game-create" class="ft__btn--primary">
+                    <Bindings>
+                        <ui:DataBinding property="enabledSelf" data-source-path="CanSubmit" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                        <ui:DataBinding property="text" data-source-path="CreateText" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                    </Bindings>
+                </ui:Button>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
