@@ -4,10 +4,11 @@
     {
       "name": "prod",
       "authentication": {
+        "webSessionTokenUrl": "https://www.footstar.org/foobbuteo/api/fbt_login_web_session_token.asp",
         "loginUrl": "https://www.footstar.org/foobbuteo/api/fbt_login.asp",
         "refreshUrl": "https://www.footstar.org/foobbuteo/api/fbt_login_refresh.asp",
         "revokeUrl": "https://www.footstar.org/foobbuteo/api/fbt_login_revoke.asp",
-        "signupUrl": "https://www.footstar.org/default.asp#registo"
+        "signupUrl": "https://www.footstar.org/default.asp"
       },
       "connection": {
         "host": "www.footstar.org",
@@ -19,13 +20,14 @@
     {
       "name": "dev",
       "authentication": {
-        "loginUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login.asp",
-        "refreshUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login_refresh.asp",
-        "revokeUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login_revoke.asp",
-        "signupUrl": "https://nd.footstar.org/default.asp#registo"
+        "webSessionTokenUrl": "https://www.footstar.org/foobbuteo/api/fbt_login_web_session_token.asp",
+        "loginUrl": "https://www.footstar.org/foobbuteo/api/fbt_login.asp",
+        "refreshUrl": "https://www.footstar.org/foobbuteo/api/fbt_login_refresh.asp",
+        "revokeUrl": "https://www.footstar.org/foobbuteo/api/fbt_login_revoke.asp",
+        "signupUrl": "https://www.footstar.org/default.asp"
       },
       "connection": {
-        "host": "nd.footstar.org",
+        "host": "www.footstar.org",
         "port": 443,
         "webSocketPath": "/foobbuteo/unity-ws/",
         "useEncryption": true
@@ -34,10 +36,11 @@
     {
       "name": "local",
       "authentication": {
-        "loginUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login.asp",
-        "refreshUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login_refresh.asp",
-        "revokeUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login_revoke.asp",
-        "signupUrl": "https://nd.footstar.org/default.asp#registo"
+        "webSessionTokenUrl": "https://www.footstar.org/foobbuteo/api/fbt_login_web_session_token.asp",
+        "loginUrl": "https://www.footstar.org/foobbuteo/api/fbt_login.asp",
+        "refreshUrl": "https://www.footstar.org/foobbuteo/api/fbt_login_refresh.asp",
+        "revokeUrl": "https://www.footstar.org/foobbuteo/api/fbt_login_revoke.asp",
+        "signupUrl": "https://www.footstar.org/default.asp"
       },
       "connection": {
         "host": "127.0.0.1",

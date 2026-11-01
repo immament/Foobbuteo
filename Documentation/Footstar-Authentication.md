@@ -19,11 +19,11 @@ the selected `dev` or `prod` section of `Assets/Resources/ClientSettings.json` b
 ```json
 {
   "dev": {
-  "webSessionTokenUrl": "https://<footstar-host>/<website-session-token-endpoint>",
-  "loginUrl": "https://<footstar-host>/<login-endpoint>",
-  "refreshUrl": "https://<footstar-host>/<refresh-endpoint>",
-  "revokeUrl": "https://<footstar-host>/<revoke-endpoint>",
-  "signupUrl": "https://<footstar-host>/default.asp#registo"
+    "webSessionTokenUrl": "https://<footstar-host>/<website-session-token-endpoint>",
+    "loginUrl": "https://<footstar-host>/<login-endpoint>",
+    "refreshUrl": "https://<footstar-host>/<refresh-endpoint>",
+    "revokeUrl": "https://<footstar-host>/<revoke-endpoint>",
+    "signupUrl": "https://<footstar-host>/default.asp"
   },
   "prod": { "loginUrl": "", "refreshUrl": "", "revokeUrl": "", "signupUrl": "" }
 }
@@ -52,7 +52,10 @@ The hosting server must render an explicit environment before loading Unity:
 
 ```html
 <script>
-  window.foobbuteoClientConfig = { environment: 'prod', uiLayoutDiagnostics: false };
+  window.foobbuteoClientConfig = {
+    environment: "prod",
+    uiLayoutDiagnostics: false,
+  };
 </script>
 ```
 
@@ -75,14 +78,18 @@ empty token displays login when the rest of startup configuration is valid.
 A nonempty token starts authentication. For example:
 
 ```javascript
-unityInstance.SendMessage('AppController', 'ReceiveClientConfig', JSON.stringify({
-  environment: 'prod',
-  token: '<single-use-game-token>',
-  host: '<game-server-hostname>',
-  port: 443,
-  webSocketPath: '/game',
-  useEncryption: true
-}));
+unityInstance.SendMessage(
+  "AppController",
+  "ReceiveClientConfig",
+  JSON.stringify({
+    environment: "prod",
+    token: "<single-use-game-token>",
+    host: "<game-server-hostname>",
+    port: 443,
+    webSocketPath: "/game",
+    useEncryption: true,
+  }),
+);
 ```
 
 The entire message is validated before selecting settings or connecting. Invalid
@@ -138,10 +145,14 @@ Use `true` to enable layout snapshots; use `false` or omit it to disable them.
 For a custom WebGL hosting page:
 
 ```javascript
-unityInstance.SendMessage('AppController', 'ReceiveClientConfig', JSON.stringify({
-  environment: 'prod',
-  uiLayoutDiagnostics: true
-}));
+unityInstance.SendMessage(
+  "AppController",
+  "ReceiveClientConfig",
+  JSON.stringify({
+    environment: "prod",
+    uiLayoutDiagnostics: true,
+  }),
+);
 ```
 
 The flag is locked with the startup environment. Later connection messages may
@@ -157,11 +168,11 @@ and applies a 15-second timeout. Authentication responses must be JSON, at most
 16 KiB. Browser cookies are not an authentication input: the website must ignore
 them for these operations. There is no embedded client secret or API key.
 
-| Operation | Body | Success |
-| --- | --- | --- |
-| Login | `login=<encoded>&password=<encoded>&rememberMe=0` or `1` | HTTP 200 JSON |
-| Refresh | `refreshToken=<encoded>` | HTTP 200 JSON |
-| Revoke | `refreshToken=<encoded>` | HTTP 204, empty body |
+| Operation | Body                                                     | Success              |
+| --------- | -------------------------------------------------------- | -------------------- |
+| Login     | `login=<encoded>&password=<encoded>&rememberMe=0` or `1` | HTTP 200 JSON        |
+| Refresh   | `refreshToken=<encoded>`                                 | HTTP 200 JSON        |
+| Revoke    | `refreshToken=<encoded>`                                 | HTTP 204, empty body |
 
 ### WebGL website-session token endpoint
 
@@ -240,12 +251,12 @@ on every login/refresh; never use a refresh secret as a game token.
 
 Errors use `Content-Type: application/json`:
 
-| Status | Body | Client behavior |
-| --- | --- | --- |
-| 401 | `{"error":"invalid_credentials"}` | Generic invalid login/password message |
-| 401 | `{"error":"invalid_session"}` | Delete remembered session; show form |
-| 429 | `{"error":"rate_limited"}` | Show wait message; retain credentials; background recovery uses backoff |
-| 503 | `{"error":"service_unavailable"}` | Show retry message; retain remembered session |
+| Status | Body                              | Client behavior                                                         |
+| ------ | --------------------------------- | ----------------------------------------------------------------------- |
+| 401    | `{"error":"invalid_credentials"}` | Generic invalid login/password message                                  |
+| 401    | `{"error":"invalid_session"}`     | Delete remembered session; show form                                    |
+| 429    | `{"error":"rate_limited"}`        | Show wait message; retain credentials; background recovery uses backoff |
+| 503    | `{"error":"service_unavailable"}` | Show retry message; retain remembered session                           |
 
 Return JSON directly, without HTML login pages or redirects. Revocation must be
 idempotent and return 204 for an already revoked session. Set `Cache-Control:
