@@ -33,6 +33,7 @@ namespace Imma.Foobbuteo.Client
         private readonly ClientConnectionRecovery m_recovery = new();
         private bool m_paused;
         private bool m_hasConnected;
+        private bool m_connectionWasConnected;
         private bool m_recoveryStopped;
         private bool m_waitForEnvironment;
         private bool m_configurationFailed;
@@ -217,6 +218,8 @@ namespace Imma.Foobbuteo.Client
 
         private void OnClientConnectionStateChanged()
         {
+            bool wasConnected = m_connectionWasConnected;
+            m_connectionWasConnected = IsClientConnected;
             if (IsClientConnected)
             {
                 m_hasConnected = true;
@@ -240,18 +243,24 @@ namespace Imma.Foobbuteo.Client
                     if (!canRenewToken)
                         m_authentication?.RequireLogin();
                     else if (m_hasConnected && !m_recoveryStopped)
-                        m_recovery.Schedule(Time.realtimeSinceStartupAsDouble);
+                        ScheduleRecovery();
                 }
-                else if (!ClientDisconnectReason.CanRetry(reason))
+                else if (!m_clientNetCtrl.CanRetryDisconnect)
                 {
+                    if (!m_recoveryStopped)
+                        this.LogInfo("Reconnect stopped: non-retryable disconnect.");
                     m_recoveryStopped = true;
                     m_recovery.Cancel();
                 }
-                else if (m_hasConnected && !m_recoveryStopped && (m_authentication?.CanRecover ?? false))
-                    m_recovery.Schedule(Time.realtimeSinceStartupAsDouble);
+                else if (m_hasConnected && !m_recoveryStopped && CanRecoverConnection)
+                    ScheduleRecovery();
             }
-            if (IsClientConnected && !string.IsNullOrEmpty(AuthenticationMessage))
-                ShowToast(AuthenticationMessage);
+            if (IsClientConnected && !wasConnected)
+            {
+                this.LogInfo("Client connection established.");
+                if (!string.IsNullOrEmpty(AuthenticationMessage))
+                    ShowToast(AuthenticationMessage);
+            }
             ClientConnectionStateChanged?.Invoke();
         }
 
@@ -267,6 +276,21 @@ namespace Imma.Foobbuteo.Client
                 }
             }
             AuthenticationStateChanged?.Invoke();
+        }
+
+        private bool CanRecoverConnection => (m_authentication?.CanRecover ?? false) || CanRecoverDevelopmentConnection;
+
+        private bool CanRecoverDevelopmentConnection =>
+            IsAuthenticationReady
+            && !m_isAndroidStartup
+            && !m_waitForEnvironment
+            && m_clientNetCtrl.UsesDevelopmentConnection;
+
+        private void ScheduleRecovery()
+        {
+            if (!m_recovery.IsPending)
+                this.LogInfo("Reconnect scheduled.");
+            m_recovery.Schedule(Time.realtimeSinceStartupAsDouble);
         }
 
         private void OnApplicationPause(bool paused)
@@ -289,7 +313,13 @@ namespace Imma.Foobbuteo.Client
                         || IsAuthenticating
                 )
             )
-                _ = RetryRememberedLoginAsync();
+            {
+                this.LogInfo("Reconnect attempt starting.");
+                if (!(m_authentication?.CanRecover ?? false) && CanRecoverDevelopmentConnection)
+                    m_clientNetCtrl.StartClient();
+                else
+                    _ = RetryRememberedLoginAsync();
+            }
         }
 
         private void ClearPendingToken()
@@ -305,6 +335,7 @@ namespace Imma.Foobbuteo.Client
             base.OnDisable();
             StopAndroidStartup();
             UiLayoutDiagnostics.Dispose();
+            m_recoveryStopped = true;
             m_recovery.Cancel();
             m_connectionStatus?.Dispose();
             m_clientNetCtrl?.UnregisterNetworkEvents();
@@ -492,11 +523,13 @@ namespace Imma.Foobbuteo.Client
 
         public void ShowToast(string message, float durationInSeconds = 3.0f)
         {
+            this.LogWarn(message);
             ShowPanel(m_toastContainer, message, durationInSeconds, "toast-alert", replaceContent: false);
         }
 
         public void ShowBanner(string message, float durationInSeconds = 3.0f)
         {
+            this.LogWarn(message);
             ShowPanel(m_bannerContainer, message, durationInSeconds, "banner-alert", replaceContent: true);
         }
 
@@ -540,8 +573,6 @@ namespace Imma.Foobbuteo.Client
 
         public void DevDisconnect()
         {
-            m_recoveryStopped = true;
-            m_recovery.Cancel();
             this.LogInfo("-- Dev Disconnect Client -----------");
             m_NetworkManager.Shutdown();
         }

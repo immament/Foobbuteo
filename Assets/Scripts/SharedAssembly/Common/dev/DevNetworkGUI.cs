@@ -20,7 +20,7 @@ namespace Imma.Foobbuteo.Common.dev
         [SerializeField]
         private NetworkManager m_NetworkManager;
 
-#if UNITY_EDITOR
+        // #if UNITY_EDITOR
 
         private GUIStyle m_buttonStyle;
 
@@ -96,6 +96,6 @@ namespace Imma.Foobbuteo.Common.dev
                 SceneManager.LoadScene("LobbyScene");
             }
         }
-#endif
+        // #endif
     }
 }

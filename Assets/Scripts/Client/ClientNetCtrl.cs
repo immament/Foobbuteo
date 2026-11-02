@@ -2,6 +2,7 @@
 // Copyright (C) 2024–2026 Dariusz Juńczyk
 
 using System;
+using System.Text.RegularExpressions;
 using Imma.Common;
 using Imma.Foobbuteo.Common.dev;
 using Imma.Foobbuteo.Core;
@@ -18,9 +19,39 @@ namespace Imma.Foobbuteo.Client
         private bool m_isConnecting;
         private bool m_logoutRequested;
         private ClientConnectionConfig m_clientConfig;
+        private bool m_disconnectCaptured;
+        private NetworkTransport.DisconnectEvents? m_disconnectEvent;
+
+        // NGO 2.13 supplies this envelope when no explicit server rejection was received.
+        private static readonly Regex s_transportReason = new(
+            @"^\[Disconnect Event\]\[Client-\d+\]\[TransportClientId-\d+\]\[[A-Za-z]+\] "
+        );
 
         public bool IsConnecting => m_isConnecting;
         public string DisconnectReason { get; private set; } = "";
+        internal bool CanRetryDisconnect =>
+            ClientDisconnectReason.CanRetry(DisconnectReason)
+            && (
+                !m_disconnectEvent.HasValue
+                || m_disconnectEvent.Value
+                    is NetworkTransport.DisconnectEvents.TransportShutdown
+                        or NetworkTransport.DisconnectEvents.Disconnected
+                        or NetworkTransport.DisconnectEvents.ProtocolTimeout
+                        or NetworkTransport.DisconnectEvents.MaxConnectionAttempts
+                        or NetworkTransport.DisconnectEvents.ClosedByRemote
+                        or NetworkTransport.DisconnectEvents.ProtocolError
+            );
+        internal bool UsesDevelopmentConnection
+        {
+            get
+            {
+#if UNITY_EDITOR
+                return m_clientConfig == null;
+#else
+                return false;
+#endif
+            }
+        }
         internal bool HasUsableToken => m_clientConfig?.HasUsableToken(DateTimeOffset.UtcNow) ?? false;
         public event Action ConnectionStateChanged;
 
@@ -38,6 +69,8 @@ namespace Imma.Foobbuteo.Client
                 return;
             m_logoutRequested = false;
             DisconnectReason = "";
+            m_disconnectCaptured = false;
+            m_disconnectEvent = null;
             this.LInfo($"++ Net StartClient ++++++++++++++++");
 #if UNITY_EDITOR
             if (m_clientConfig == null)
@@ -188,7 +221,7 @@ namespace Imma.Foobbuteo.Client
             if (clientId != m_networkManager.LocalClientId)
                 return;
 
-            DisconnectReason = m_networkManager.DisconnectReason ?? "";
+            CaptureDisconnect();
             m_isConnecting = false;
             ClearAuthToken();
             ConnectionStateChanged?.Invoke();
@@ -208,6 +241,7 @@ namespace Imma.Foobbuteo.Client
         {
             if (m_networkManager.IsServer && !m_networkManager.IsHost)
                 return;
+            CaptureDisconnect();
             m_isConnecting = false;
             ClearAuthToken();
             ConnectionStateChanged?.Invoke();
@@ -223,6 +257,7 @@ namespace Imma.Foobbuteo.Client
         {
             if (m_networkManager.IsServer && !m_networkManager.IsHost)
                 return;
+            CaptureDisconnect();
             ClearAuthToken();
             this.LDebug(() => $"On / {TraceTag(m_networkManager)}");
         }
@@ -240,10 +275,29 @@ namespace Imma.Foobbuteo.Client
 
         private void OnClientStopped(bool isServer)
         {
+            CaptureDisconnect();
             m_isConnecting = false;
             ClearAuthToken();
             ConnectionStateChanged?.Invoke();
             this.LDebug(() => $"On isServer: {isServer} / {TraceTag(m_networkManager)}");
+        }
+
+        private void CaptureDisconnect()
+        {
+            string reason = m_networkManager.DisconnectReason ?? "";
+            if (!string.IsNullOrEmpty(reason) && !s_transportReason.IsMatch(reason))
+            {
+                // Explicit server rejections take precedence, including unknown rejection messages.
+                DisconnectReason = reason;
+                m_disconnectEvent = null;
+                m_disconnectCaptured = true;
+                return;
+            }
+            if (m_disconnectCaptured)
+                return;
+            DisconnectReason = "";
+            m_disconnectEvent = m_networkManager.DisconnectEvent;
+            m_disconnectCaptured = true;
         }
 
         private void OnClientStarted()

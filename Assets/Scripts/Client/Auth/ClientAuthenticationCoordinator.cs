@@ -20,6 +20,7 @@ namespace Imma.Foobbuteo.Client.Auth
         private bool m_connecting;
         private bool m_disposed;
         private bool m_storageClearFailed;
+        private string m_connectionWarning = "";
         private readonly Func<ClientConnectionConfig, CancellationToken, Task<AuthenticationResult>> m_webSession;
         private ClientConnectionConfig m_externalConnection;
 
@@ -240,7 +241,7 @@ namespace Imma.Foobbuteo.Client.Auth
             RequiresLogin = false;
             using var request = new CancellationTokenSource();
             m_request = request;
-            SetMessage(message);
+            SetMessage(message, false);
             AuthenticationResult result = null;
             try
             {
@@ -293,7 +294,8 @@ namespace Imma.Foobbuteo.Client.Auth
             }
             RequiresLogin = false;
             m_connecting = true;
-            SetMessage(string.IsNullOrEmpty(warning) ? "Connecting..." : warning);
+            m_connectionWarning = warning;
+            SetMessage(string.IsNullOrEmpty(warning) ? "Connecting..." : warning, !string.IsNullOrEmpty(warning));
             try
             {
                 ConnectionReady?.Invoke(config);
@@ -313,13 +315,20 @@ namespace Imma.Foobbuteo.Client.Auth
             m_connected = connected;
             m_connecting = connecting;
             if (connected)
+            {
                 RequiresLogin = false;
-            if (connected && Message == "Connecting...")
-                Message = "";
-            else if (!connected && !connecting && (wasConnecting || wasConnected))
-                Message = string.IsNullOrEmpty(reason)
-                    ? "Unable to connect to the game server. Check your connection and retry."
-                    : Imma.Foobbuteo.Shared.ClientDisconnectReason.Message(reason);
+                SetMessage(m_connectionWarning, !string.IsNullOrEmpty(m_connectionWarning));
+                return;
+            }
+            if (!connecting && (wasConnecting || wasConnected))
+            {
+                SetMessage(
+                    string.IsNullOrEmpty(reason)
+                        ? "Unable to connect to the game server. Check your connection and retry."
+                        : Imma.Foobbuteo.Shared.ClientDisconnectReason.Message(reason)
+                );
+                return;
+            }
             StateChanged?.Invoke();
         }
 
@@ -365,7 +374,8 @@ namespace Imma.Foobbuteo.Client.Auth
             m_externalConnection = null;
             string token = m_session?.refreshToken;
             ForgetSession();
-            SetMessage("Logged out.");
+            m_connectionWarning = "";
+            SetMessage("Logged out.", false);
             int generation = m_generation;
             if (token != null && !await TryRevokeAsync(token) && generation == m_generation && !m_disposed)
                 SetMessage("Logged out locally. Server session revocation could not be confirmed.");
@@ -401,11 +411,19 @@ namespace Imma.Foobbuteo.Client.Auth
             }
         }
 
-        private void SetMessage(string message)
+        private void SetMessage(string message, bool isWarning = true)
         {
+            string previous = Message;
             Message = m_storageClearFailed
                 ? message + " Remembered login storage could not be cleared on this device."
                 : message;
+            if (!string.IsNullOrEmpty(Message) && Message != previous)
+            {
+                if (isWarning || m_storageClearFailed)
+                    this.LWarn(Message);
+                else
+                    this.LInfo(Message);
+            }
             StateChanged?.Invoke();
         }
 

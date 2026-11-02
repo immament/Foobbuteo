@@ -19,6 +19,20 @@ namespace Tests.Editor.Client
         private const string Token = "single-use-token";
 
         [Test]
+        public void DevelopmentReconnect_ClearsPreviousFailureOnSuccess()
+        {
+            using var auth = new ClientAuthenticationCoordinator(new FakeWeb(), new EmptyRememberedSessionStore());
+            auth.UpdateConnectionState(true, false);
+            auth.UpdateConnectionState(false, false);
+            Assert.IsNotEmpty(auth.Message, "Disconnect must retain a diagnostic message until recovery succeeds.");
+
+            auth.UpdateConnectionState(false, true);
+            auth.UpdateConnectionState(true, false);
+
+            Assert.IsEmpty(auth.Message, "A successful development reconnect must clear the stale failure message.");
+        }
+
+        [Test]
         public void Recovery_WaitsForForegroundAndIdleTransportThenUsesCappedBackoff()
         {
             var recovery = new ClientConnectionRecovery(() => 1);
