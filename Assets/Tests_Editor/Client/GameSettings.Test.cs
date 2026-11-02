@@ -4,6 +4,7 @@
 using System.Collections;
 using System.Reflection;
 using Imma.Foobbuteo.Client.UI;
+using Imma.Foobbuteo.Common.dev;
 using NUnit.Framework;
 using Tests.Editor.Utils;
 using UnityEditor;
@@ -21,10 +22,13 @@ namespace Tests.Editor.Client
         private VisualElement m_root;
         private GameSettingsVM m_settings;
         private GameSettingsUiController m_controller;
+        private bool m_savedNetworkGuiVisible;
 
         [SetUp]
         public void SetUp()
         {
+            m_savedNetworkGuiVisible = DevNetworkGUI.IsVisible;
+            DevNetworkGUI.IsVisible = false;
             m_hadVolume = PlayerPrefs.HasKey(GameSettingsVM.VolumeKey);
             m_savedVolume = PlayerPrefs.GetInt(GameSettingsVM.VolumeKey);
             PlayerPrefs.DeleteKey(GameSettingsVM.VolumeKey);
@@ -33,6 +37,7 @@ namespace Tests.Editor.Client
         [TearDown]
         public void TearDown()
         {
+            DevNetworkGUI.IsVisible = m_savedNetworkGuiVisible;
             m_controller?.Dispose();
             if (m_window != null)
             {
@@ -81,6 +86,95 @@ namespace Tests.Editor.Client
                 new GameSettingsVM().Volume,
                 "An invalid stored percentage must not exceed full volume."
             );
+        }
+
+        [UnityTest]
+        public IEnumerator NetworkGuiToggle_IsHiddenForNonAdmin()
+        {
+            CreateUi();
+            Click(m_root, "open-settings-btn");
+            yield return TestUtils.WaitForUi(() => !IsHidden(), "Settings must open for a nonadmin user.");
+
+            var toggle = m_root.Q<Toggle>("dev-network-gui-toggle");
+            Assert.IsNotNull(toggle, "Settings must contain the new network GUI option.");
+            yield return TestUtils.WaitForUi(
+                () => toggle.resolvedStyle.display == DisplayStyle.None,
+                "Nonadmin users must not see the network GUI toggle."
+            );
+        }
+
+        [UnityTest]
+        public IEnumerator NetworkGuiToggle_AdminCanEnableDisableAndReloadUi()
+        {
+            CreateUi();
+            m_settings.SetAdmin(true);
+            Click(m_root, "open-settings-btn");
+            var toggle = m_root.Q<Toggle>("dev-network-gui-toggle");
+            yield return TestUtils.WaitForUi(
+                () => toggle.resolvedStyle.display == DisplayStyle.Flex && !IsHidden(),
+                "Admins must see the network GUI option in open settings."
+            );
+            Assert.IsFalse(toggle.value, "The network GUI toggle must initially be off.");
+
+            toggle.value = true;
+            yield return TestUtils.WaitForUi(
+                () => DevNetworkGUI.IsVisible,
+                "Enabling the toggle must immediately show the network GUI."
+            );
+
+            m_root.RemoveFromHierarchy();
+            m_root = CloneUi();
+            m_window.rootVisualElement.Add(m_root);
+            m_controller.Bind(m_root);
+            toggle = m_root.Q<Toggle>("dev-network-gui-toggle");
+            yield return TestUtils.WaitForUi(
+                () => toggle.value,
+                "Rebinding settings must retain the enabled choice for this app run."
+            );
+
+            toggle.value = false;
+            yield return TestUtils.WaitForUi(
+                () => !DevNetworkGUI.IsVisible,
+                "Disabling the toggle must immediately hide the network GUI."
+            );
+
+            m_settings.SetAdmin(false);
+            yield return TestUtils.WaitForUi(
+                () => toggle.resolvedStyle.display == DisplayStyle.None,
+                "Losing admin status must hide the network GUI option without reopening settings."
+            );
+        }
+
+        [Test]
+        public void NetworkGuiToggle_NewSettingsRetainChoiceUntilApplicationStartup()
+        {
+            var settings = new GameSettingsVM();
+            settings.SetAdmin(true);
+            settings.DevNetworkGuiEnabled = true;
+
+            Assert.IsTrue(
+                new GameSettingsVM().DevNetworkGuiEnabled,
+                "Replacing match settings must preserve the current app run's network GUI choice."
+            );
+
+            typeof(DevNetworkGUI)
+                .GetMethod("ResetVisibility", BindingFlags.Static | BindingFlags.NonPublic)
+                .Invoke(null, null);
+
+            Assert.IsFalse(
+                new GameSettingsVM().DevNetworkGuiEnabled,
+                "Runtime initialization must turn the network GUI off even when domain reload is disabled."
+            );
+        }
+
+        [Test]
+        public void NetworkGuiToggle_NonAdminCannotEnableGui()
+        {
+            var settings = new GameSettingsVM();
+
+            settings.DevNetworkGuiEnabled = true;
+
+            Assert.IsFalse(DevNetworkGUI.IsVisible, "A nonadmin settings write must not enable the network GUI.");
         }
 
         [UnityTest]

@@ -4,7 +4,6 @@
 using Imma.Foobbuteo.Core;
 using Unity.Netcode;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 namespace Imma.Foobbuteo.Common.dev
 {
@@ -17,6 +16,11 @@ namespace Imma.Foobbuteo.Common.dev
     /// </remarks>
     public class DevNetworkGUI : MonoBehaviour
     {
+        public static bool IsVisible { get; set; }
+
+        [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
+        private static void ResetVisibility() => IsVisible = false;
+
         [SerializeField]
         private NetworkManager m_NetworkManager;
 
@@ -32,6 +36,9 @@ namespace Imma.Foobbuteo.Common.dev
 
         private void OnGUI()
         {
+            if (!IsVisible)
+                return;
+
             m_buttonStyle ??= new GUIStyle(GUI.skin.button);
             m_buttonStyle.fontSize = Mathf.Clamp(Screen.height / 20, 15, 30);
             var width = Mathf.Clamp(Screen.width - 320f, 50, Screen.width / 4);
@@ -86,14 +93,6 @@ namespace Imma.Foobbuteo.Common.dev
                         AppCtx.Server.DevShutdown();
                         break;
                 }
-            }
-            if (GUILayout.Button($"Open Dev Scene", m_buttonStyle))
-            {
-                SceneManager.LoadScene("DevScene");
-            }
-            if (GUILayout.Button($"Open Lobby Scene", m_buttonStyle))
-            {
-                SceneManager.LoadScene("LobbyScene");
             }
         }
         // #endif

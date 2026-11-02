@@ -360,6 +360,7 @@ namespace Imma.Foobbuteo.Client.Game.UI
             if (m_rootElement != null)
                 m_reportView.Bind(Q<ScrollView>("MatchReportScroll"), m_reportSession);
             m_vm.User = user;
+            m_audioPlayer.Settings.SetAdmin(user?.IsAdmin == true);
             m_vm.GameState = gameState;
             m_vm.TeamA = CreateTeamVm(TeamIndex.Home, baseGameInfo.HomeTeam);
             m_vm.TeamB = CreateTeamVm(TeamIndex.Away, baseGameInfo.AwayTeam);
@@ -599,6 +600,7 @@ namespace Imma.Foobbuteo.Client.Game.UI
         internal void UpdateUser(GameUser user)
         {
             m_vm.User = user;
+            m_audioPlayer.Settings.SetAdmin(user?.IsAdmin == true);
         }
 
         internal void RefreshRoomPermissions() => m_vm.RefreshRoomPermissions();

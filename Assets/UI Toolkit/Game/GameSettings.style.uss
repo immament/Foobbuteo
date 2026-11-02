@@ -30,3 +30,74 @@
 #close-game-settings-btn {
   margin-top: 16px;
 }
+
+#dev-network-gui-toggle {
+  margin-top: 12px;
+  min-height: 32px;
+  flex-shrink: 0;
+}
+
+/* #dev-network-gui-toggle .unity-toggle__text {
+  margin-left: 10px;
+}
+
+#dev-network-gui-toggle .unity-toggle__checkmark {
+ 
+
+} */
+
+/* Switch track */
+#dev-network-gui-toggle > .unity-toggle__input {
+  width: 44px;
+  height: 24px;
+  min-width: 44px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  padding: 0;
+  margin: 0;
+  border-width: 0;
+  border-radius: 12px;
+  background-color: rgb(90, 100, 115);
+  overflow: visible;
+
+  transition-property: background-color;
+  transition-duration: 0.15s;
+}
+
+/* Sliding thumb: replace the standard checkbox graphic */
+#dev-network-gui-toggle .unity-toggle__checkmark {
+  position: absolute;
+  left: 3px;
+  top: 3px;
+  width: 18px;
+  height: 18px;
+  margin: 0;
+  border-width: 0;
+  border-radius: 9px;
+  background-image: none;
+  background-color: white;
+  translate: 0 0;
+
+  transition-property: translate;
+  transition-duration: 0.15s;
+}
+
+/* Enabled state */
+#dev-network-gui-toggle:checked > .unity-toggle__input {
+  background-color: rgb(45, 160, 100);
+}
+
+#dev-network-gui-toggle:checked .unity-toggle__checkmark {
+  translate: 20px 0;
+}
+
+/* Caption: 12px after the 44px track */
+#dev-network-gui-toggle .unity-toggle__text {
+  position: absolute;
+  left: 56px;
+  top: 0;
+  height: 24px;
+  margin: 0;
+  white-space: nowrap;
+  -unity-text-align: middle-left;
+}

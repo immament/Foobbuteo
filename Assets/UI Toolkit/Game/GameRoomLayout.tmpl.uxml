@@ -235,6 +235,12 @@
                                 <ui:DataBinding property="value" data-source-path="Volume" binding-mode="TwoWay" update-trigger="OnSourceChanged"/>
                             </Bindings>
                         </ui:SliderInt>
+                        <ui:Toggle name="dev-network-gui-toggle" text="Enable DevNetworkGUI" style="display: none;">
+                            <Bindings>
+                                <ui:DataBinding property="style.display" data-source-path="AdminOptionsDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
+                                <ui:DataBinding property="value" data-source-path="DevNetworkGuiEnabled" binding-mode="TwoWay" update-trigger="OnSourceChanged"/>
+                            </Bindings>
+                        </ui:Toggle>
                         <ui:Button name="close-game-settings-btn" text="Close" class="btn-default btn-sm"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
