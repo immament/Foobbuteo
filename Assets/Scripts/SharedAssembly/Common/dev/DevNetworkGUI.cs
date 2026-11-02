@@ -20,7 +20,7 @@ namespace Imma.Foobbuteo.Common.dev
         [SerializeField]
         private NetworkManager m_NetworkManager;
 
-#if (!UNITY_WEBGL && !UNITY_ANDROID && !UNITY_SERVER) || UNITY_EDITOR
+#if UNITY_EDITOR
 
         private GUIStyle m_buttonStyle;
 

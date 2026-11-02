@@ -149,8 +149,6 @@ namespace Imma.Foobbuteo.Client
                 this.LogInfo($"Client environment override: {overridePath}");
                 var startup = ClientEnvironment.LoadAndroidOverride(Application.persistentDataPath);
                 InitializeClient(false, startup.Environment, startup.UiLayoutDiagnostics);
-#else
-                InitializeClient(false, ClientEnvironment.Production);
 #endif
             }
             catch (InvalidOperationException ex)
@@ -357,7 +355,7 @@ namespace Imma.Foobbuteo.Client
             {
                 if (message.Environment == null)
                 {
-#if !UNITY_WEBGL || UNITY_EDITOR
+#if  UNITY_EDITOR || UNITY_ANDROID
                     // Native/Editor startup selects settings itself; retain early legacy connection messages.
                     if (m_clientNetCtrl == null)
                     {

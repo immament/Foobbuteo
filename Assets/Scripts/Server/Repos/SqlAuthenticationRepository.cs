@@ -45,6 +45,11 @@ namespace Imma.Foobbuteo.Server.Repos
                     return null;
 
                 int userId = reader.GetInt32("user_id");
+                if (reader.IsDBNull("player_id"))
+                {
+                    this.LWarn($"Player not found for User @{userId}");
+                    return null;
+                }
                 var user = new ServerUser(
                     clientId,
                     userId,
