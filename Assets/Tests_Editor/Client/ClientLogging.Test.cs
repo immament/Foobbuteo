@@ -1,12 +1,14 @@
 // SPDX-License-Identifier: AGPL-3.0-only
 using System;
 using System.Reflection;
+using System.Text.RegularExpressions;
 using Imma.Common;
 using Imma.Foobbuteo.Client;
 using Newtonsoft.Json.Linq;
 using NUnit.Framework;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.TestTools;
 
 namespace Tests.Editor.Client
 {
@@ -14,6 +16,28 @@ namespace Tests.Editor.Client
     {
         [TearDown]
         public void TearDown() => ImmLogger.Reset();
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void UserAlert_LogsItsTextEvenWhenUiIsUnavailable(bool banner)
+        {
+            var instance = new GameObject("User alert logging test");
+            try
+            {
+                var client = instance.AddComponent<ClientAppCtrl>();
+                const string message = "The requested operation failed.";
+                LogAssert.Expect(LogType.Warning, new Regex(Regex.Escape(message)));
+
+                if (banner)
+                    client.ShowBanner(message);
+                else
+                    client.ShowToast(message);
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(instance);
+            }
+        }
 
         [Test]
         public void LoggingOnlyMessage_ParsesWithoutEnvironmentOrConnection()

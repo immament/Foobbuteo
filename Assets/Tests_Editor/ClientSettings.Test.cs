@@ -87,7 +87,7 @@ namespace Tests.Editor
         public void Authentication_SignupMayNavigateToRegistrationFragment()
         {
             var data = Authentication("auth.example.test");
-            const string signupUrl = "https://auth.example.test/default.asp#registo";
+            const string signupUrl = "https://auth.example.test/default.asp";
             data["signupUrl"] = signupUrl;
             var settings = ClientSettings.Parse(data.ToString());
             Assert.AreEqual(

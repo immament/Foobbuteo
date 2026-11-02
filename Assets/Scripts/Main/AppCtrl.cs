@@ -4,14 +4,12 @@
 using Imma.Common;
 using Imma.Foobbuteo.Common;
 using Unity.Multiplayer;
-using Unity.Multiplayer.PlayMode;
 using Unity.Netcode;
 using UnityEngine;
-#if UNITY_EDITOR || !UNITY_SERVER
+#if UNITY_EDITOR || UNITY_WEBGL || UNITY_ANDROID
 using Imma.Foobbuteo.Client;
 #endif
-
-#if UNITY_EDITOR || (!UNITY_WEBGL && !UNITY_ANDROID)
+#if UNITY_EDITOR || UNITY_SERVER
 using Imma.Foobbuteo.Server;
 #endif
 
@@ -80,87 +78,56 @@ namespace Imma.Foobbuteo.Core
 
         private void AutoStart()
         {
-#if UNITY_SERVER && !UNITY_EDITOR
-            StartServer();
-#elif UNITY_WEBGL && !UNITY_EDITOR
-            // The browser supplies connection configuration before starting the client.
-            GetComponent<ClientAppCtrl>().Init();
-            AppCtx.Client.StartClient();
-#elif UNITY_ANDROID && !UNITY_EDITOR
-            GetComponent<ClientAppCtrl>().StartAndroidClient();
-#else
+#if UNITY_EDITOR
             var role = MultiplayerRolesManager.ActiveMultiplayerRoleMask;
-            this.LogDebug(() => $"Active multiplayer role: {role}, Tags: {string.Join(",", CurrentPlayer.Tags)}");
-
+            this.LogDebug(() => $"Active multiplayer role: {role}");
             switch (role)
             {
                 case MultiplayerRoleFlags.Server:
                     StartServer();
                     break;
-
                 case MultiplayerRoleFlags.Client:
-#if UNITY_WEBGL
-
-                    GetComponent<ClientAppCtrl>().Init();
-#else
                     StartClient();
-#endif
                     break;
-
                 case MultiplayerRoleFlags.ClientAndServer:
                     StartHost();
                     break;
             }
+#elif UNITY_SERVER
+            StartServer();
+#elif UNITY_WEBGL
+            // The browser supplies connection configuration before starting the client.
+            GetComponent<ClientAppCtrl>().Init();
+            AppCtx.Client.StartClient();
+#elif UNITY_ANDROID
+            GetComponent<ClientAppCtrl>().StartAndroidClient();
 #endif
-
-            //             if (CurrentPlayer.Tags.Contains("Server"))
-            //             {
-            //                 StartServer();
-            //             }
-            //             else if (CurrentPlayer.Tags.Contains("Host"))
-            //             {
-            //                 StartHost();
-            //             }
-
-            // #if UNITY_EDITOR
-            //             if (CurrentPlayer.Tags.Contains("Client"))
-            //             {
-            //                 StartClient();
-            //                 //
-            //             }
-            // #elif UNITY_WEBGL
-
-            //             GetComponent<ClientAppCtrl>().Init();
-            // #elif UNITY_SERVER
-            //             this.LogInfo("UNITY_SERVER. StartServer");
-            //             StartServer();
-            // #endif
         }
 
         public void StartClient()
         {
-#if UNITY_EDITOR || !UNITY_SERVER
+#if UNITY_EDITOR || UNITY_WEBGL || UNITY_ANDROID
             GetComponent<ClientAppCtrl>().Init();
             AppCtx.Client.StartClient();
 #else
-            throw new System.NotSupportedException("Client mode is not available in a dedicated server build.");
+            throw new System.NotSupportedException("Client mode is available only in clients builds.");
 #endif
         }
 
         public void StartHost()
         {
-#if UNITY_EDITOR || (!UNITY_WEBGL && !UNITY_ANDROID && !UNITY_SERVER)
+#if UNITY_EDITOR
             GetComponent<ServerAppCtrl>().Init();
             GetComponent<ClientAppCtrl>().Init();
             AppCtx.Server.StartHost();
 #else
-            throw new System.NotSupportedException("Host mode is not available in a Web or dedicated server build.");
+            throw new System.NotSupportedException("Host mode is available only in editor.");
 #endif
         }
 
         public void StartServer()
         {
-#if UNITY_EDITOR || (!UNITY_WEBGL && !UNITY_ANDROID)
+#if UNITY_EDITOR || UNITY_SERVER
             GetComponent<ServerAppCtrl>().Init();
             AppCtx.Server.StartServer();
 #else
@@ -171,14 +138,12 @@ namespace Imma.Foobbuteo.Core
 #if UNITY_WEBGL && !UNITY_EDITOR
         [System.Runtime.InteropServices.DllImport("__Internal")]
         private static extern void SetVersion(string version);
-#endif
 
         [RuntimeInitializeOnLoadMethod]
         private static void Init()
         {
-#if UNITY_WEBGL && !UNITY_EDITOR
             SetVersion(Application.version);
-#endif
         }
+#endif
     }
 }

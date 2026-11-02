@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Assets/Resources/Images/fs_logo.png" alt="Footstar logo" width="640">
+  <img src="Assets/ClientAssets/Images/fs_logo.png" alt="Footstar logo" width="640">
 </p>
 
 # Foobbuteo 2D
@@ -125,9 +125,13 @@ remain highest priority regardless of load order. Omitted categories retain earl
 For example, a logging-only message is accepted even while connected:
 
 ```javascript
-unityInstance.SendMessage('AppController', 'ReceiveClientConfig', JSON.stringify({
-  logging: { categories: { Auth: 'Trace' } }
-}));
+unityInstance.SendMessage(
+  "AppController",
+  "ReceiveClientConfig",
+  JSON.stringify({
+    logging: { categories: { Auth: "Trace" } },
+  }),
+);
 ```
 
 Invalid logging settings reject the message without partially applying categories. Normal
