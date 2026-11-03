@@ -2,7 +2,7 @@ name: Release builds
 
 on:
   push:
-    branches: ['**'] # The single allowed branch is checked in build-config.json.
+    branches: ['build'] # The single allowed branch is checked in build-config.json.
   workflow_dispatch:
     inputs:
       target:
