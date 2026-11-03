@@ -17,9 +17,9 @@ function fixture(t) {
   return root;
 }
 
-function artifact(root, target = 'webgl', attempt = 1) {
-  const folder = path.join(root, `release-${target}-123-${attempt}`);
-  fs.mkdirSync(folder);
+function artifact(root, target = 'webgl', attempt = 1, flat = false) {
+  const folder = flat ? root : path.join(root, `release-${target}-123-${attempt}`);
+  if (!flat) fs.mkdirSync(folder);
   const file = `Foobbuteo-${target === 'webgl' ? 'WebGL' : 'Server'}-${options.version}.zip`;
   const bytes = Buffer.from(`validated-${target}-${attempt}`);
   fs.writeFileSync(path.join(folder, file), bytes);
@@ -37,15 +37,25 @@ test('partial rerun selects latest target artifact and retains another target fr
   assert.deepEqual(packages.map(p => [p.target, p.attempt]), [['webgl', 2], ['server', 1]]);
 });
 
+test('single artifact extracted directly into the download root is recognized', t => {
+  const root = fixture(t);
+  artifact(root, 'server', 1, true);
+  const packages = collectPackages(root, { ...context, runAttempt: 1 }, { ...options, requested: ['server'] });
+  assert.deepEqual(packages.map(p => [p.target, p.attempt]), [['server', 1]]);
+  assert.equal(packages[0].archive, path.join(root, 'Foobbuteo-Server-0.26.1103.1.zip'));
+});
+
 test('tampered bytes, wrong source, and wrong versions cannot be published', t => {
-  for (const change of ['bytes', 'sha', 'version']) {
-    const root = fixture(t);
-    const folder = artifact(root);
-    const file = path.join(folder, 'manifest.json');
-    const manifest = JSON.parse(fs.readFileSync(file));
-    if (change === 'bytes') fs.appendFileSync(path.join(folder, manifest.file), 'tampered');
-    else { manifest[change] = 'wrong'; fs.writeFileSync(file, JSON.stringify(manifest)); }
-    assert.throws(() => collectPackages(root, context, options), /Invalid|Checksum/);
+  for (const flat of [false, true]) {
+    for (const change of ['bytes', 'sha', 'version', 'runId', 'attempt', 'target']) {
+      const root = fixture(t);
+      const folder = artifact(root, 'webgl', 1, flat);
+      const file = path.join(folder, 'manifest.json');
+      const manifest = JSON.parse(fs.readFileSync(file));
+      if (change === 'bytes') fs.appendFileSync(path.join(folder, manifest.file), 'tampered');
+      else { manifest[change] = 'wrong'; fs.writeFileSync(file, JSON.stringify(manifest)); }
+      assert.throws(() => collectPackages(root, context, options), /Invalid|Checksum/);
+    }
   }
 });
 
@@ -64,7 +74,7 @@ test('already published Release is left unchanged even when artifacts have expir
 
 test('one successful target publishes a downloadable Release and names the missing target', async t => {
   const root = fixture(t);
-  artifact(root);
+  artifact(root, 'webgl', 1, true);
   const uploads = [];
   let published;
   const github = { rest: { repos: {
