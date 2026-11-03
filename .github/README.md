@@ -75,7 +75,9 @@ the Latest designation, so an older run cannot displace a newer release. Set Lat
 manually if desired.
 
 The server ZIP includes `appsettings.tmpl.json`. Copy it to `appsettings.json` next
-to the executable and supply the deployment's settings. Actual local configuration,
+to the executable and supply the deployment's settings. Unity directories ending in
+`_BackUpThisFolder_ButDontShipItWithYourGame` are excluded from the server ZIP;
+their original build files remain untouched. Actual local configuration,
 license files and private-key/keystore files are rejected during packaging. Each
 ZIP must be below GitHub's 2 GiB per-file limit. WebGL hosting/deployment is separate.
 

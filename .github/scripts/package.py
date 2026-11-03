@@ -9,12 +9,18 @@ import zipfile
 
 MAX_ASSET_BYTES = 2 * 1024**3
 SECRET_SUFFIXES = {'.key', '.pem', '.pfx', '.p12', '.ulf', '.keystore', '.jks'}
+UNITY_BACKUP_DIRECTORY_SUFFIX = '_BackUpThisFolder_ButDontShipItWithYourGame'
+
+
+def is_unity_backup_path(relative_path):
+    return any(part.endswith(UNITY_BACKUP_DIRECTORY_SUFFIX) for part in relative_path.parts)
 
 
 def find_distribution(root, target):
     root = Path(root)
     entry = 'index.html' if target == 'webgl' else 'Foobbuteo.exe'
-    candidates = list(root.rglob(entry))
+    candidates = [file for file in root.rglob(entry)
+                  if target != 'server' or not is_unity_backup_path(file.relative_to(root))]
     if len(candidates) != 1:
         raise ValueError(f'Expected exactly one {target} distribution under {root}.')
     return candidates[0].parent
@@ -30,7 +36,8 @@ def package_build(source, output, target, version, sha, run_id, attempt, unity_v
         raise ValueError('Expected Unity output directory is missing or linked.')
     if source.resolve() == output.resolve() or source.resolve() in output.resolve().parents:
         raise ValueError('Package output must be outside the Unity output directory.')
-    files = sorted(source.rglob('*'))
+    files = sorted(file for file in source.rglob('*')
+                   if target != 'server' or not is_unity_backup_path(file.relative_to(source)))
     for file in files:
         if file.is_symlink():
             raise ValueError(f'Symbolic links are not permitted: {file.name}')

@@ -43,12 +43,23 @@ class PackageTests(unittest.TestCase):
         self.assertEqual(manifest['runId'], '123')
         self.assertEqual(len(manifest['sha256']), 64)
 
-    def test_server_archive_contains_executable_data_and_dependencies(self):
+    def test_server_archive_contains_runtime_files_and_excludes_unity_backups(self):
         for name in ['Foobbuteo.exe', 'Foobbuteo_Data/Managed/Assembly-CSharp.dll', 'UnityPlayer.dll']:
             self.write(name)
+        backup_file = 'Foobbuteo_BackUpThisFolder_ButDontShipItWithYourGame/Managed/backup.dll'
+        self.write(backup_file)
+        self.write('nested/Other_BackUpThisFolder_ButDontShipItWithYourGame/appsettings.json')
         manifest = self.package('server')
         with zipfile.ZipFile(self.output / manifest['file']) as archive:
-            self.assertEqual(len(archive.namelist()), 3)
+            self.assertEqual(set(archive.namelist()), {
+                'Foobbuteo.exe', 'Foobbuteo_Data/Managed/Assembly-CSharp.dll', 'UnityPlayer.dll',
+            }, 'Only runtime files should ship; Unity backup folders and their contents must be excluded.')
+        self.assertTrue((self.source / backup_file).is_file(), 'Packaging must leave the original backup files intact.')
+
+    def test_server_discovery_ignores_executables_inside_unity_backup_directories(self):
+        self.write('StandaloneWindows64/Foobbuteo.exe')
+        self.write('StandaloneWindows64/Foobbuteo_BackUpThisFolder_ButDontShipItWithYourGame/Foobbuteo.exe')
+        self.assertEqual(package.find_distribution(self.source, 'server'), self.source / 'StandaloneWindows64')
 
     def test_missing_output_or_secret_configuration_is_rejected(self):
         with self.assertRaises(ValueError):
