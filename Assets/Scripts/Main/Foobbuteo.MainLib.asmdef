@@ -11,8 +11,7 @@
         "Android",
         "Editor",
         "WebGL",
-        "WindowsStandalone64",
-        "WindowsStandalone64Server"
+        "WindowsStandalone64"
     ],
     "excludePlatforms": [],
     "allowUnsafeCode": false,
