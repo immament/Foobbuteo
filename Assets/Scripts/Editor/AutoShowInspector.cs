@@ -12,18 +12,19 @@ namespace Imma.Foobbuteo.Editor
             Selection.selectionChanged += OnSelectionChanged;
         }
 
-        private static readonly Type[] InspectorAssetTypes = { typeof(Material), typeof(ScriptableObject) };
+        private static readonly Type[] InspectorAssetTypes =
+        {
+            typeof(Material),
+            typeof(ScriptableObject),
+            typeof(UnityEditorInternal.AssemblyDefinitionAsset),
+        };
 
         private static void OnSelectionChanged()
         {
             var selected = Selection.activeObject;
-
             if (selected == null)
-            {
-                Debug.Log("AutoShowInspector----");
                 return;
-            }
-
+            // Debug.Log($"AutoShowInspector {selected.GetType()}");
             bool showInspector =
                 selected is GameObject
                 || (

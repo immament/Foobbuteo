@@ -5,23 +5,28 @@ import hashlib
 import json
 from pathlib import Path
 import re
-import shutil
 import zipfile
 
 MAX_ASSET_BYTES = 2 * 1024**3
 SECRET_SUFFIXES = {'.key', '.pem', '.pfx', '.p12', '.ulf', '.keystore', '.jks'}
+UNITY_BACKUP_DIRECTORY_SUFFIX = '_BackUpThisFolder_ButDontShipItWithYourGame'
+
+
+def is_unity_backup_path(relative_path):
+    return any(part.endswith(UNITY_BACKUP_DIRECTORY_SUFFIX) for part in relative_path.parts)
 
 
 def find_distribution(root, target):
     root = Path(root)
     entry = 'index.html' if target == 'webgl' else 'Foobbuteo.exe'
-    candidates = list(root.rglob(entry))
+    candidates = [file for file in root.rglob(entry)
+                  if target != 'server' or not is_unity_backup_path(file.relative_to(root))]
     if len(candidates) != 1:
         raise ValueError(f'Expected exactly one {target} distribution under {root}.')
     return candidates[0].parent
 
 
-def package_build(source, output, target, version, sha, run_id, attempt, unity_version):
+def package_build(source, output, target, version, sha, run_id, attempt, unity_version, config_template=None):
     source, output = Path(source), Path(output)
     if not re.fullmatch(r'(0|[1-9]\d*)\.\d{2}\.\d{4}\.[1-9]\d*', version):
         raise ValueError('Invalid reserved version.')
@@ -31,7 +36,8 @@ def package_build(source, output, target, version, sha, run_id, attempt, unity_v
         raise ValueError('Expected Unity output directory is missing or linked.')
     if source.resolve() == output.resolve() or source.resolve() in output.resolve().parents:
         raise ValueError('Package output must be outside the Unity output directory.')
-    files = sorted(source.rglob('*'))
+    files = sorted(file for file in source.rglob('*')
+                   if target != 'server' or not is_unity_backup_path(file.relative_to(source)))
     for file in files:
         if file.is_symlink():
             raise ValueError(f'Symbolic links are not permitted: {file.name}')
@@ -44,12 +50,19 @@ def package_build(source, output, target, version, sha, run_id, attempt, unity_v
         valid = 'Foobbuteo.exe' in names and 'UnityPlayer.dll' in names and any(name.startswith('Foobbuteo_Data/Managed/') for name in names)
     if not valid:
         raise ValueError(f'Incomplete {target} distribution.')
+    template = Path(config_template) if target == 'server' and config_template else None
+    if template is not None and (template.is_symlink() or not template.is_file()):
+        raise ValueError('Configuration template must be a regular, unlinked file.')
     output.mkdir(parents=True, exist_ok=True)
     label = 'WebGL' if target == 'webgl' else 'Server'
     archive_path = output / f'Foobbuteo-{label}-{version}.zip'
     with zipfile.ZipFile(archive_path, 'w', zipfile.ZIP_DEFLATED) as archive:
         for name in names:
+            if template is not None and name == 'appsettings.tmpl.json':
+                continue
             archive.write(source / name, name)
+        if template is not None:
+            archive.write(template, 'appsettings.tmpl.json')
     if archive_path.stat().st_size >= MAX_ASSET_BYTES:
         raise ValueError('Release ZIP must be smaller than 2 GiB.')
     with archive_path.open('rb') as archive_file:
@@ -70,7 +83,4 @@ if __name__ == '__main__':
     parser.add_argument('--config-template', type=Path)
     args = vars(parser.parse_args())
     args['source'] = find_distribution(args['source'], args['target'])
-    template = args.pop('config_template')
-    if args['target'] == 'server' and template:
-        shutil.copyfile(template, args['source'] / 'appsettings.tmpl.json')
     package_build(**args)

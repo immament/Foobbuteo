@@ -35,6 +35,8 @@ namespace Imma.Foobbuteo.Client
         private bool m_hasConnected;
         private bool m_connectionWasConnected;
         private bool m_recoveryStopped;
+        private bool m_isServerSession;
+        private bool m_isQuitting;
         private bool m_waitForEnvironment;
         private bool m_configurationFailed;
         private bool m_isAndroidStartup;
@@ -218,6 +220,8 @@ namespace Imma.Foobbuteo.Client
 
         private void OnClientConnectionStateChanged()
         {
+            // Netcode clears its role flags during shutdown; retain the session's original server role.
+            m_isServerSession |= m_NetworkManager.IsServer;
             bool wasConnected = m_connectionWasConnected;
             m_connectionWasConnected = IsClientConnected;
             if (IsClientConnected)
@@ -288,6 +292,8 @@ namespace Imma.Foobbuteo.Client
 
         private void ScheduleRecovery()
         {
+            if (m_isServerSession || m_isQuitting)
+                return;
             if (!m_recovery.IsPending)
                 this.LogInfo("Reconnect scheduled.");
             m_recovery.Schedule(Time.realtimeSinceStartupAsDouble);
@@ -300,7 +306,7 @@ namespace Imma.Foobbuteo.Client
 
         private void Update()
         {
-            if (m_NetworkManager == null)
+            if (m_NetworkManager == null || m_isServerSession || m_isQuitting)
                 return;
             if (
                 m_recovery.TryBegin(
@@ -333,6 +339,7 @@ namespace Imma.Foobbuteo.Client
         {
             this.LogInfo("++");
             base.OnDisable();
+            UnsubscribeFromPlayModeChanges();
             StopAndroidStartup();
             UiLayoutDiagnostics.Dispose();
             m_recoveryStopped = true;
@@ -342,6 +349,15 @@ namespace Imma.Foobbuteo.Client
             m_clientNetCtrl?.ClearAuthToken();
             ClearPendingToken();
             m_authentication?.Dispose();
+        }
+
+        partial void UnsubscribeFromPlayModeChanges();
+
+        private void OnApplicationQuit()
+        {
+            m_isQuitting = true;
+            m_recoveryStopped = true;
+            m_recovery.Cancel();
         }
 
         public void ReceiveClientConfig(string json)

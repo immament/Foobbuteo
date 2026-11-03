@@ -8,6 +8,8 @@ Foobbuteo 2D is a work-in-progress, turn-based multiplayer football tactics game
 
 The project supports combined host mode, separate clients and servers, dedicated-server builds, and WebGL clients. It is being developed in the open, but is not yet considered production-ready.
 
+[![Release builds](https://github.com/immament/Foobbuteo/actions/workflows/release.yml/badge.svg)](https://github.com/immament/Foobbuteo/actions/workflows/release.yml)
+
 ## Current features
 
 - Turn-based matches with server-authoritative command processing

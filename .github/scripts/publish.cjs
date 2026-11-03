@@ -6,24 +6,38 @@ function collectPackages(root, context, options) {
   if (!fs.existsSync(root)) return [];
   const runAttempt = Number(context.runAttempt ?? process.env.GITHUB_RUN_ATTEMPT ?? 1);
   const latest = new Map();
+  const candidates = [];
+  // download-artifact extracts a single match directly into the download root.
+  if (fs.existsSync(path.join(root, 'manifest.json'))) {
+    candidates.push({ folder: root, label: 'download root' });
+  }
   for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
     const match = /^release-(webgl|server)-(\d+)-(\d+)$/.exec(entry.name);
     if (!entry.isDirectory() || !match || match[2] !== String(context.runId)) continue;
     const [, target, , attemptText] = match;
     const attempt = Number(attemptText);
     if (!options.requested.includes(target) || attempt > runAttempt) continue;
-    const folder = path.join(root, entry.name);
+    candidates.push({ folder: path.join(root, entry.name), target, attempt, label: entry.name });
+  }
+  for (const candidate of candidates) {
+    const { folder, label } = candidate;
     const manifest = JSON.parse(fs.readFileSync(path.join(folder, 'manifest.json'), 'utf8'));
+    const target = candidate.target ?? manifest?.target;
+    const attempt = candidate.attempt ?? manifest?.attempt;
+    if (!['webgl', 'server'].includes(target) || !options.requested.includes(target) ||
+        !Number.isSafeInteger(attempt) || attempt < 1 || attempt > runAttempt) {
+      throw new Error(`Invalid release target or attempt in ${label}.`);
+    }
     const expectedFile = `Foobbuteo-${target === 'webgl' ? 'WebGL' : 'Server'}-${options.version}.zip`;
     if (manifest.target !== target || manifest.version !== options.version || manifest.sha !== context.sha ||
         manifest.runId !== String(context.runId) || manifest.attempt !== attempt ||
         manifest.unityVersion !== options.unityVersion || manifest.file !== expectedFile) {
-      throw new Error(`Invalid release provenance in ${entry.name}.`);
+      throw new Error(`Invalid release provenance in ${label}.`);
     }
     const archive = path.join(folder, manifest.file);
     if (!fs.statSync(archive).isFile() || fs.statSync(archive).size >= 2 * 1024 ** 3) throw new Error('Invalid Release asset.');
     const checksum = createHash('sha256').update(fs.readFileSync(archive)).digest('hex');
-    if (checksum !== manifest.sha256) throw new Error(`Checksum mismatch in ${entry.name}.`);
+    if (checksum !== manifest.sha256) throw new Error(`Checksum mismatch in ${label}.`);
     if (!latest.has(target) || latest.get(target).attempt < attempt) latest.set(target, { ...manifest, archive });
   }
   return options.requested.filter(target => latest.has(target)).map(target => latest.get(target));

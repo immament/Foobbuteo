@@ -43,12 +43,23 @@ class PackageTests(unittest.TestCase):
         self.assertEqual(manifest['runId'], '123')
         self.assertEqual(len(manifest['sha256']), 64)
 
-    def test_server_archive_contains_executable_data_and_dependencies(self):
+    def test_server_archive_contains_runtime_files_and_excludes_unity_backups(self):
         for name in ['Foobbuteo.exe', 'Foobbuteo_Data/Managed/Assembly-CSharp.dll', 'UnityPlayer.dll']:
             self.write(name)
+        backup_file = 'Foobbuteo_BackUpThisFolder_ButDontShipItWithYourGame/Managed/backup.dll'
+        self.write(backup_file)
+        self.write('nested/Other_BackUpThisFolder_ButDontShipItWithYourGame/appsettings.json')
         manifest = self.package('server')
         with zipfile.ZipFile(self.output / manifest['file']) as archive:
-            self.assertEqual(len(archive.namelist()), 3)
+            self.assertEqual(set(archive.namelist()), {
+                'Foobbuteo.exe', 'Foobbuteo_Data/Managed/Assembly-CSharp.dll', 'UnityPlayer.dll',
+            }, 'Only runtime files should ship; Unity backup folders and their contents must be excluded.')
+        self.assertTrue((self.source / backup_file).is_file(), 'Packaging must leave the original backup files intact.')
+
+    def test_server_discovery_ignores_executables_inside_unity_backup_directories(self):
+        self.write('StandaloneWindows64/Foobbuteo.exe')
+        self.write('StandaloneWindows64/Foobbuteo_BackUpThisFolder_ButDontShipItWithYourGame/Foobbuteo.exe')
+        self.assertEqual(package.find_distribution(self.source, 'server'), self.source / 'StandaloneWindows64')
 
     def test_missing_output_or_secret_configuration_is_rejected(self):
         with self.assertRaises(ValueError):
@@ -77,12 +88,26 @@ class PackageTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             package.find_distribution(self.source, 'webgl')
 
-    def test_cli_packages_server_and_deployment_template(self):
+    def test_cli_packages_server_template_without_modifying_build_directory(self):
         for name in ['StandaloneWindows64/Foobbuteo.exe', 'StandaloneWindows64/UnityPlayer.dll',
                      'StandaloneWindows64/Foobbuteo_Data/Managed/Assembly-CSharp.dll']:
             self.write(name)
         template = self.root / 'appsettings.tmpl.json'
         template.write_text('{}')
+        original_files = {
+            file.relative_to(self.source): file.read_bytes()
+            for file in self.source.rglob('*') if file.is_file()
+        }
+        if sys.platform != 'win32':
+            directories = [self.source, *(file for file in self.source.rglob('*') if file.is_dir())]
+
+            def restore_permissions():
+                for directory in directories:
+                    directory.chmod(0o755)
+
+            self.addCleanup(restore_permissions)
+            for directory in directories:
+                directory.chmod(0o555)
         result = subprocess.run([
             sys.executable, str(Path(package.__file__)), '--source', str(self.source),
             '--output', str(self.output), '--target', 'server', '--version', '0.26.1103.1',
@@ -90,10 +115,17 @@ class PackageTests(unittest.TestCase):
             '--config-template', str(template),
         ], capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(
+            original_files,
+            {file.relative_to(self.source): file.read_bytes()
+             for file in self.source.rglob('*') if file.is_file()},
+            'Packaging must only read the GameCI build directory, including when adding the deployment template.',
+        )
         manifest = json.loads((self.output / 'manifest.json').read_text())
         self.assertEqual(manifest['attempt'], 2)
         with zipfile.ZipFile(self.output / manifest['file']) as archive:
             self.assertIn('appsettings.tmpl.json', archive.namelist())
+            self.assertEqual(archive.read('appsettings.tmpl.json'), b'{}')
             self.assertNotIn('appsettings.json', archive.namelist())
 
 

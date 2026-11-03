@@ -19,10 +19,11 @@ Mono cross-compilation image; Android is not enabled.
    Keep the repository Actions cache limit at **10 GB** (do not opt into paid cache
    capacity). Old caches can be evicted; a missing cache only makes a build slower.
 
-Only the branch in [build-config.json](build-config.json) can request release builds.
-It starts as `build`; change `allowedBranch` to `main` when ready. All branch pushes
-can start lightweight request checks, but other branches cannot reach Unity,
-reservation, or publication jobs. Pull requests and tag pushes do not trigger builds.
+Automatic runs start only for pushes to `build`, as configured by `push.branches`
+in [release.yml](workflows/release.yml). The `allowedBranch` value in
+[build-config.json](build-config.json) also restricts release requests, including
+manual runs. When switching to `main`, update both `push.branches` and
+`allowedBranch`. Pull requests and tag pushes do not trigger builds.
 
 Use one of these exact markers in the **head commit message** of a push:
 
@@ -74,7 +75,9 @@ the Latest designation, so an older run cannot displace a newer release. Set Lat
 manually if desired.
 
 The server ZIP includes `appsettings.tmpl.json`. Copy it to `appsettings.json` next
-to the executable and supply the deployment's settings. Actual local configuration,
+to the executable and supply the deployment's settings. Unity directories ending in
+`_BackUpThisFolder_ButDontShipItWithYourGame` are excluded from the server ZIP;
+their original build files remain untouched. Actual local configuration,
 license files and private-key/keystore files are rejected during packaging. Each
 ZIP must be below GitHub's 2 GiB per-file limit. WebGL hosting/deployment is separate.
 
