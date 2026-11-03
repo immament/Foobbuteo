@@ -158,6 +158,40 @@ namespace Tests.Editor.Client
         }
 
         [Test]
+        public void HostShutdown_AfterServerRoleResets_DoesNotScheduleRecovery()
+        {
+            ConfigureAuthentication();
+            var serverRole = typeof(NetworkClient).GetProperty("IsServer", PrivateInstance);
+            serverRole.SetValue(m_manager.LocalClient, true);
+            Connect();
+            serverRole.SetValue(m_manager.LocalClient, false);
+
+            Disconnect(NetworkTransport.DisconnectEvents.TransportShutdown);
+            Invoke(m_network, "OnClientStopped", true);
+
+            Assert.IsFalse(Recovery.IsPending, "Stopping a host must never reconnect its local client.");
+        }
+
+        [TestCase(false)]
+        [TestCase(true)]
+        public void ApplicationExit_CancelsRecoveryAndIgnoresLaterDisconnects(bool editorExit)
+        {
+            ConfigureAuthentication();
+            Connect();
+            Disconnect(NetworkTransport.DisconnectEvents.ProtocolError);
+            Assert.IsTrue(Recovery.IsPending, "The client must have a pending retry before application exit.");
+
+            if (editorExit)
+                Invoke(m_client, "OnPlayModeStateChanged", UnityEditor.PlayModeStateChange.ExitingPlayMode);
+            else
+                Invoke(m_client, "OnApplicationQuit");
+
+            Assert.IsFalse(Recovery.IsPending, "Application exit must cancel recovery before disable callbacks.");
+            Invoke(m_network, "OnClientStopped", false);
+            Assert.IsFalse(Recovery.IsPending, "Late shutdown callbacks must not restart recovery after exit.");
+        }
+
+        [Test]
         public void Disposal_CancelsRecovery()
         {
             ConfigureAuthentication();
