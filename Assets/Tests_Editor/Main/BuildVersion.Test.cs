@@ -107,20 +107,82 @@ namespace Tests.Editor.Main
             );
         }
 
-        [TestCase("0.26.1001.1-d", "-d")]
-        [TestCase("0.26.0925.2-f", "-f")]
-        [TestCase("0.26.1026.1-r", "-r")]
-        [TestCase("0.26.1027.2", "")]
-        public void ProfileSuffix_IsPreserved(string currentVersion, string expectedSuffix)
+        [Test]
+        public void CiVersion_UsesReservationWithoutChangingTrackedCounters()
         {
-            var suffix = ProcessorType()
-                .GetMethod("GetSuffix", BindingFlags.Static | BindingFlags.NonPublic)
-                .Invoke(null, new object[] { currentVersion });
+            var original = File.ReadAllText(m_versionFile);
+            var state = InvokeProcessor("ResolveVersion", m_versionFile, BuildDay, "0.26.1103.8", false, 50);
 
             Assert.AreEqual(
-                expectedSuffix,
-                suffix,
-                "Version generation must preserve the existing profile's Web variant suffix."
+                "0.26.1103.8",
+                state.GetType().GetProperty("Version", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(state),
+                "CI must assign its reserved version without a profile suffix or local date override."
+            );
+            Assert.AreEqual(
+                original,
+                File.ReadAllText(m_versionFile),
+                "CI must not consume local daily or Android counters."
+            );
+        }
+
+        [TestCase("0.26.1103.0")]
+        [TestCase("0.26.0230.1")]
+        [TestCase("0.26.1103.1-r")]
+        [TestCase("0.26.1103.2147483648")]
+        [TestCase("")]
+        public void InvalidCiVersion_StopsBeforeChangingTrackedState(string version)
+        {
+            var original = File.ReadAllText(m_versionFile);
+            Assert.Throws<ArgumentException>(
+                () => InvokeProcessor("ResolveVersion", m_versionFile, BuildDay, version, false, 1),
+                "Malformed CI versions must stop the build rather than fall back to local numbering."
+            );
+            Assert.AreEqual(original, File.ReadAllText(m_versionFile), "Rejected CI versions must preserve counters.");
+        }
+
+        [Test]
+        public void AndroidCi_RequiresItsOwnVersionCodeAllocation()
+        {
+            Assert.Throws<ArgumentException>(
+                () => InvokeProcessor("ResolveVersion", m_versionFile, BuildDay, "0.26.1103.1", true, 1),
+                "Android CI must remain disabled until monotonic package codes are implemented."
+            );
+        }
+
+        [Test]
+        public void LocalVersion_StillReservesTheTrackedCounter()
+        {
+            var state = InvokeProcessor("ResolveVersion", m_versionFile, BuildDay, null, false, 1);
+            Assert.AreEqual(
+                "0.26.1027.3",
+                state.GetType().GetProperty("Version", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(state),
+                "Local builds must retain counter allocation and produce a plain version."
+            );
+            Assert.AreEqual(
+                3,
+                ReadState()["dailyBuildIndex"].Value<int>(),
+                "Local builds must persist their reservation."
+            );
+        }
+
+        [Test]
+        public void CiArguments_RequireAnExplicitReservedVersion()
+        {
+            Assert.IsNull(
+                InvokeProcessor("ReadReleaseVersion", (object)new[] { "-batchmode" }),
+                "Local builds need no CI version."
+            );
+            Assert.AreEqual(
+                "0.26.1103.1",
+                InvokeProcessor(
+                    "ReadReleaseVersion",
+                    (object)new[] { "-foobbuteoCi", "-foobbuteoVersion", "0.26.1103.1" }
+                ),
+                "The container command line must supply the reserved version explicitly."
+            );
+            Assert.Throws<ArgumentException>(
+                () => InvokeProcessor("ReadReleaseVersion", (object)new[] { "-foobbuteoCi" }),
+                "Missing CI version arguments must not silently consume local counters."
             );
         }
 
@@ -204,5 +266,20 @@ namespace Tests.Editor.Main
                 .Assemblies.CurrentAssemblies.GetLoadedAssemblies()
                 .Select(assembly => assembly.GetType("BuildVersionProcessor"))
                 .First(type => type != null);
+
+        private static object InvokeProcessor(string methodName, params object[] arguments)
+        {
+            var method = ProcessorType().GetMethod(methodName, BindingFlags.Static | BindingFlags.NonPublic);
+            Assert.IsNotNull(method, $"Build version processor must expose the {methodName} version boundary.");
+            try
+            {
+                return method.Invoke(null, arguments);
+            }
+            catch (TargetInvocationException exception) when (exception.InnerException != null)
+            {
+                ExceptionDispatchInfo.Capture(exception.InnerException).Throw();
+                throw;
+            }
+        }
     }
 }

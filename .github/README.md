@@ -1,0 +1,111 @@
+# GitHub release builds
+
+The release workflow builds the existing WebGL Release and Windows Server profiles
+on standard `ubuntu-24.04` GitHub-hosted runners. Windows Server uses the Windows
+Mono cross-compilation image; Android is not enabled.
+
+## Setup and requests
+
+1. Make this workflow and its scripts available on the repository's default branch
+   and on `build`. GitHub requires the workflow on the default branch before it
+   offers **Run workflow**; select `build` when starting the release run.
+2. Configure repository Actions secrets `UNITY_LICENSE`, `UNITY_EMAIL`, and
+   `UNITY_PASSWORD`. They have been configured by the repository owner; successful
+   Unity Personal activation remains to be verified on a hosted runner.
+3. Allow GitHub Actions to create tags and Releases. Repository/organization policy
+   must permit the workflow's `contents: write` permissions and the pinned actions.
+   Tag rules must allow creation of `v*` and `ci-runs/*` tags by this workflow.
+4. Keep the repository public and use standard runners for free hosted compute.
+   Keep the repository Actions cache limit at **10 GB** (do not opt into paid cache
+   capacity). Old caches can be evicted; a missing cache only makes a build slower.
+
+Only the branch in [build-config.json](build-config.json) can request release builds.
+It starts as `build`; change `allowedBranch` to `main` when ready. All branch pushes
+can start lightweight request checks, but other branches cannot reach Unity,
+reservation, or publication jobs. Pull requests and tag pushes do not trigger builds.
+
+Use one of these exact markers in the **head commit message** of a push:
+
+| Marker | Requested downloads |
+| --- | --- |
+| `[BUILD_WEBGL]` | WebGL Release |
+| `[BUILD_SERVER]` | Windows dedicated server |
+| `[BUILD_ALL]` | Both |
+
+Both individual markers also request both targets. Markers on earlier commits in a
+multi-commit push are ignored. Alternatively, open **Actions → Release builds →
+Run workflow**, select the allowed branch, and choose `webgl`, `server`, or `all`.
+The workflow always builds the event's exact commit, even if newer commits arrive.
+
+## Versions and retries
+
+Release versions use `major.yy.MMdd.dailyBuildIndex`, for example `0.26.1103.1`,
+without suffixes. `major` is configured in `build-config.json`; the date is UTC at
+reservation time. The index starts at 1 each day and is shared by the targets in
+one workflow run. Local development builds keep their separate local counter.
+
+Before Unity runs, the workflow reserves an annotated `v<version>` tag pointing at
+the source commit. A `ci-runs/<run-id>` tag points at the same annotated object for
+durable retry lookup. These tags must not be deleted or moved: they are the version
+ledger, including failed/cancelled builds. Nothing commits counters back to Git.
+
+**Re-run all jobs** and **Re-run failed jobs** reuse the run's reserved version,
+including after UTC midnight. Packages are separated by target/run/attempt and
+retained for seven days. A failed-job retry can reuse the successful other target's
+package from an earlier attempt. After artifacts expire, rerun all jobs or start a
+new run. A new manual run always reserves a new version.
+
+If a Release is already published, retries leave its files and notes unchanged.
+For example, if only WebGL succeeded and was published, retrying Server will not
+add it to that existing Release. Start a new run to publish a new Release with both.
+
+## Downloads and failure handling
+
+Successful builds appear under the repository's **Releases**, with complete
+`Foobbuteo-WebGL-<version>.zip` and/or `Foobbuteo-Server-<version>.zip` downloads,
+`SHA256SUMS.txt`, and `build-manifest.json`. Notes identify missing/failed targets,
+the source commit, Unity version, UTC date, and workflow run.
+
+One target failing does not cancel the other. Successful targets are published
+while the overall workflow still reports the failure. No successful targets means
+no published Release. Failed uploads leave a draft that can be resumed on retry.
+Releases are published with `make_latest: false`; this workflow does not change
+the Latest designation, so an older run cannot displace a newer release. Set Latest
+manually if desired.
+
+The server ZIP includes `appsettings.tmpl.json`. Copy it to `appsettings.json` next
+to the executable and supply the deployment's settings. Actual local configuration,
+license files and private-key/keystore files are rejected during packaging. Each
+ZIP must be below GitHub's 2 GiB per-file limit. WebGL hosting/deployment is separate.
+
+## Caching, tests and upgrades
+
+Each target has its own Library cache, isolated by runner OS, exact Unity version
+and target. Keys also include package/settings/profile hashes and source/run/attempt;
+fallbacks reuse compatible older caches. Cache restore/save failures do not turn a
+successful build into a failure. Matrix jobs run one at a time to avoid simultaneous
+activations within a run; concurrent workflow runs still share the Personal account,
+so avoid launching overlapping releases until license behavior is verified.
+
+Workflow unit tests run before allocation. Focused Edit Mode
+`Tests.Editor.Main.BuildVersionTests` run before each target build; failures block
+that target. This is not the full gameplay/UI test suite. Diagnostics are retained
+for three days, packages for seven days; finished Release assets are independent
+of Actions artifact retention.
+
+Unity is pinned by `ProjectSettings/ProjectVersion.txt`. The matching image version
+and digest live in `build-config.json`; update both after verifying image availability
+when upgrading the Editor. The workflow fails early if they disagree. Actions and
+images are pinned; review updates rather than replacing pins with floating tags.
+
+Local checks:
+
+```powershell
+node --test .github/scripts/*.test.cjs
+python -m unittest discover -s .github/scripts -p test_package.py
+```
+
+Before relying on releases, verify on GitHub: Personal activation, each target's
+complete cold build, a warm-cache build, download contents/checksums, retry version
+reuse, and an intentional single-target failure that still publishes the other
+target. Hosted compatibility and speedup are not established by local unit tests.

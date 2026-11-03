@@ -2,8 +2,10 @@
 // Copyright (C) 2024–2026 Dariusz Juńczyk
 
 using System;
+using System.Globalization;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 using UnityEditor;
 using UnityEditor.Build;
 using UnityEditor.Build.Reporting;
@@ -24,8 +26,14 @@ internal sealed class BuildVersionProcessor : IPreprocessBuildWithReport
                 return;
 
             var path = Path.Combine(Path.GetDirectoryName(Application.dataPath), VersionFilePath);
-            var state = ReserveVersion(path, DateTime.Now, isAndroid, PlayerSettings.Android.bundleVersionCode);
-            PlayerSettings.bundleVersion = state.Version + GetSuffix(PlayerSettings.bundleVersion);
+            var state = ResolveVersion(
+                path,
+                DateTime.UtcNow,
+                ReadReleaseVersion(Environment.GetCommandLineArgs()),
+                isAndroid,
+                PlayerSettings.Android.bundleVersionCode
+            );
+            PlayerSettings.bundleVersion = state.Version;
             if (isAndroid)
                 PlayerSettings.Android.bundleVersionCode = state.androidVersionCode;
 
@@ -64,13 +72,58 @@ internal sealed class BuildVersionProcessor : IPreprocessBuildWithReport
         return state;
     }
 
-    internal static string GetSuffix(string currentVersion)
+    internal static BuildVersionState ResolveVersion(
+        string path,
+        DateTime today,
+        string releaseVersion,
+        bool isAndroid,
+        int currentAndroidVersionCode
+    )
     {
-        foreach (var suffix in new[] { "-d", "-f", "-r" })
+        if (releaseVersion == null)
+            return ReserveVersion(path, today, isAndroid, currentAndroidVersionCode);
+
+        if (isAndroid)
+            throw new ArgumentException("Android CI requires a separate monotonic versionCode allocator.");
+
+        var match = Regex.Match(releaseVersion, @"^(0|[1-9]\d*)\.(\d{2})\.(\d{4})\.([1-9]\d*)$");
+        if (
+            !match.Success
+            || !int.TryParse(match.Groups[1].Value, out var major)
+            || !int.TryParse(match.Groups[4].Value, out var index)
+            || !DateTime.TryParseExact(
+                "20" + match.Groups[2].Value + match.Groups[3].Value,
+                "yyyyMMdd",
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out var date
+            )
+        )
+            throw new ArgumentException("CI version must use major.yy.MMdd.dailyBuildIndex with a valid UTC date.");
+
+        return new BuildVersionState
         {
-            if (currentVersion.EndsWith(suffix, StringComparison.Ordinal))
-                return suffix;
-        }
-        return "";
+            major = major,
+            lastBuildDate = date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
+            dailyBuildIndex = index,
+            androidVersionCode = currentAndroidVersionCode,
+        };
+    }
+
+    internal static string ReadReleaseVersion(string[] arguments)
+    {
+        var isCi = Array.IndexOf(arguments, "-foobbuteoCi") >= 0;
+        var versionIndex = Array.IndexOf(arguments, "-foobbuteoVersion");
+        if (!isCi && versionIndex < 0)
+            return null;
+        if (
+            !isCi
+            || versionIndex < 0
+            || versionIndex + 1 >= arguments.Length
+            || arguments[versionIndex + 1].StartsWith("-", StringComparison.Ordinal)
+            || Array.LastIndexOf(arguments, "-foobbuteoVersion") != versionIndex
+        )
+            throw new ArgumentException("CI builds require -foobbuteoCi -foobbuteoVersion <reserved-version>.");
+        return arguments[versionIndex + 1];
     }
 }
