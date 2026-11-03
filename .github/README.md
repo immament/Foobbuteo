@@ -19,10 +19,11 @@ Mono cross-compilation image; Android is not enabled.
    Keep the repository Actions cache limit at **10 GB** (do not opt into paid cache
    capacity). Old caches can be evicted; a missing cache only makes a build slower.
 
-Only the branch in [build-config.json](build-config.json) can request release builds.
-It starts as `build`; change `allowedBranch` to `main` when ready. All branch pushes
-can start lightweight request checks, but other branches cannot reach Unity,
-reservation, or publication jobs. Pull requests and tag pushes do not trigger builds.
+Automatic runs start only for pushes to `build`, as configured by `push.branches`
+in [release.yml](workflows/release.yml). The `allowedBranch` value in
+[build-config.json](build-config.json) also restricts release requests, including
+manual runs. When switching to `main`, update both `push.branches` and
+`allowedBranch`. Pull requests and tag pushes do not trigger builds.
 
 Use one of these exact markers in the **head commit message** of a push:
 
