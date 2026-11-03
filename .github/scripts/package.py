@@ -5,7 +5,6 @@ import hashlib
 import json
 from pathlib import Path
 import re
-import shutil
 import zipfile
 
 MAX_ASSET_BYTES = 2 * 1024**3
@@ -21,7 +20,7 @@ def find_distribution(root, target):
     return candidates[0].parent
 
 
-def package_build(source, output, target, version, sha, run_id, attempt, unity_version):
+def package_build(source, output, target, version, sha, run_id, attempt, unity_version, config_template=None):
     source, output = Path(source), Path(output)
     if not re.fullmatch(r'(0|[1-9]\d*)\.\d{2}\.\d{4}\.[1-9]\d*', version):
         raise ValueError('Invalid reserved version.')
@@ -44,12 +43,19 @@ def package_build(source, output, target, version, sha, run_id, attempt, unity_v
         valid = 'Foobbuteo.exe' in names and 'UnityPlayer.dll' in names and any(name.startswith('Foobbuteo_Data/Managed/') for name in names)
     if not valid:
         raise ValueError(f'Incomplete {target} distribution.')
+    template = Path(config_template) if target == 'server' and config_template else None
+    if template is not None and (template.is_symlink() or not template.is_file()):
+        raise ValueError('Configuration template must be a regular, unlinked file.')
     output.mkdir(parents=True, exist_ok=True)
     label = 'WebGL' if target == 'webgl' else 'Server'
     archive_path = output / f'Foobbuteo-{label}-{version}.zip'
     with zipfile.ZipFile(archive_path, 'w', zipfile.ZIP_DEFLATED) as archive:
         for name in names:
+            if template is not None and name == 'appsettings.tmpl.json':
+                continue
             archive.write(source / name, name)
+        if template is not None:
+            archive.write(template, 'appsettings.tmpl.json')
     if archive_path.stat().st_size >= MAX_ASSET_BYTES:
         raise ValueError('Release ZIP must be smaller than 2 GiB.')
     with archive_path.open('rb') as archive_file:
@@ -70,7 +76,4 @@ if __name__ == '__main__':
     parser.add_argument('--config-template', type=Path)
     args = vars(parser.parse_args())
     args['source'] = find_distribution(args['source'], args['target'])
-    template = args.pop('config_template')
-    if args['target'] == 'server' and template:
-        shutil.copyfile(template, args['source'] / 'appsettings.tmpl.json')
     package_build(**args)

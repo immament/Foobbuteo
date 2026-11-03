@@ -77,12 +77,26 @@ class PackageTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             package.find_distribution(self.source, 'webgl')
 
-    def test_cli_packages_server_and_deployment_template(self):
+    def test_cli_packages_server_template_without_modifying_build_directory(self):
         for name in ['StandaloneWindows64/Foobbuteo.exe', 'StandaloneWindows64/UnityPlayer.dll',
                      'StandaloneWindows64/Foobbuteo_Data/Managed/Assembly-CSharp.dll']:
             self.write(name)
         template = self.root / 'appsettings.tmpl.json'
         template.write_text('{}')
+        original_files = {
+            file.relative_to(self.source): file.read_bytes()
+            for file in self.source.rglob('*') if file.is_file()
+        }
+        if sys.platform != 'win32':
+            directories = [self.source, *(file for file in self.source.rglob('*') if file.is_dir())]
+
+            def restore_permissions():
+                for directory in directories:
+                    directory.chmod(0o755)
+
+            self.addCleanup(restore_permissions)
+            for directory in directories:
+                directory.chmod(0o555)
         result = subprocess.run([
             sys.executable, str(Path(package.__file__)), '--source', str(self.source),
             '--output', str(self.output), '--target', 'server', '--version', '0.26.1103.1',
@@ -90,10 +104,17 @@ class PackageTests(unittest.TestCase):
             '--config-template', str(template),
         ], capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(
+            original_files,
+            {file.relative_to(self.source): file.read_bytes()
+             for file in self.source.rglob('*') if file.is_file()},
+            'Packaging must only read the GameCI build directory, including when adding the deployment template.',
+        )
         manifest = json.loads((self.output / 'manifest.json').read_text())
         self.assertEqual(manifest['attempt'], 2)
         with zipfile.ZipFile(self.output / manifest['file']) as archive:
             self.assertIn('appsettings.tmpl.json', archive.namelist())
+            self.assertEqual(archive.read('appsettings.tmpl.json'), b'{}')
             self.assertNotIn('appsettings.json', archive.namelist())
 
 
