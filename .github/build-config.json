@@ -1,0 +1,9 @@
+{
+  "allowedBranch": "build",
+  "major": 0,
+  "unityVersion": "6000.6.4f1",
+  "images": {
+    "webgl": "unityci/editor:ubuntu-6000.6.4f1-webgl-3.2.2@sha256:32e41fc15fff04fc2304ca9db076c07674407b78c7504fa54622585ddd0d0fc3",
+    "server": "unityci/editor:ubuntu-6000.6.4f1-windows-mono-3.2.2@sha256:7b49c6a53eccb9c19ba304a50b180b01dfee6883af3166edfa971b0305fe82c7"
+  }
+}

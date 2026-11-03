@@ -1,5 +1,8 @@
 # Build scripts
 
+These scripts serve local development/testing. GitHub release builds have a
+separate workflow and tag-based version ledger; see [GitHub builds](../.github/README.md).
+
 Run these scripts from PowerShell. Each build fetches from Git and pulls the current
 branch's upstream with `--ff-only` before reading the project's Unity version and
 starting the build. A failed fetch or pull stops the build; divergent branches
@@ -43,10 +46,10 @@ before the build starts. `ProjectSettings/BuildVersion.json` is the Git-tracked
 source for all profiles. Change only `major` manually for a major release.
 
 Versions use `major.yy.MMdd.dailyBuildIndex`, for example `0.26.1027.3`.
-The build computer's local date supplies the year, month and day. The daily index
+The UTC date supplies the year, month and day. The daily index
 is shared by Android, server and Web builds; it increments on the same date and
-resets to `1` on a new date. Web profiles retain their existing `-d`, `-f` and `-r`
-suffixes. The callback assigns `PlayerSettings.bundleVersion` and, for Android,
+resets to `1` on a new date. Versions have no profile suffix.
+The callback assigns `PlayerSettings.bundleVersion` and, for Android,
 `PlayerSettings.Android.bundleVersionCode`.
 
 Android builds also increment the separate integer `androidVersionCode`, keeping
@@ -57,6 +60,6 @@ Failed or cancelled builds consume a number once the callback reserves it.
 Include the updated counter file when committing release changes to preserve
 numbering in Git; commit or push only when explicitly requested. The build does
 neither automatically. Do not reset the tracked counters.
-A missing or invalid configuration, or a local date earlier than `lastBuildDate`,
+A missing or invalid configuration, or a UTC date earlier than `lastBuildDate`,
 stops the build with an error. Builds from independent checkouts need the latest
 counter file before building to avoid duplicate reservations.

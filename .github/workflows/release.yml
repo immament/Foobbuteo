@@ -1,0 +1,190 @@
+name: Release builds
+
+on:
+  push:
+    branches: ['**'] # The single allowed branch is checked in build-config.json.
+  workflow_dispatch:
+    inputs:
+      target:
+        description: Build targets
+        required: true
+        type: choice
+        options: [webgl, server, all]
+        default: all
+
+permissions:
+  contents: read
+
+jobs:
+  request:
+    name: Validate build request
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      requested: ${{ steps.request.outputs.requested }}
+      targets: ${{ steps.request.outputs.targets }}
+      matrix: ${{ steps.request.outputs.matrix }}
+      major: ${{ steps.request.outputs.major }}
+      unity-version: ${{ steps.request.outputs.unity-version }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          lfs: true
+      - name: Test workflow logic
+        run: |
+          node --test .github/scripts/*.test.cjs
+          python3 -m unittest discover -s .github/scripts -p test_package.py
+      - name: Read request and branch configuration
+        id: request
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        with:
+          script: await require('./.github/scripts/release.cjs').request({ context, core });
+
+  reserve:
+    name: Reserve release version
+    needs: request
+    if: needs.request.outputs.requested == 'true'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    permissions:
+      contents: write
+    outputs:
+      version: ${{ steps.reserve.outputs.version }}
+      tag: ${{ steps.reserve.outputs.tag }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Reserve or recover this run's version
+        id: reserve
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          RELEASE_MAJOR: ${{ needs.request.outputs.major }}
+        with:
+          script: |
+            const release = await require('./.github/scripts/release.cjs').reserveVersion(
+              github, context, Number(process.env.RELEASE_MAJOR));
+            core.setOutput('version', release.version);
+            core.setOutput('tag', release.tag);
+            core.summary.addRaw(`Reserved ${release.tag} for ${context.sha}. Retries reuse this reservation.`);
+            await core.summary.write();
+
+  build:
+    name: Build ${{ matrix.target }}
+    needs: [request, reserve]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 1 # Avoid simultaneous activations on the Personal account.
+      matrix: ${{ fromJSON(needs.request.outputs.matrix) }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+          lfs: true
+      - name: Restore platform Library
+        id: cache
+        continue-on-error: true
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: Library
+          key: Library-v1-${{ runner.os }}-${{ needs.request.outputs.unity-version }}-${{ matrix.target }}-${{ hashFiles('Packages/**', 'ProjectSettings/**', 'Assets/Settings/Build Profiles/**') }}-${{ github.sha }}-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            Library-v1-${{ runner.os }}-${{ needs.request.outputs.unity-version }}-${{ matrix.target }}-${{ hashFiles('Packages/**', 'ProjectSettings/**', 'Assets/Settings/Build Profiles/**') }}-
+            Library-v1-${{ runner.os }}-${{ needs.request.outputs.unity-version }}-${{ matrix.target }}-
+      - name: Edit Mode versioning tests
+        uses: game-ci/unity-test-runner@fa6ced25861c16ef56187828c43f76d00df43a23 # v4.3.2
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          customImage: ${{ matrix.image }}
+          testMode: editmode
+          customParameters: -testFilter Tests.Editor.Main.BuildVersionTests
+          artifactsPath: artifacts
+      - name: Build existing profile
+        uses: game-ci/unity-builder@eb1b9fba120c6e62c9fb7a7a81d6c107ce004c45 # v6.0.0
+        env:
+          UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
+          UNITY_EMAIL: ${{ secrets.UNITY_EMAIL }}
+          UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
+        with:
+          cliVersion: v0.1.72
+          customImage: ${{ matrix.image }}
+          targetPlatform: ${{ matrix.platform }}
+          buildProfile: ${{ matrix.profile }}
+          buildName: Foobbuteo
+          buildsPath: build
+          versioning: None
+          allowDirtyBuild: true # The test runner can update Editor settings in this isolated checkout.
+          customParameters: -foobbuteoCi -foobbuteoVersion ${{ needs.reserve.outputs.version }}
+      - name: Validate and package complete distribution
+        env:
+          TARGET: ${{ matrix.target }}
+          RELEASE_VERSION: ${{ needs.reserve.outputs.version }}
+          UNITY_VERSION: ${{ needs.request.outputs.unity-version }}
+        run: |
+          python3 .github/scripts/package.py --source build --output release-package \
+            --target "$TARGET" --version "$RELEASE_VERSION" --sha "$GITHUB_SHA" \
+            --run-id "$GITHUB_RUN_ID" --attempt "$GITHUB_RUN_ATTEMPT" --unity-version "$UNITY_VERSION" \
+            --config-template appsettings.tmpl.json
+      - name: Save successful package
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release-${{ matrix.target }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: release-package/
+          if-no-files-found: error
+          compression-level: 0
+          retention-days: 7
+      - name: Save successful platform Library
+        if: success()
+        continue-on-error: true
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: Library
+          key: ${{ steps.cache.outputs.cache-primary-key }}
+      - name: Save test reports and build logs
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: diagnostics-${{ matrix.target }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: |
+            artifacts/
+            build/**/*.log
+          if-no-files-found: ignore
+          retention-days: 3
+
+  publish:
+    name: Publish successful downloads
+    needs: [request, reserve, build]
+    if: ${{ always() && !cancelled() && needs.reserve.result == 'success' && (needs.build.result == 'success' || needs.build.result == 'failure') }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: ${{ github.sha }}
+          persist-credentials: false
+      - name: Download successful packages, including retained retry artifacts
+        uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: release-*-${{ github.run_id }}-*
+          path: release-downloads
+      - name: Publish Release assets
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          RELEASE_VERSION: ${{ needs.reserve.outputs.version }}
+          RELEASE_TAG: ${{ needs.reserve.outputs.tag }}
+          RELEASE_TARGETS: ${{ needs.request.outputs.targets }}
+          UNITY_VERSION: ${{ needs.request.outputs.unity-version }}
+        with:
+          script: await require('./.github/scripts/publish.cjs').publish({ github, context, core });
