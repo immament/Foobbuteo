@@ -36,6 +36,14 @@ Font Names listed in the notice unless the relevant copyright holder grants
 permission. Do not use the holders' or authors' names to endorse modified fonts
 without permission. See the [OFL conditions](https://openfontlicense.org/open-font-license-official-text/).
 
+## Barlow Condensed
+
+The fonts in `Assets/UI Toolkit/Fonts/BarlowCondensed` are Copyright 2017
+The Barlow Project Authors and are redistributed unchanged from the
+[Google Fonts repository](https://github.com/google/fonts/tree/main/ofl/barlowcondensed).
+They are licensed under the SIL Open Font License 1.1; retain the accompanying
+`OFL.txt` copyright and license text when redistributing the fonts.
+
 ## Unity materials
 
 Unity packages, other TextMesh Pro essential resources, and the Unity-derived

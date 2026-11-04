@@ -158,7 +158,7 @@ namespace Imma.Foobbuteo.Client.Lobby.UI
         public bool CanSubmit => !m_pending && m_canCreate();
 
         [CreateProperty]
-        public string CreateText => m_pending ? "Creating…" : "Create";
+        public string CreateText => m_pending ? "CREATING…." : "CREATE GAME";
 
         [CreateProperty]
         public string Error => m_error;

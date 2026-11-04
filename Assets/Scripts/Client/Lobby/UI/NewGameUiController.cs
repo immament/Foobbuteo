@@ -18,6 +18,7 @@ namespace Imma.Foobbuteo.Client.Lobby.UI
         private DropdownField m_start;
         private Button m_create;
         private Button m_cancel;
+        private Button m_close;
         private Button m_openButton;
         private IVisualElementScheduledItem m_focusTask;
 
@@ -38,6 +39,7 @@ namespace Imma.Foobbuteo.Client.Lobby.UI
             m_start = root.Q<DropdownField>("new-game-start");
             m_create = root.Q<Button>("new-game-create");
             m_cancel = root.Q<Button>("new-game-cancel");
+            m_close = root.Q<Button>("new-game-close");
             m_openButton = root.Q<Button>("main-view__new-game-btn");
             m_start.choices = new(NewGameVM.StartChoices);
             root.Q<DropdownField>("new-game-turns").choices = new(NewGameVM.TurnChoices);
@@ -63,6 +65,7 @@ namespace Imma.Foobbuteo.Client.Lobby.UI
             );
             m_create.clicked += Submit;
             m_cancel.clicked += Cancel;
+            m_close.clicked += Cancel;
             m_modal.RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
             m_modal.RegisterCallback<DetachFromPanelEvent>(OnDetach);
             if (m_viewModel.IsOpen)
@@ -138,12 +141,13 @@ namespace Imma.Foobbuteo.Client.Lobby.UI
                 return;
             m_create.clicked -= Submit;
             m_cancel.clicked -= Cancel;
+            m_close.clicked -= Cancel;
             m_modal.UnregisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
             m_modal.UnregisterCallback<DetachFromPanelEvent>(OnDetach);
             m_background = null;
             m_modal = null;
             m_start = null;
-            m_create = m_cancel = m_openButton = null;
+            m_create = m_cancel = m_close = m_openButton = null;
         }
 
         public void Dispose()

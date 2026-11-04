@@ -1,88 +1,107 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
+    <ui:Style src="../Common.style.uss" />
     <ui:Style src="NewGameView.style.uss" />
     <ui:VisualElement name="new-game-modal" class="new-game-modal" focusable="true">
         <Bindings>
             <ui:DataBinding property="style.display" data-source-path="Display" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
         </Bindings>
-        <ui:VisualElement class="new-game-dialog ft__panel--default">
-            <ui:Label text="New Game" class="new-game-title" />
-            <ui:ScrollView mode="Vertical" class="new-game-scroll">
-                <ui:VisualElement name="new-game-fields">
+        <ui:VisualElement class="new-game-dialog fbt-card">
+            <ui:VisualElement class="fbt-card-header">
+                <ui:Label text="CREATE NEW GAME" class="fbt-card-title" />
+                <ui:Button name="new-game-close" class="fbt-card-close" tooltip="Close" tabindex="-1">
                     <Bindings>
                         <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                     </Bindings>
-                    <ui:DropdownField label="Start time" name="new-game-start">
+                    <ui:VisualElement class="fbt-card-close-icon" picking-mode="Ignore" />
+                </ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement class="fbt-card-content">
+                <ui:VisualElement class="fbt-card-decoration" picking-mode="Ignore" />
+                <ui:ScrollView mode="Vertical" class="new-game-scroll fbt-card-body" horizontal-scroller-visibility="Hidden">
+                    <ui:VisualElement name="new-game-fields">
                         <Bindings>
-                            <ui:DataBinding property="value" data-source-path="StartTime" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                            <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                         </Bindings>
-                    </ui:DropdownField>
-                    <ui:DropdownField label="Game type" name="new-game-type">
-                        <Bindings>
-                            <ui:DataBinding property="choices" data-source-path="GameTypeChoices" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
-                            <ui:DataBinding property="value" data-source-path="GameType" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
-                        </Bindings>
-                    </ui:DropdownField>
-                    <ui:DropdownField label="My team" name="new-game-team">
-                        <Bindings>
-                            <ui:DataBinding property="choices" data-source-path="TeamChoices" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
-                            <ui:DataBinding property="index" data-source-path="SelectedTeamIndex" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
-                            <ui:DataBinding property="style.display" data-source-path="TeamDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
-                        </Bindings>
-                    </ui:DropdownField>
-                    <ui:VisualElement class="new-game-color-row">
-                        <ui:DropdownField label="Home team — shirt color" name="new-game-home">
+                        <ui:DropdownField label="GAME TYPE" name="new-game-type" class="fbt-form-row fbt-form-select">
                             <Bindings>
-                                <ui:DataBinding property="value" data-source-path="HomeColor" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                                <ui:DataBinding property="choices" data-source-path="GameTypeChoices" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                <ui:DataBinding property="value" data-source-path="GameType" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
                             </Bindings>
                         </ui:DropdownField>
-                        <ui:Image name="new-game-home-swatch" class="new-game-swatch">
+                        <ui:DropdownField label="START TIME" name="new-game-start" class="fbt-form-row fbt-form-select">
                             <Bindings>
-                                <ui:DataBinding property="tintColor" data-source-path="HomeTint" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
-                            </Bindings>
-                        </ui:Image>
-                    </ui:VisualElement>
-                    <ui:VisualElement class="new-game-color-row">
-                        <ui:DropdownField label="Away team — shirt color" name="new-game-away">
-                            <Bindings>
-                                <ui:DataBinding property="value" data-source-path="AwayColor" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                                <ui:DataBinding property="value" data-source-path="StartTime" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
                             </Bindings>
                         </ui:DropdownField>
-                        <ui:Image name="new-game-away-swatch" class="new-game-swatch">
+                        <ui:DropdownField label="TURNS" name="new-game-turns" class="fbt-form-row fbt-form-select">
                             <Bindings>
-                                <ui:DataBinding property="tintColor" data-source-path="AwayTint" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                <ui:DataBinding property="value" data-source-path="Turns" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
                             </Bindings>
-                        </ui:Image>
+                        </ui:DropdownField>
+                        <ui:VisualElement class="fbt-form-row">
+                            <ui:Label text="HOME SHIRT COLOUR" class="fbt-form-label" />
+                            <ui:VisualElement class="fbt-form-control-group">
+                                <ui:Image name="new-game-home-swatch" class="fbt-form-swatch" picking-mode="Ignore">
+                                    <Bindings>
+                                        <ui:DataBinding property="tintColor" data-source-path="HomeTint" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                    </Bindings>
+                                </ui:Image>
+                                <ui:DropdownField name="new-game-home" class="fbt-form-select" tooltip="Home shirt colour">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="HomeColor" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                                    </Bindings>
+                                </ui:DropdownField>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:VisualElement class="fbt-form-row">
+                            <ui:Label text="AWAY SHIRT COLOUR" class="fbt-form-label" />
+                            <ui:VisualElement class="fbt-form-control-group">
+                                <ui:Image name="new-game-away-swatch" class="fbt-form-swatch" picking-mode="Ignore">
+                                    <Bindings>
+                                        <ui:DataBinding property="tintColor" data-source-path="AwayTint" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                    </Bindings>
+                                </ui:Image>
+                                <ui:DropdownField name="new-game-away" class="fbt-form-select" tooltip="Away shirt colour">
+                                    <Bindings>
+                                        <ui:DataBinding property="value" data-source-path="AwayColor" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                                    </Bindings>
+                                </ui:DropdownField>
+                            </ui:VisualElement>
+                        </ui:VisualElement>
+                        <ui:DropdownField label="MY POSITION" name="new-game-position" class="fbt-form-row fbt-form-select">
+                            <Bindings>
+                                <ui:DataBinding property="value" data-source-path="Position" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                                <ui:DataBinding property="style.display" data-source-path="PositionDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                            </Bindings>
+                        </ui:DropdownField>
+                        <ui:DropdownField label="MY TEAM" name="new-game-team" class="fbt-form-row fbt-form-select">
+                            <Bindings>
+                                <ui:DataBinding property="choices" data-source-path="TeamChoices" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                <ui:DataBinding property="index" data-source-path="SelectedTeamIndex" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                                <ui:DataBinding property="style.display" data-source-path="TeamDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                            </Bindings>
+                        </ui:DropdownField>
                     </ui:VisualElement>
-                    <ui:DropdownField label="My position" name="new-game-position">
+                    <ui:Label name="new-game-error" class="new-game-error">
                         <Bindings>
-                            <ui:DataBinding property="value" data-source-path="Position" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
-                            <ui:DataBinding property="style.display" data-source-path="PositionDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                            <ui:DataBinding property="text" data-source-path="Error" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                         </Bindings>
-                    </ui:DropdownField>
-                    <ui:DropdownField label="Turns" name="new-game-turns">
+                    </ui:Label>
+                </ui:ScrollView>
+                <ui:VisualElement class="new-game-actions fbt-card-footer">
+                    <ui:Button text="CANCEL" name="new-game-cancel" class="fbt-btn fbt-btn-solid fbt-theme-secondary">
                         <Bindings>
-                            <ui:DataBinding property="value" data-source-path="Turns" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                            <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                         </Bindings>
-                    </ui:DropdownField>
+                    </ui:Button>
+                    <ui:Button text="CREATE GAME" name="new-game-create" class="fbt-btn fbt-btn-solid fbt-theme-accent fbt-btn-icon-right">
+                        <Bindings>
+                            <ui:DataBinding property="enabledSelf" data-source-path="CanSubmit" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                            <ui:DataBinding property="text" data-source-path="CreateText" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                        </Bindings>
+                        <ui:VisualElement class="fbt-btn-icon" picking-mode="Ignore" />
+                    </ui:Button>
                 </ui:VisualElement>
-                <ui:Label name="new-game-error" class="new-game-error">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="Error" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
-                    </Bindings>
-                </ui:Label>
-            </ui:ScrollView>
-            <ui:VisualElement class="new-game-actions">
-                <ui:Button text="Cancel" name="new-game-cancel" class="ft__btn--secondary">
-                    <Bindings>
-                        <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
-                    </Bindings>
-                </ui:Button>
-                <ui:Button text="Create" name="new-game-create" class="ft__btn--primary">
-                    <Bindings>
-                        <ui:DataBinding property="enabledSelf" data-source-path="CanSubmit" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
-                        <ui:DataBinding property="text" data-source-path="CreateText" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
-                    </Bindings>
-                </ui:Button>
             </ui:VisualElement>
         </ui:VisualElement>
     </ui:VisualElement>

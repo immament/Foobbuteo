@@ -1,4 +1,5 @@
-.new-game-template {
+.new-game-template,
+.new-game-modal {
   position: absolute;
   top: 0;
   right: 0;
@@ -8,119 +9,96 @@
 
 .new-game-modal {
   display: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+  background-color: rgba(0, 0, 0, 0.35);
   justify-content: center;
   align-items: center;
   padding: 16px;
 }
 
 .new-game-dialog {
-  width: 620px;
+  width: 650px;
   max-width: 100%;
   max-height: 100%;
-  padding: 20px;
-  background-color: rgb(28, 32, 40);
-  color: rgb(240, 245, 255);
-}
-
-.new-game-title {
-  font-size: 20px;
-  -unity-font-style: bold;
-  margin-bottom: 12px;
+  flex-shrink: 1;
 }
 
 .new-game-scroll {
   flex-shrink: 1;
 }
-
-#new-game-fields .unity-base-field {
-  flex-direction: column;
-  margin-bottom: 10px;
-}
-#new-game-fields .unity-base-field:focus:enabled > .unity-base-field__label {
-  color: #bac5c9;
-  /* -unity-font-style: bold; */
-}
-#main-view.lobby--short #new-game-fields .unity-base-field {
-  flex-direction: row;
-  align-items: center;
-}
-
-#new-game-fields .unity-base-field__label {
-  margin-bottom: 4px;
+.new-game-error {
+  color: #ffa59b;
   white-space: normal;
+  font-size: 16px;
+  margin: 0;
+}
+#new-game-create {
+  min-width: 240px;
+}
+
+#main-view.narrow-screen .new-game-modal {
+  padding: 12px;
+}
+#main-view.narrow-screen .new-game-dialog .fbt-card-title {
+  font-size: 27px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+#main-view.narrow-screen .new-game-dialog .fbt-card-body {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+#main-view.narrow-screen #new-game-fields > .fbt-form-row {
+  flex-direction: column;
+  align-items: stretch;
+}
+#main-view.narrow-screen .new-game-dialog .fbt-form-label,
+#main-view.narrow-screen
+  #new-game-fields
+  > .fbt-form-row
+  > .unity-base-field__label {
+  width: auto;
+  margin-bottom: 5px;
+}
+#main-view.narrow-screen .new-game-actions {
+  padding: 12px 16px 14px;
+}
+#main-view.narrow-screen .new-game-actions .fbt-btn {
   min-width: 0;
-}
-#main-view.lobby--short #new-game-fields .unity-base-field__label {
-  min-width: 180px;
-}
-
-#new-game-fields .unity-base-popup-field__input {
-  min-height: 44px;
-  background-color: rgb(43, 50, 65);
-  color: rgb(240, 245, 255);
-}
-
-.new-game-color-row {
-  flex-direction: row;
-  align-items: flex-end;
-}
-
-.new-game-color-row .unity-base-field {
-  flex-grow: 1;
+  margin-left: 8px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 22px;
   flex-shrink: 1;
 }
-
-.new-game-swatch {
-  width: 32px;
-  height: 32px;
-  margin-left: 12px;
-  margin-bottom: 20px;
-  border-width: 1px;
-  border-color: rgb(130, 145, 170);
-}
-
-.new-game-hint {
-  color: rgb(180, 190, 210);
-  margin-bottom: 16px;
-  white-space: normal;
-}
-
-.new-game-error {
-  color: rgb(255, 165, 155);
-  white-space: normal;
-  margin-top: 8px;
-}
-
-.new-game-actions {
-  flex-direction: row;
-  justify-content: flex-end;
-  align-items: center;
-  margin-top: 16px;
-  flex-shrink: 0;
-}
-
-#main-view.lobby--short .new-game-actions {
-  margin-top: 10px;
-}
-
-.new-game-actions .unity-button {
+#main-view.narrow-screen #new-game-create {
   flex-grow: 1;
-  /* min-height: 44px; */
-  margin-left: 4px;
-  margin-right: 4px;
+  padding-left: 34px;
+  padding-right: 34px;
+}
+#main-view.narrow-screen #new-game-create .fbt-btn-icon {
+  right: 6px;
+  width: 26px;
+  height: 26px;
 }
 
-#main-view.lobby--short .new-game-actions .unity-button {
+#main-view.lobby--short .new-game-modal {
+  padding: 8px;
+}
+#main-view.lobby--short .new-game-dialog .fbt-card-header {
+  height: 42px;
+  min-height: 42px;
+}
+#main-view.lobby--short .new-game-dialog .fbt-card-title {
+  font-size: 26px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+#main-view.lobby--short #new-game-fields > .fbt-form-row {
+  min-height: 38px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+}
+#main-view.lobby--short .new-game-actions {
   padding-top: 8px;
-  padding-bottom: 8px;
-}
-
-#main-view.narrow-screen .new-game-dialog {
-  padding: 12px;
+  padding-bottom: 10px;
 }

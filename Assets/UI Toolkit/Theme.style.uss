@@ -1,3 +1,82 @@
+:root {
+  --fbt-text: #f0f4fb;
+  --fbt-text-muted: #d6dce6;
+  --fbt-panel-background: rgba(16, 24, 36, 0.88);
+  --fbt-panel-border: #50627b;
+  --fbt-field-background: #20212a;
+  --fbt-field-border: #52657e;
+  --fbt-divider: #3c4c62;
+  --fbt-focus: #9dc5ff;
+  --fbt-header-height: 50px;
+  --fbt-font-body: url("Fonts/BarlowCondensed/BarlowCondensed-SemiBold.ttf");
+  --fbt-font-heading: url("Fonts/BarlowCondensed/BarlowCondensed-BlackItalic.ttf");
+  --fbt-font-button: url("Fonts/BarlowCondensed/BarlowCondensed-ExtraBoldItalic.ttf");
+}
+
+.fbt-theme-primary {
+  --fbt-button-background: #075bea;
+  --fbt-button-hover: #2576ff;
+  --fbt-button-active: #0047c4;
+  --fbt-button-border: #3b91ff;
+  --fbt-button-text: #ffffff;
+}
+
+.fbt-theme-accent {
+  --fbt-button-background: #8ceb23;
+  --fbt-button-hover: #a3f544;
+  --fbt-button-active: #70cd13;
+  --fbt-button-border: #b9fa72;
+  --fbt-button-text: #142318;
+}
+
+.fbt-theme-success {
+  --fbt-button-background: #278348;
+  --fbt-button-hover: #319e59;
+  --fbt-button-active: #1c6938;
+  --fbt-button-border: #55b979;
+  --fbt-button-text: #ffffff;
+}
+
+.fbt-theme-danger {
+  --fbt-button-background: #bf3547;
+  --fbt-button-hover: #d74759;
+  --fbt-button-active: #9b2637;
+  --fbt-button-border: #ef7886;
+  --fbt-button-text: #ffffff;
+}
+
+.fbt-theme-warning {
+  --fbt-button-background: #f2bb39;
+  --fbt-button-hover: #ffd365;
+  --fbt-button-active: #d9a125;
+  --fbt-button-border: #ffe29a;
+  --fbt-button-text: #252017;
+}
+
+.fbt-theme-info {
+  --fbt-button-background: #56c6df;
+  --fbt-button-hover: #78d9ed;
+  --fbt-button-active: #34abc5;
+  --fbt-button-border: #a0eafa;
+  --fbt-button-text: #12262c;
+}
+
+.fbt-theme-inverse {
+  --fbt-button-background: #e9edf3;
+  --fbt-button-hover: #ffffff;
+  --fbt-button-active: #cdd5e1;
+  --fbt-button-border: #ffffff;
+  --fbt-button-text: #111d2f;
+}
+
+.fbt-theme-secondary {
+  --fbt-button-background: #344459;
+  --fbt-button-hover: #445a74;
+  --fbt-button-active: #26364a;
+  --fbt-button-border: #5a6c84;
+  --fbt-button-text: #eef3fa;
+}
+
 .unity-base-dropdown .unity-base-dropdown__container-inner {
   background-color: rgb(38, 53, 69);
   color: rgb(243, 246, 250);

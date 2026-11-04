@@ -74,6 +74,31 @@ namespace Tests.Editor
         }
 
         [UnityTest]
+        public IEnumerator HeaderClose_CancelsWithoutSubmittingAndRemainsLockedWhileCreating()
+        {
+            m_controller.Open();
+            yield return TestUtils.WaitForUi(() => !IsHidden(m_root), "The form must open before header cancellation.");
+
+            Click(m_root, "new-game-close");
+
+            yield return TestUtils.WaitForUi(() => IsHidden(m_root), "The header close action must hide the form.");
+            Assert.AreEqual(0, m_api.Calls, "Closing from the header must not create a game.");
+
+            m_controller.Open();
+            yield return TestUtils.WaitForUi(() => !IsHidden(m_root), "The form must reopen before submission.");
+            Click(m_root, "new-game-create");
+            yield return TestUtils.WaitForUi(
+                () => !m_root.Q<Button>("new-game-close").enabledSelf,
+                "The header close action must be disabled while creation is pending."
+            );
+
+            Click(m_root, "new-game-close");
+
+            Assert.IsFalse(IsHidden(m_root), "A header close click must not dismiss a pending creation request.");
+            Assert.AreEqual(1, m_api.Calls, "A pending header close click must not send another creation request.");
+        }
+
+        [UnityTest]
         public IEnumerator Submit_PassesAllSelectionsAndPreventsDuplicateSubmissionOrCancellation()
         {
             m_controller.Open();
@@ -178,6 +203,7 @@ namespace Tests.Editor
             );
             Click(oldRoot, "new-game-create");
             Click(oldRoot, "new-game-cancel");
+            Click(oldRoot, "new-game-close");
 
             Assert.AreEqual(pending ? 1 : 0, m_api.Calls, "Detached controls must not send requests.");
             Assert.IsFalse(IsHidden(m_root), "A UI reload must retain the open form.");
@@ -279,22 +305,29 @@ namespace Tests.Editor
         [UnityTest]
         public IEnumerator Layout_WideAndNarrowViewports_KeepDialogAndActionsInsideViewport()
         {
-            const float layoutTimeoutSeconds = 5f;
-            var sizes = new[] { new Vector2(1440, 900), new Vector2(390, 640) };
+            const float narrowViewportWidth = 390f;
+            const float shortViewportHeight = 360f;
+            var sizes = new[]
+            {
+                new Vector2(1440, 900),
+                new Vector2(narrowViewportWidth, 640),
+                new Vector2(700, shortViewportHeight),
+            };
+            m_root.name = "main-view";
             m_controller.Open();
             yield return TestUtils.WaitForUi(() => !IsHidden(m_root), "The open form must become visible.");
             foreach (var size in sizes)
             {
+                m_root.EnableInClassList("narrow-screen", size.x == narrowViewportWidth);
+                m_root.EnableInClassList("lobby--short", size.y == shortViewportHeight);
                 m_root.style.width = size.x;
                 m_root.style.height = size.y;
                 m_window.position = new Rect(m_window.position.position, size);
                 var modal = m_root.Q("new-game-modal");
-                float deadline = Time.realtimeSinceStartup + layoutTimeoutSeconds;
-                while (
-                    (Mathf.Abs(modal.layout.width - size.x) > 1f || Mathf.Abs(modal.layout.height - size.y) > 1f)
-                    && Time.realtimeSinceStartup < deadline
-                )
-                    yield return null;
+                yield return TestUtils.WaitForUi(
+                    () => Mathf.Abs(modal.layout.width - size.x) <= 1f && Mathf.Abs(modal.layout.height - size.y) <= 1f,
+                    $"The modal must resize to the {size.x} by {size.y}px viewport."
+                );
 
                 Assert.That(
                     modal.layout.width,
@@ -317,13 +350,32 @@ namespace Tests.Editor
                     modal.worldBound.yMax,
                     "The dialog must fit vertically and use scrolling when needed."
                 );
-                var create = m_root.Q<Button>("new-game-create");
-                Assert.LessOrEqual(
-                    create.worldBound.yMax,
-                    dialog.worldBound.yMax,
-                    "The Create action must remain accessible below the scrollable form."
+                var header = m_root.Q(className: "fbt-card-header");
+                Assert.That(
+                    m_root.Q<Button>("new-game-close").worldBound.height,
+                    Is.EqualTo(header.worldBound.height).Within(1f),
+                    $"The close button must fill the header at {size.x} by {size.y}px."
                 );
-                Assert.Greater(create.worldBound.height, 0f, "The Create action must remain visible.");
+                foreach (string actionName in new[] { "new-game-create", "new-game-cancel" })
+                {
+                    var action = m_root.Q<Button>(actionName);
+                    Assert.LessOrEqual(
+                        action.worldBound.yMax,
+                        dialog.worldBound.yMax,
+                        $"The {actionName} action must remain accessible below the scrollable form."
+                    );
+                    Assert.GreaterOrEqual(
+                        action.worldBound.xMin,
+                        dialog.worldBound.xMin,
+                        $"The {actionName} action's left edge must remain inside the panel."
+                    );
+                    Assert.LessOrEqual(
+                        action.worldBound.xMax,
+                        dialog.worldBound.xMax,
+                        $"The {actionName} action's right edge must remain inside the panel."
+                    );
+                    Assert.Greater(action.worldBound.height, 0f, $"The {actionName} action must remain visible.");
+                }
             }
         }
 
@@ -351,7 +403,7 @@ namespace Tests.Editor
             using (var evt = KeyDownEvent.GetPooled(new Event { type = EventType.KeyDown, keyCode = KeyCode.Tab }))
                 create.SendEvent(evt);
             Assert.AreSame(
-                start,
+                m_root.Q<DropdownField>("new-game-type"),
                 m_root.panel.focusController.focusedElement,
                 "Tab from Create must wrap to the first option instead of entering the background lobby."
             );
