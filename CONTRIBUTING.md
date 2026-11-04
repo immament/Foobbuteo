@@ -22,8 +22,9 @@ an issue first.
 ## Development setup
 
 Foobbuteo 2D currently uses Unity `6000.6.8f1`. Follow the setup instructions
-in the [README](README.md#getting-started), including the optional local SQL
-Server configuration for server and host workflows.
+in the [README](README.md#getting-started). The local mock setup needs no database
+or Footstar account. See [configuration](Documentation/Configuration.md) for optional
+SQL Server integration and additional Editor/client settings.
 
 Create a branch from the repository's default branch. Use a short descriptive
 name such as `fix/pass-interception` or `feat/lobby-filtering`.
@@ -72,8 +73,10 @@ Test Runner** in Unity and report the result in the pull request.
 
 Also test the affected user flow in Play Mode. Depending on the change, verify
 host mode, separate client/server roles, a dedicated-server build, or WebGL.
-There is currently no committed CI workflow, so a clear record of local
-verification is especially important.
+The committed [release workflow](.github/RELEASE_BUILDS.md) runs workflow-script
+tests and focused build-versioning Edit Mode tests for requested release builds.
+It does not run the full gameplay/UI suite or validate pull requests, so include
+a clear record of local verification.
 
 If a relevant test cannot be run, explain why and describe the alternative
 checks you performed.

@@ -51,7 +51,7 @@
 
 - Do not commit or push unless explicitly requested. After every file-changing task, propose a focused Conventional Commit message based only on the actual diff; add a body when useful, including verification.
 - PRs explain changes/reasons, link issues, record local automated/manual checks, include screenshots for visible changes, and note limitations/migrations.
-- For GitHub release builds, version reservations, caches, and runner upgrades, read `.github/README.md`; preserve reservation tags and the pinned Editor version.
+- For GitHub release builds, version reservations, caches, and runner upgrades, read `.github/RELEASE_BUILDS.md`; preserve reservation tags and the pinned Editor version.
 - Use `appsettings.tmpl.json` for local configuration. Never commit real `appsettings.json`, credentials/tokens/private keys, `UserSettings`, or generated `Library`, `Temp`, and `Logs`. Do not log secrets. Follow `SECURITY.md` for private vulnerability reports; verify asset/dependency licenses.
 
 ## CodeGraph
