@@ -6,12 +6,11 @@ Mono cross-compilation image; Android is not enabled.
 
 ## Setup and requests
 
-1. Make this workflow and its scripts available on the repository's default branch
-   and on `build`. GitHub requires the workflow on the default branch before it
-   offers **Run workflow**; select `build` when starting the release run.
+1. Make the workflow and its scripts available on `main`, the currently allowed
+   release branch. GitHub requires the workflow on the repository's default branch
+   before it offers **Run workflow**; select `main` when starting a release run.
 2. Configure repository Actions secrets `UNITY_LICENSE`, `UNITY_EMAIL`, and
-   `UNITY_PASSWORD`. They have been configured by the repository owner; successful
-   Unity Personal activation remains to be verified on a hosted runner.
+   `UNITY_PASSWORD`. Verify successful Unity Personal activation on a hosted runner.
 3. Allow GitHub Actions to create tags and Releases. Repository/organization policy
    must permit the workflow's `contents: write` permissions and the pinned actions.
    Tag rules must allow creation of `v*` and `ci-runs/*` tags by this workflow.
@@ -19,11 +18,11 @@ Mono cross-compilation image; Android is not enabled.
    Keep the repository Actions cache limit at **10 GB** (do not opt into paid cache
    capacity). Old caches can be evicted; a missing cache only makes a build slower.
 
-Automatic runs start only for pushes to `build`, as configured by `push.branches`
+Automatic runs start only for pushes to `main`, as configured by `push.branches`
 in [release.yml](workflows/release.yml). The `allowedBranch` value in
 [build-config.json](build-config.json) also restricts release requests, including
-manual runs. When switching to `main`, update both `push.branches` and
-`allowedBranch`. Pull requests and tag pushes do not trigger builds.
+manual runs. To change the allowed branch, update both `push.branches` and
+`allowedBranch` together. Pull requests and tag pushes do not trigger builds.
 
 Use one of these exact markers in the **head commit message** of a push:
 

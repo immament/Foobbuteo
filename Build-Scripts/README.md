@@ -1,7 +1,7 @@
 # Build scripts
 
 These scripts serve local development/testing. GitHub release builds have a
-separate workflow and tag-based version ledger; see [GitHub builds](../.github/README.md).
+separate workflow and tag-based version ledger; see [GitHub builds](../.github/RELEASE_BUILDS.md).
 
 Run these scripts from PowerShell. Each build fetches from Git and pulls the current
 branch's upstream with `--ff-only` before reading the project's Unity version and
