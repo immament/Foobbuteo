@@ -1,9 +1,9 @@
 {
-  "allowedBranch": "build",
+  "allowedBranch": "main",
   "major": 0,
-  "unityVersion": "6000.6.4f1",
+  "unityVersion": "6000.6.8f1",
   "images": {
-    "webgl": "unityci/editor:ubuntu-6000.6.4f1-webgl-3.2.2@sha256:32e41fc15fff04fc2304ca9db076c07674407b78c7504fa54622585ddd0d0fc3",
-    "server": "unityci/editor:ubuntu-6000.6.4f1-windows-mono-3.2.2@sha256:7b49c6a53eccb9c19ba304a50b180b01dfee6883af3166edfa971b0305fe82c7"
+    "webgl": "unityci/editor:ubuntu-6000.6.8f1-webgl-3.2.2@sha256:d986a658887f6befe23612ef1ca5433d1b1093b271b8fdf5a85224e4bf8a85db",
+    "server": "unityci/editor:ubuntu-6000.6.8f1-windows-mono-3.2.2@sha256:1631e4a1b4a654ea46e12e04c055681ec54273efb7abf6df2d81a5c952cdf89a"
   }
 }

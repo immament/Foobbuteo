@@ -25,7 +25,7 @@ The project supports combined host mode, separate clients and servers, dedicated
 
 ## Technology
 
-- Unity `6000.6.4f1`
+- Unity `6000.6.8f1`
 - Universal Render Pipeline (URP) 17.6
 - Unity Netcode for GameObjects 2.13
 - Unity Transport 6.6
@@ -39,7 +39,7 @@ See [`Packages/manifest.json`](Packages/manifest.json) for the complete package 
 
 ### Prerequisites
 
-- Unity Editor `6000.6.4f1`
+- Unity Editor `6000.6.8f1`
 - Git
 - A SQL Server instance if you want to run the server or host against persistent data
 
@@ -54,7 +54,7 @@ Install the WebGL and Dedicated Server modules in Unity Hub if you intend to bui
    cd Foobbuteo2D
    ```
 
-2. Open the repository root as a Unity project with Unity `6000.6.4f1`.
+2. Open the repository root as a Unity project with Unity `6000.6.8f1`.
 3. Allow Unity Package Manager to restore the packages.
 4. Open `Assets/Scenes/BootstrapScene.unity`.
 
