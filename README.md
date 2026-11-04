@@ -80,12 +80,14 @@ Foobbuteo is controlled primarily with the mouse:
 
 1. Select a player you control.
 2. Choose an action such as run, low pass, high pass/cross, or shoot.
-3. Double-click a valid destination on the pitch.
-4. Spend the player's available action points and submit the turn.
+3. Double-click a valid destination on the pitch, within your player's available action points.
 
-Action ranges and costs depend on player skills. Low passes can be intercepted, while high passes
-cannot be intercepted in flight but apply a penalty during the contest at their destination.
-Shots can be stopped by goalkeepers. The in-game help screens explain the rules in more detail.
+Action ranges and costs depend on player skills. Passes target zones on the pitch; possession
+can be contested at the destination. Player modes let you choose between confrontation,
+pass interception, and goalkeeper behavior.
+
+Read the [full player guide](Documentation/How-To-Play.md) for each action, crossing rules,
+possession contests, and player modes. It follows the instructions shown in the in-game help.
 
 ## Technology and architecture
 
@@ -138,6 +140,7 @@ hosting page. Configure trusted authentication endpoints before deployment; see 
 
 | Guide | Contents |
 | --- | --- |
+| [How to play](Documentation/How-To-Play.md) | Controls, actions, possession contests, and player/goalkeeper modes |
 | [Configuration](Documentation/Configuration.md) | Mock/SQL providers, Editor profiles, authentication, and multiplayer roles |
 | [Logging](Documentation/Logging.md) | Log levels, categories, runtime overrides, and platform output |
 | [Authentication](Documentation/Footstar-Authentication.md) | Android/WebGL login, runtime environments, and deployment checks |
