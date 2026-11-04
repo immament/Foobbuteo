@@ -23,7 +23,7 @@ namespace Tests.Editor
         private const int k_roomId = 74001;
         private const int k_userId = 75001;
         private const string k_desktopCloseName = "GameCloseButton";
-        private const string k_mobileCloseName = "SideGameCloseButton";
+        private const string k_mobileCloseName = "pitch-close-button";
 
         [TestCase(UserRoles.Player, FoobbuteoGameStatus.Pending, k_roomId, true)]
         [TestCase(UserRoles.Player, FoobbuteoGameStatus.Ongoing, k_roomId, false)]

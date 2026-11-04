@@ -111,12 +111,12 @@ namespace Tests.Editor.Client
         }
 
         [UnityTest]
-        public IEnumerator EveryHeaderImage_OpensItsOwnTeamAndCloseRestoresFocus()
+        public IEnumerator EveryHeaderTrigger_OpensItsOwnTeamAndCloseRestoresFocus()
         {
             CreateUi();
-            foreach (string name in new[] { "TeamAColor", "MobileTeamAColor", "TeamBColor", "MobileTeamBColor" })
+            foreach (string name in new[] { "TeamAColor", "pitch-home-name", "TeamBColor", "pitch-away-name" })
             {
-                bool home = name.Contains("TeamA");
+                bool home = name == "TeamAColor" || name == "pitch-home-name";
                 SendClick(m_root.Q(name));
                 yield return TestUtils.WaitForUi(
                     () => IsOpen() && !m_root.Q("GameScreen").enabledInHierarchy,
@@ -131,7 +131,7 @@ namespace Tests.Editor.Client
                 Assert.AreEqual(
                     home ? k_homePlayerId : k_awayPlayerId,
                     m_controller.VM.Table.Rows[0].PlayerId,
-                    "The roster must belong to the clicked image: " + name
+                    "The roster must belong to the clicked team trigger: " + name
                 );
                 Assert.AreSame(
                     PlayerTableViewDefinition.AllSkills,

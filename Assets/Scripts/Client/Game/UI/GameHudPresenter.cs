@@ -133,7 +133,7 @@ namespace Imma.Foobbuteo.Client.Game.UI
         private Button m_selectedPlayerClaimBtn;
         private const string k_gameCloseBtnName = "GameCloseButton";
         private Button m_gameCloseBtn;
-        private const string k_mobileGameCloseBtnName = "SideGameCloseButton";
+        private const string k_mobileGameCloseBtnName = "pitch-close-button";
         private Button m_mobileGameCloseBtn;
         private const string k_currentUserPlayerBtnName = "CurrentUserPlayerBtn";
         private Button m_currentUserPlayerBtn;
@@ -142,7 +142,7 @@ namespace Imma.Foobbuteo.Client.Game.UI
 
         private const string k_helpBtnName = "HelpButton";
         private Button m_helpBtn;
-        private const string k_mobileHelpBtnName = "SideHelpButton";
+        private const string k_mobileHelpBtnName = "pitch-help-button";
         private Button m_mobileHelpBtn;
 
         private const string k_helpCloseBtnName = "HelpCloseButton";

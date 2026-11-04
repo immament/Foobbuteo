@@ -62,9 +62,9 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
             m_overlay.RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
             m_overlay.RegisterCallback<DetachFromPanelEvent>(OnDetach);
             AddTrigger("TeamAColor", TeamIndex.Home);
-            AddTrigger("MobileTeamAColor", TeamIndex.Home);
+            AddTrigger("pitch-home-name", TeamIndex.Home);
             AddTrigger("TeamBColor", TeamIndex.Away);
-            AddTrigger("MobileTeamBColor", TeamIndex.Away);
+            AddTrigger("pitch-away-name", TeamIndex.Away);
             m_table.Bind(m_overlay, VM.Table);
             Refresh();
             if (VM.Team.HasValue)

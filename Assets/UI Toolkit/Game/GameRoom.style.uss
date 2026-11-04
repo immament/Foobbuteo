@@ -130,7 +130,6 @@
 }
 
 #StatusPanel,
-#SideMatchHeader,
 #MessagePanel {
   background-color: var(--panel-bg);
   border-width: 1px;
@@ -171,38 +170,6 @@
 
 #StatusPanel.timer-urgent #PhaseText {
   color: rgb(247, 189, 88);
-}
-
-#SideMatchHeader {
-  display: none;
-  flex-shrink: 0;
-  margin-bottom: 8px;
-}
-
-#SideMatchHeader #SideHelpButton,
-#SideMatchHeader #SideGameCloseButton {
-  min-height: 32px;
-  max-height: 32px;
-}
-
-#SideHeaderControls {
-  flex-direction: row;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-
-.side-team-row {
-  flex-direction: row;
-  align-items: center;
-  min-height: 32px;
-  max-width: 400px;
-}
-
-.side-score {
-  /* width: 36px; */
-  font-size: 28px;
-  -unity-font-style: bold;
-  -unity-text-align: middle-right;
 }
 
 #PitchArea {
@@ -320,63 +287,10 @@
 }
 
 #HelpButton,
-#SideHelpButton {
+#GameCloseButton {
   -unity-font-style: bold;
   font-size: 20px;
 }
-
-/* #toast-container {
-  position: absolute;
-  bottom: 24px;
-  left: 16px;
-  right: 16px;
-  align-items: center;
-}
-
-.toast-alert {
-  flex-shrink: 0;
-  margin-top: 8px;
-  background-color: rgb(28, 38, 50);
-  padding: 12px 16px;
-  border-radius: 10px;
-  border-width: 1px;
-  border-color: rgb(52, 66, 82);
-  color: rgb(243, 246, 250);
-  font-size: 16px;
-  max-height: 100px;
-  max-width: 100%;
-  white-space: normal;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-#banner-container {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  right: 0;
-  translate: 0 -50%;
-  align-items: center;
-}
-
-.banner-alert {
-  opacity: 0;
-  scale: 0.8 0.8;
-  background-color: rgba(17, 24, 32, 0.95);
-  border-radius: 12px;
-  padding: 16px 24px;
-  transition-duration: 0.3s;
-  font-size: 32px;
-  -unity-font-style: bold;
-  color: rgb(243, 246, 250);
-  -unity-text-align: middle-center;
-  white-space: normal;
-}
-
-.banner-alert--visible {
-  opacity: 1;
-  scale: 1 1;
-} */
 
 #ActionsScroll {
   flex-shrink: 0;
@@ -395,7 +309,6 @@
   width: 312px;
 }
 
-#MainLayout.compact-landscape #SideMatchHeader,
 #MainLayout.compact-landscape #MessagePanel {
   padding: 12px;
 }
@@ -410,40 +323,8 @@
 
 /* .short-landscape */
 
-#MainLayout.short-landscape #SideHeaderControls {
-  position: absolute;
-  right: 8px;
-  top: 8px;
-  width: auto;
-  width: 70px;
-  flex-direction: column;
-}
-#MainLayout.short-landscape #SideHeaderControls .unity-button {
-  max-height: 28px;
-  min-height: auto;
-  padding: 4px 8px;
-  font-size: 16px;
-}
-#MainLayout.short-landscape #SideHeaderControls #SideHelpButton {
-  margin-bottom: 2px;
-}
-
-#MainLayout.short-landscape #SideHeaderControls {
-}
-#MainLayout.short-landscape .side-team-row {
-  margin-right: 80px;
-}
-
 #MainLayout.short-landscape #ActionsScroll {
   max-height: 124px;
-}
-
-#MainLayout.short-landscape #SideMatchHeader {
-  padding: 8px;
-}
-
-#MainLayout.short-landscape .side-team-row {
-  min-height: 24px;
 }
 
 #MainLayout.short-landscape #StatusPanel {
@@ -458,16 +339,12 @@
   padding: 8px;
 }
 
-#MainLayout.short-landscape .side-score {
-  font-size: 18px;
-}
-
 /* .compact-header */
 #MainLayout.compact-header #MainHeader {
   display: none;
 }
 
-#MainLayout.compact-header #SideMatchHeader {
+#MainLayout.compact-header #pitch-match-overlay {
   display: flex;
 }
 
@@ -576,4 +453,105 @@
   right: 0;
   top: 0;
   bottom: 0;
+}
+
+#pitch-match-overlay {
+  display: none;
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  right: 6px;
+  flex-direction: row;
+  align-items: flex-start;
+  /* padding: 6px; */
+}
+
+#pitch-scoreboard {
+  flex-direction: row;
+  flex-shrink: 1;
+  min-width: 0;
+  align-items: center;
+}
+
+.pitch-scoreboard__team {
+  flex-direction: row;
+  flex-shrink: 1;
+  min-width: 0;
+  height: 24px;
+  align-items: stretch;
+}
+
+#pitch-away-team {
+  margin-left: 4px;
+}
+
+.pitch-scoreboard__name {
+  flex-shrink: 1;
+  min-width: 0;
+  max-width: 160px;
+  padding: 0 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 14px;
+  -unity-font-style: bold;
+  -unity-text-align: middle-center;
+}
+
+.pitch-scoreboard__name:hover,
+.pitch-scoreboard__name:focus {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.pitch-scoreboard__score {
+  flex-shrink: 0;
+  min-width: 28px;
+  padding: 0 6px;
+  font-size: 14px;
+  -unity-font-style: bold;
+  -unity-text-align: middle-center;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+#pitch-home-score {
+  border-left-width: 1px;
+}
+
+#pitch-away-score {
+  border-right-width: 1px;
+}
+
+#pitch-header-controls {
+  flex-direction: row;
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-left: 6px;
+}
+
+#pitch-match-overlay .unity-button {
+  margin: 0;
+  height: 24px;
+  min-width: 24px;
+  padding: 0;
+  border-radius: 4px;
+}
+
+#pitch-scoreboard .lineup-editor__open {
+  width: 28px;
+  min-width: 28px;
+  padding: 0;
+}
+
+#pitch-match-overlay #pitch-help-button,
+#pitch-match-overlay #pitch-close-button {
+  -unity-font-style: bold;
+  /* font-size: 20px; */
+  /* height: 24px; */
+  /* width: 24px; */
+}
+
+#pitch-match-overlay #pitch-close-button {
+  margin-left: 4px;
+  padding-bottom: 2px;
+  padding-left: 1px;
 }

@@ -245,8 +245,12 @@ namespace Tests.Editor
                     main.style.width = size.x;
                     main.style.height = size.y;
                     ResponsiveLayout.ApplyLayout(main, size.x, size.y, size.x / size.y);
-                    for (int frame = 0; frame < 12; frame++)
-                        yield return null;
+                    yield return TestUtils.WaitForUi(
+                        () =>
+                            Mathf.Abs(main.layout.width - size.x) < 0.1f
+                            && Mathf.Abs(main.layout.height - size.y) < 0.1f,
+                        "The game layout must settle after resizing to " + size
+                    );
 
                     bool stacked = main.ClassListContains("stacked-layout");
 
@@ -275,8 +279,8 @@ namespace Tests.Editor
                         float closeBtnExpectedHeight;
                         if (size.x / size.y >= 2f)
                         {
-                            closeBtnName = "SideGameCloseButton";
-                            closeBtnExpectedHeight = (!stacked && size.y < 500f) ? 28 : 32;
+                            closeBtnName = "pitch-close-button";
+                            closeBtnExpectedHeight = 32;
                         }
                         else
                         {
