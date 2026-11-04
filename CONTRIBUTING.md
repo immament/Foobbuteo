@@ -21,7 +21,7 @@ an issue first.
 
 ## Development setup
 
-Foobbuteo 2D currently uses Unity `6000.6.4f1`. Follow the setup instructions
+Foobbuteo 2D currently uses Unity `6000.6.8f1`. Follow the setup instructions
 in the [README](README.md#getting-started), including the optional local SQL
 Server configuration for server and host workflows.
 

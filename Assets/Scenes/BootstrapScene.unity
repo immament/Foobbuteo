@@ -243,6 +243,7 @@ GameObject:
   - component: {fileID: 645017842}
   - component: {fileID: 645017841}
   - component: {fileID: 645017839}
+  - component: {fileID: 645017843}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -360,6 +361,15 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1652712579 &645017843
+MultiplayerRolesData:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645017838}
+  m_GameObjectRolesMask: 1
+  m_ComponentsRolesMasks: []
 --- !u!1 &1145863836
 GameObject:
   m_ObjectHideFlags: 0
@@ -580,7 +590,7 @@ MonoBehaviour:
   m_HeartbeatTimeoutMS: 500
   m_ConnectTimeoutMS: 1000
   m_MaxConnectAttempts: 10
-  m_DisconnectTimeoutMS: 120000
+  m_DisconnectTimeoutMS: 60000
   ConnectionData:
     Address: 127.0.0.1
     Port: 7777

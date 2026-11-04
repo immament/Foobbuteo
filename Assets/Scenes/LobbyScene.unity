@@ -195,6 +195,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420030}
+  - component: {fileID: 519420033}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -320,6 +321,15 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1652712579 &519420033
+MultiplayerRolesData:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_GameObjectRolesMask: 1
+  m_ComponentsRolesMasks: []
 --- !u!1 &2118206659
 GameObject:
   m_ObjectHideFlags: 0
@@ -332,6 +342,7 @@ GameObject:
   - component: {fileID: 2118206660}
   - component: {fileID: 2118206663}
   - component: {fileID: 2118206664}
+  - component: {fileID: 2118206665}
   m_Layer: 5
   m_Name: PanelRenderer
   m_TagString: Untagged
@@ -450,6 +461,15 @@ MonoBehaviour:
   m_logCategories: []
   m_logClassColor: {r: 0, g: 0, b: 0, a: 0}
   m_logUnityObjColor: {r: 0, g: 0, b: 0, a: 0}
+--- !u!1652712579 &2118206665
+MultiplayerRolesData:
+  m_ObjectHideFlags: 2
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2118206659}
+  m_GameObjectRolesMask: 1
+  m_ComponentsRolesMasks: []
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
