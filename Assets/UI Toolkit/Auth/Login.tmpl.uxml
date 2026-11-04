@@ -1,49 +1,57 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/Auth/Login.style.uss?fileID=7433441132597879392&amp;guid=36330cb32838bf448b13739120ddda47&amp;type=3#Login.style"/>
-    <ui:VisualElement name="login-panel" data-source-type="Imma.Foobbuteo.Client.Auth.LoginVM, Foobbuteo.ClientLib" class="ft-login ft__panel--default">
-        <ui:Label text="Log in to Footstar" class="ft-login__title"/>
-        <ui:TextField label="Footstar login" name="footstar-login" max-length="256" class="ft-login__field">
-            <Bindings>
-                <ui:DataBinding property="value" data-source-path="Login" binding-mode="TwoWay"/>
-                <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget"/>
-            </Bindings>
-        </ui:TextField>
-        <ui:TextField label="Password" name="footstar-password" password="true" max-length="1024" class="ft-login__field">
-            <Bindings>
-                <ui:DataBinding property="value" data-source-path="Password" binding-mode="TwoWay"/>
-                <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget"/>
-            </Bindings>
-        </ui:TextField>
-        <ui:Toggle text="Remember Me" name="remember-login" value="false" class="ft-login__field">
-            <Bindings>
-                <ui:DataBinding property="value" data-source-path="Remember" binding-mode="TwoWay"/>
-                <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget"/>
-            </Bindings>
-        </ui:Toggle>
-        <ui:Label name="login-status" class="ft-login__status">
-            <Bindings>
-                <ui:DataBinding property="text" data-source-path="StatusText" binding-mode="ToTarget"/>
-            </Bindings>
-        </ui:Label>
-        <ui:VisualElement class="ft-login__buttons">
-            <ui:Button text="Log In" name="login-submit" class="ft__btn--primary ft-login__button">
-                <Bindings>
-                    <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget"/>
-                </Bindings>
-            </ui:Button>
-            <ui:Button text="Retry remembered login" name="login-retry" class="ft__btn--secondary ft-login__button">
-                <Bindings>
-                    <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget"/>
-                </Bindings>
-            </ui:Button>  
+    <ui:Style src="../Common.style.uss"/>
+    <ui:VisualElement name="login-panel" data-source-type="Imma.Foobbuteo.Client.Auth.LoginVM, Foobbuteo.ClientLib" class="ft-login fbt-card">
+        <ui:VisualElement class="fbt-card-header">
+            <ui:Label text="LOG IN TO FOOTSTAR" class="fbt-card-title"/>
         </ui:VisualElement>
-        <ui:VisualElement name="signup-panel" class="ft-login__signup-panel">
-            <ui:Label text="Don't have an account? " />
-            <ui:Button name="signup-link" text="Sign Up" class="text-link">
-                <Bindings>
-                    <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget"/>
-                </Bindings>
-            </ui:Button>
-        </ui:VisualElement>   
+        <ui:VisualElement class="fbt-card-content">
+            <ui:VisualElement class="fbt-card-decoration" picking-mode="Ignore"/>
+            <ui:VisualElement class="fbt-card-body">
+                <ui:TextField label="FOOTSTAR LOGIN" name="footstar-login" max-length="256" class="ft-login__field fbt-form-row fbt-form-input">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="Login" binding-mode="TwoWay"/>
+                        <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:TextField>
+                <ui:TextField label="PASSWORD" name="footstar-password" password="true" max-length="1024" class="ft-login__field fbt-form-row fbt-form-input">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="Password" binding-mode="TwoWay"/>
+                        <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:TextField>
+                <ui:Toggle text="Remember Me" name="remember-login" value="false" class="ft-login__field">
+                    <Bindings>
+                        <ui:DataBinding property="value" data-source-path="Remember" binding-mode="TwoWay"/>
+                        <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Toggle>
+                <ui:Label name="login-status" class="ft-login__status">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="StatusText" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Label>
+            </ui:VisualElement>
+            <ui:VisualElement class="ft-login__buttons fbt-card-footer">
+                <ui:Button text="LOG IN" name="login-submit" class="fbt-btn fbt-btn-solid fbt-theme-accent ft-login__button">
+                    <Bindings>
+                        <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Button>
+                <ui:Button text="Retry remembered login" name="login-retry" class="fbt-btn fbt-btn-solid fbt-theme-secondary ft-login__button">
+                    <Bindings>
+                        <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Button>
+            </ui:VisualElement>
+            <ui:VisualElement name="signup-panel" class="ft-login__signup-panel">
+                <ui:Label text="Don't have an account? " />
+                <ui:Button name="signup-link" text="Sign Up" class="text-link">
+                    <Bindings>
+                        <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Button>
+            </ui:VisualElement>
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

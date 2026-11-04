@@ -1,6 +1,6 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/Lobby/LobbyListEntry.style.uss?fileID=7433441132597879392&amp;guid=23c3d7c817ba45e4c8307fd7a3702f27&amp;type=3#LobbyListEntry.style"/>
-    <ui:VisualElement name="list-entry" data-source-type="Imma.Foobbuteo.Client.Lobby.UI.GameListItemVM, Foobbuteo.ClientLib" class="ft__btn--primary">
+    <ui:VisualElement name="list-entry" data-source-type="Imma.Foobbuteo.Client.Lobby.UI.GameListItemVM, Foobbuteo.ClientLib" class="lobby-game-row">
         <Bindings>
             <ui:DataBinding property="style.backgroundColor" data-source-path="StatusBackgroundColor" binding-mode="ToTarget"/>
         </Bindings>

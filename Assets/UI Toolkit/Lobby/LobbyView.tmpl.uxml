@@ -20,7 +20,7 @@
             <ui:Label class="connection-problem__message">
                 <Bindings><ui:DataBinding property="text" data-source-path="ConnectionProblem" binding-mode="ToTarget"/></Bindings>
             </ui:Label>
-            <ui:Button name="connection-retry" text="Retry connection" class="ft__btn--primary"/>
+            <ui:Button name="connection-retry" text="Retry connection" class="fbt-btn fbt-btn-solid fbt-theme-primary"/>
         </ui:VisualElement>
         <ui:ScrollView name="main-view__login" class="lobby-login-scroll" mode="Vertical" horizontal-scroller-visibility="Hidden">
             <Bindings>
@@ -33,19 +33,29 @@
                 <ui:DataBinding property="style.display" data-source-path="IsSessionVisible" binding-mode="ToTarget"/>
             </Bindings>
             <ui:VisualElement name="main-view__main-container">
-                <ui:VisualElement name="main-view__left-container">
-                    <ui:ListView name="main-view__game-list" binding-source-selection-mode="Manual" virtualization-method="DynamicHeight" item-template="project://database/Assets/UI%20Toolkit/Lobby/LobbyListEntry.tmpl.uxml?fileID=9197481963319205126&amp;guid=20de2f1c38ac4654da6a6eed5a3fee72&amp;type=3#LobbyListEntry.tmpl" class="ft__panel--default">
-                        <Bindings>
-                            <ui:DataBinding property="itemsSource" data-source-path="Games"/>
-                        </Bindings>
-                    </ui:ListView>
+                <ui:VisualElement name="main-view__left-container" class="fbt-card lobby-panel fbt-theme-primary">
+                    <ui:VisualElement class="fbt-card-header">
+                        <ui:Label text="GAMES" class="fbt-card-title"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement class="fbt-card-content lobby-panel__content">
+                        <ui:VisualElement class="fbt-card-decoration" picking-mode="Ignore"/>
+                        <ui:ListView name="main-view__game-list" binding-source-selection-mode="Manual" virtualization-method="DynamicHeight" item-template="project://database/Assets/UI%20Toolkit/Lobby/LobbyListEntry.tmpl.uxml?fileID=9197481963319205126&amp;guid=20de2f1c38ac4654da6a6eed5a3fee72&amp;type=3#LobbyListEntry.tmpl" class="fbt-card-body">
+                            <Bindings>
+                                <ui:DataBinding property="itemsSource" data-source-path="Games"/>
+                            </Bindings>
+                        </ui:ListView>
+                    </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="main-view__right-container" class="ft__panel--default">
+                <ui:VisualElement name="main-view__right-container" class="fbt-card lobby-panel fbt-theme-primary">
                     <Bindings>
                         <ui:DataBinding property="style.display" data-source-path="IsSelectedGame" binding-mode="ToTarget"/>
                     </Bindings>
-                    <ui:VisualElement name="main-view__details-container">
-                        <ui:ScrollView name="details-container__game-data" data-source-path="SelectedGameDetails" mode="Vertical">
+                    <ui:VisualElement class="fbt-card-header">
+                        <ui:Label text="GAME DETAILS" class="fbt-card-title"/>
+                    </ui:VisualElement>
+                    <ui:VisualElement name="main-view__details-container" class="fbt-card-content">
+                        <ui:VisualElement class="fbt-card-decoration" picking-mode="Ignore"/>
+                        <ui:ScrollView name="details-container__game-data" data-source-path="SelectedGameDetails" mode="Vertical" horizontal-scroller-visibility="Hidden" class="fbt-card-body">
                             <ui:VisualElement class="details-container__row details-container__game-name-row">
                                 <ui:Label class="details-container__label">
                                     <Bindings>
@@ -92,9 +102,9 @@
                                 </ui:Label>
                             </ui:VisualElement>
                         </ui:ScrollView>
-                        <ui:VisualElement class="lobby-details__actions">
-                            <ui:Button text="Join" name="details-container__join-btn" class="ft__btn--primary"/>
-                            <ui:Button text="Delete" name="details-container__delete-btn" class="ft__btn--secondary">
+                        <ui:VisualElement class="lobby-details__actions fbt-card-footer">
+                            <ui:Button text="JOIN" name="details-container__join-btn" class="fbt-btn fbt-btn-solid fbt-theme-accent"/>
+                            <ui:Button text="DELETE" name="details-container__delete-btn" class="fbt-btn fbt-btn-solid fbt-theme-danger">
                                 <Bindings>
                                     <ui:DataBinding property="style.display" data-source-path="IsAdmin" binding-mode="ToTarget"/>
                                 </Bindings>
@@ -103,9 +113,9 @@
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
-            <ui:VisualElement name="main-view__info" class="ft__panel--default">
+            <ui:VisualElement name="main-view__info" class="fbt-card lobby-panel fbt-theme-primary">
                 <ui:VisualElement>
-                    <ui:Button text="Player Name" name="profile-menu-toggle" class="profile-menu__toggle">
+                    <ui:Button text="Player Name" name="profile-menu-toggle" class="profile-menu__toggle fbt-btn fbt-btn-outline fbt-theme-inverse">
                         <Bindings>
                             <ui:DataBinding property="text" data-source-path="PlayerDesc" binding-mode="ToTarget"/>
                             <ui:DataBinding property="enabledSelf" data-source-path="CanLogout" binding-mode="ToTarget"/>
@@ -113,14 +123,14 @@
                     </ui:Button>
                     <ui:VisualElement name="profile-menu" class="profile-menu">
                         <Bindings><ui:DataBinding property="style.display" data-source-path="IsProfileMenuVisible" binding-mode="ToTarget"/></Bindings>
-                        <ui:Button text="Log Out" name="login-logout" class="ft__btn--primary">
+                        <ui:Button text="LOG OUT" name="login-logout" class="fbt-btn fbt-btn-solid fbt-theme-secondary">
                             <Bindings><ui:DataBinding property="style.display" data-source-path="CanLogout" binding-mode="ToTarget"/></Bindings>
                         </ui:Button>
                     </ui:VisualElement>
                 </ui:VisualElement>
                 <ui:VisualElement name="info__tools">
-                    <ui:Button text="Online users" name="onlineUsersButton" class="ft__btn--primary"/>
-                    <ui:Button text="New Game" name="main-view__new-game-btn" class="ft__btn--primary">
+                    <ui:Button text="ONLINE USERS" name="onlineUsersButton" class="fbt-btn fbt-btn-solid fbt-theme-primary"/>
+                    <ui:Button text="NEW GAME" name="main-view__new-game-btn" class="fbt-btn fbt-btn-solid fbt-theme-accent">
                         <Bindings>
                             <ui:DataBinding property="enabledSelf" data-source-path="CanCreateNewGame" binding-mode="ToTarget"/>
                             <ui:DataBinding property="style.display" data-source-path="IsClientConnected" binding-mode="ToTarget"/>

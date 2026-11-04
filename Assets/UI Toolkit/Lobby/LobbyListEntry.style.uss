@@ -2,6 +2,10 @@
   flex-grow: 0;
   flex-shrink: 0;
   padding: 8px;
+  border-width: 1px;
+  border-color: var(--fbt-divider);
+  border-radius: 4px;
+  color: var(--fbt-text);
   margin: 4px;
   flex-direction: row;
   flex-wrap: wrap;
@@ -9,7 +13,7 @@
   min-width: 0;
 }
 #main-view .unity-collection-view__item--selected > #list-entry {
-  background-color: var(--color-primary-active);
+  background-color: var(--fbt-button-active);
 }
 #list-entry .unity-label {
   font-size: 14px;

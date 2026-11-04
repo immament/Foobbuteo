@@ -2,9 +2,6 @@
   align-self: center;
   width: 100%;
   max-width: 440px;
-  padding: 20px;
-  /* margin-top: 12px;
-  margin-bottom: 12px; */
   margin: 0;
   flex-shrink: 0;
   font-size: 16px;
@@ -15,62 +12,43 @@
   display: none;
 }
 
-#main-view.lobby--short .ft-login {
-  padding: 10px 20px;
-  margin: 0;
-}
-
-.ft-login__title {
-  font-size: 24px;
-  -unity-font-style: bold;
-  margin-bottom: 12px;
-}
-
-#main-view.lobby--short .ft-login__title {
-  font-size: 20px;
-  margin-bottom: 6px;
-}
-
-.ft-login__field.unity-text-field {
+.fbt-form-row.ft-login__field.unity-text-field {
   margin-bottom: 10px;
-  /* min-height: 44px; */
   flex-direction: column;
+  align-items: stretch;
+  border-width: 0;
 }
-#main-view.lobby--short .ft-login__field.unity-text-field {
+#main-view.lobby--short .fbt-form-row.ft-login__field.unity-text-field {
   margin-bottom: 5px;
   flex-direction: row;
 }
 
-.ft-login__field.unity-toggle .unity-toggle__checkmark {
+.fbt-form-row.ft-login__field.unity-toggle .unity-toggle__checkmark {
   margin-right: 10px;
 }
 
-.ft-login__field > .unity-base-field__label {
+.fbt-form-row.ft-login__field > .unity-base-field__label {
   margin-bottom: 5px;
 }
-.ft-login__field:focus:enabled > .unity-base-field__label {
+.fbt-form-row.ft-login__field:focus:enabled > .unity-base-field__label {
   color: #bac5c9;
-  -unity-font-style: bold;
+  /* -unity-font-style: bold; */
 }
 
-.ft-login__field .unity-text-field__input {
-  /* min-height: 44px; */
-  background-color: rgb(245, 245, 245);
-  color: rgb(25, 25, 25);
+.fbt-form-row.ft-login__field .unity-text-field__input {
+  min-height: 36px;
+  flex-grow: 1;
+  align-self: stretch;
 }
 
 .ft-login__status {
   white-space: normal;
-  color: rgb(235, 235, 235);
+  color: var(--fbt-text-muted);
   margin-bottom: 10px;
 }
 
 .ft-login__button {
-  /* min-height: 44px; */
   margin-bottom: 6px;
-}
-#main-view.lobby--short .ft-login__buttons {
-  flex-direction: row-reverse;
 }
 #main-view.lobby--short .ft-login__button {
   padding: 7px 16px;
@@ -83,6 +61,7 @@
   font-size: 14px;
   margin-top: 8px;
   flex-wrap: wrap;
+  padding: 0 16px 16px;
 }
 
 .text-link {
@@ -102,12 +81,43 @@
   border-width: 0;
 }
 
-.ft-login__title,
-.ft-login__field > .unity-base-field__label,
+.fbt-form-row.ft-login__field > .unity-base-field__label,
 .ft-login__button {
   white-space: normal;
 }
 
-#main-view.lobby--short .ft-login__field > .unity-base-field__input {
+#main-view.lobby--short
+  .fbt-form-row.ft-login__field
+  > .unity-base-field__input {
   padding: 8px 10px;
+}
+
+#login-panel .ft-login__buttons {
+  flex-direction: column;
+}
+.ft-login__buttons > .fbt-btn {
+  margin-left: 0;
+  font-size: 22px;
+}
+.fbt-form-row.ft-login__field.unity-text-field > .unity-base-field__label {
+  width: auto;
+}
+#main-view.lobby--short
+  .fbt-form-row.ft-login__field.unity-text-field
+  > .unity-base-field__label {
+  width: 48%;
+}
+#main-view.narrow-screen .ft-login .fbt-card-title {
+  font-size: 27px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+#main-view.lobby--short .ft-login .fbt-card-header {
+  height: 42px;
+  min-height: 42px;
+}
+#main-view.lobby--short .ft-login .fbt-card-title {
+  font-size: 26px;
+  padding-top: 4px;
+  padding-bottom: 4px;
 }

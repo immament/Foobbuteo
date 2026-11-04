@@ -12,12 +12,6 @@
   right: 4%;
   top: 4%;
   bottom: 4%;
-  padding: 12px;
-  background-color: rgb(28, 38, 50);
-  border-width: 1px;
-  border-color: rgb(99, 173, 255);
-  border-radius: 8px;
-  color: rgb(243, 246, 250);
   font-size: 24px;
 }
 .user-list-content,
@@ -59,14 +53,10 @@
 #MessagePanel #MatchReportHeading {
   display: none;
 }
-.user-list-title,
 .user-list-name {
   flex-grow: 0;
   white-space: normal;
   -unity-font-style: bold;
-}
-.user-list-title {
-  font-size: 28px;
 }
 .user-list-row-title {
   flex-grow: 1;

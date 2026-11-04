@@ -303,7 +303,7 @@ namespace Tests.Editor.Client
                     );
                     Assert.GreaterOrEqual(action.layout.height, 36, name + " must retain its touch target at " + size);
                     Assert.AreEqual(
-                        16f,
+                        22f,
                         action.resolvedStyle.fontSize,
                         name + " must use shared typography at " + size
                     );
@@ -376,9 +376,11 @@ namespace Tests.Editor.Client
                     "The form must retain a usable scrolling area at " + size
                 );
                 Assert.AreEqual(
-                    20f,
-                    m_root.Q(className: "new-game-title").resolvedStyle.fontSize,
-                    "New Game must use the shared dialog heading size."
+                    size.y < UiScreenLayout.ShortHeight ? 26f
+                        : size.x < UiScreenLayout.NarrowWidth ? 27f
+                        : 32f,
+                    dialog.Q(className: "fbt-card-title").resolvedStyle.fontSize,
+                    "New Game must use the responsive card heading size at " + size
                 );
             }
             modal.style.display = DisplayStyle.None;
@@ -405,14 +407,13 @@ namespace Tests.Editor.Client
                     "Online Users must remain inside the viewport at " + size
                 );
                 Assert.AreEqual(
-                    20f,
+                    dialog.Q(className: "fbt-card-title").resolvedStyle.fontSize,
                     online.Q(className: "user-list-title").resolvedStyle.fontSize,
                     "Online Users must use the shared dialog heading size."
                 );
-                Assert.AreEqual(
-                    16f,
-                    close.resolvedStyle.fontSize,
-                    "Online Users must use the shared action font size."
+                Assert.IsTrue(
+                    close.ClassListContains("fbt-card-close"),
+                    "Online Users must use the shared icon close control."
                 );
             }
         }
@@ -447,13 +448,19 @@ namespace Tests.Editor.Client
                     scroll.contentViewport.worldBound.xMax + 1,
                     "The remembered-login action must fit at " + size
                 );
-                Assert.AreEqual(16f, retry.resolvedStyle.fontSize, "Login actions must share the lobby's font size.");
+                Assert.AreEqual(22f, retry.resolvedStyle.fontSize, "Login actions must share the lobby's font size.");
                 Assert.LessOrEqual(
                     m_root.Q("login-panel").layout.width,
                     440,
                     "The login form must respect its logical maximum width."
                 );
                 Assert.AreEqual("remembered-user", login.value, "Rotating must preserve entered login text.");
+                foreach (var field in new[] { login, m_root.Q<TextField>("footstar-password") })
+                    Assert.GreaterOrEqual(
+                        field.Q(className: "unity-text-field__input").layout.width,
+                        field.layout.width * 0.45f,
+                        field.name + " must retain a usable input width at " + size
+                    );
             }
         }
     }

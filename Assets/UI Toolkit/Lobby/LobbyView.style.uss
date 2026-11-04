@@ -1,15 +1,3 @@
-:root {
-  --panel-bg: rgb(28, 32, 40);
-  --panel-border: rgb(55, 65, 85);
-  --text-color: rgb(240, 245, 255);
-  --color-primary: rgb(45, 125, 255);
-  --color-primary-hover: rgb(65, 145, 255);
-  --color-primary-active: rgb(30, 105, 220);
-  --color-secondary: rgb(52, 58, 68);
-  --color-secondary-hover: rgb(35, 40, 46);
-  --color-secondary-active: rgb(96, 105, 119);
-}
-
 #session-loading,
 .connection-problem {
   display: none;
@@ -28,17 +16,14 @@
 .profile-menu {
   display: none;
   padding: 8px;
-  background-color: rgb(28, 32, 40);
+  background-color: var(--fbt-panel-background);
 }
 
-.profile-menu__toggle {
+#profile-menu-toggle {
+  -unity-font-definition: none;
   min-height: 36px;
-  font-size: 16px;
-  color: var(--text-color);
-  background-color: transparent;
-  border-width: 0;
-  margin: 0;
-  padding: 6px 10px;
+  font-size: 22px;
+  white-space: normal;
 }
 
 #main-view__lobby {
@@ -94,6 +79,8 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
+  background-color: var(--fbt-panel-background);
+  padding: 8px;
 }
 
 .web-gl #main-view__info {
@@ -107,29 +94,22 @@
   justify-content: flex-end;
   flex-wrap: wrap;
 }
-#main-view__info #info__tools #login-logout {
-  background-color: #40454d;
-}
-
 #main-view.narrow-screen #main-view__info {
   flex-direction: column;
   flex-basis: auto;
-  padding-right: 16px;
+  padding-right: 8px;
 }
 
 #main-view.narrow-screen #info__tools {
   flex-wrap: wrap;
 }
-#main-view.narrow-screen #info__tools > .ft__btn--primary {
+#main-view.narrow-screen #info__tools > .fbt-btn {
   padding: 8px 6px;
-  min-height: auto;
+  min-height: 44px;
 }
 
 #main-view .unity-collection-view__item {
   background-color: transparent;
-}
-
-#main-view .unity-list-view__item-content {
 }
 
 #main-view .unity-collection-view__item:hover {
@@ -156,7 +136,6 @@
   flex-grow: 1;
   flex-shrink: 1;
   min-height: 0;
-  max-height: 300px;
 }
 
 #main-view.narrow-screen #details-container__game-data {
@@ -179,7 +158,7 @@
   flex-shrink: 1;
   min-width: 0;
   white-space: normal;
-  color: rgb(185, 195, 215);
+  color: var(--fbt-text-muted);
 }
 
 .details-container__value {
@@ -202,90 +181,16 @@
   margin-bottom: 8px;
   padding-bottom: 12px;
   border-bottom-width: 1px;
-  border-bottom-color: var(--panel-border);
+  border-bottom-color: var(--fbt-divider);
 }
 
 .details-container__game-name-row .details-container__label {
   -unity-font-style: bold;
 }
 
-.ft__panel--default {
-  background-color: var(--panel-bg);
-  border-width: 1px;
-  border-color: var(--panel-border);
-  border-radius: 10px;
-  padding: 10px;
-  margin: 8px;
-  flex-direction: column;
-  color: var(--text-color);
-}
-
-#main-view.narrow-screen {
-  padding: 2px;
-}
-
-#main-view.narrow-screen .ft__panel--default {
-  margin: 2px;
-}
-
-.ft__btn--primary,
-.ft__btn--secondary {
-  min-height: 40px;
-  font-size: 16px;
-  white-space: normal;
-  border-width: 0;
-  border-radius: 6px;
-  padding-left: 16px;
-  padding-right: 16px;
-  -unity-font-style: bold;
-  transition-property: background-color;
-  transition-duration: 0.15s;
-}
-
-.ft__btn--primary {
-  background-color: var(--color-primary);
-  color: var(--text-color);
-}
-
-.ft__btn--primary:hover {
-  background-color: var(--color-primary-hover);
-  scale: 1.01;
-}
-
-.ft__btn--primary:active {
-  background-color: var(--color-primary-active);
-  scale: 0.99;
-}
-
-.ft__btn--primary:disabled {
-  background-color: rgb(70, 75, 85);
-  color: rgb(140, 145, 155);
-}
-
-.ft__btn--secondary {
-  background-color: var(--color-secondary);
-  color: var(--text-color);
-}
-.ft__btn--secondary:hover {
-  background-color: var(--color-secondary-hover);
-  scale: 1.01;
-}
-.ft__btn--secondary:active {
-  background-color: var(--color-secondary-active);
-  scale: 0.99;
-}
-.ft__btn--secondary:disabled {
-  background-color: rgb(70, 75, 85);
-  color: rgb(140, 145, 155);
-}
-
 .lobby-toast-container .toast-alert {
   font-size: 16px;
   -unity-font-style: bold;
-}
-
-#main-view__info #profile-menu-toggle {
-  white-space: normal;
 }
 
 #main-view__details-container {
@@ -294,25 +199,22 @@
 }
 .lobby-details__actions {
   flex-shrink: 0;
-}
-#main-view.lobby--short .lobby-details__actions {
   flex-direction: row;
 }
 .lobby-details__actions > .unity-button {
   flex-grow: 1;
   min-width: 0;
-  font-size: 16px;
+  font-size: 22px;
 }
 
 #main-view.narrow-screen .lobby-details__actions > .unity-button {
   max-width: 400px;
   padding: 8px 6px;
-  min-height: auto;
+  min-height: 44px;
   margin-bottom: 4px;
 }
 
-#main-view.lobby--short .ft__panel--default {
-  padding: 6px;
+#main-view.lobby--short .lobby-panel {
   margin: 2px;
 }
 #main-view.lobby--short #main-view__info {
@@ -321,7 +223,6 @@
 #main-view .online-users-overlay {
   font-size: 16px;
 }
-#main-view .user-list-title,
 #main-view .online-users-overlay .user-list-name {
   font-size: 20px;
 }
@@ -333,7 +234,64 @@
   font-size: 16px;
   min-height: 44px;
   white-space: normal;
+  -unity-font-definition: var(--fbt-font-button);
+  -unity-font-style: normal;
+  background-color: var(--fbt-button-background);
+  border-color: var(--fbt-button-border);
+  color: var(--fbt-button-text);
 }
 #main-view .user-list-actions {
   flex-wrap: wrap;
+}
+
+.lobby-panel {
+  margin: 8px;
+}
+.lobby-panel__content {
+  flex-grow: 1;
+}
+#info__tools > .fbt-btn {
+  margin: 4px;
+  font-size: 22px;
+}
+#main-view.narrow-screen .lobby-panel {
+  margin: 2px;
+}
+#main-view.narrow-screen .lobby-panel .fbt-card-title,
+#main-view.narrow-screen .online-users-overlay .fbt-card-title {
+  font-size: 27px;
+  padding-left: 16px;
+  padding-right: 16px;
+}
+#main-view.narrow-screen .lobby-panel .fbt-card-body {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+#main-view.narrow-screen .lobby-details__actions {
+  padding: 8px;
+}
+#main-view.lobby--short .lobby-panel .fbt-card-header,
+#main-view.lobby--short .online-users-overlay .fbt-card-header {
+  height: 42px;
+  min-height: 42px;
+}
+#main-view.lobby--short .lobby-panel .fbt-card-title,
+#main-view.lobby--short .online-users-overlay .fbt-card-title {
+  font-size: 26px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+#main-view .online-users-overlay .fbt-card-close {
+  min-height: 44px;
+}
+#main-view .online-users-overlay .user-list-row {
+  background-color: var(--fbt-field-background);
+  border-width: 1px;
+  border-color: var(--fbt-divider);
+}
+#main-view .online-users-overlay .btn-default:hover:enabled {
+  background-color: var(--fbt-button-hover);
+}
+#main-view .online-users-overlay .btn-default:active:enabled {
+  background-color: var(--fbt-button-active);
 }
