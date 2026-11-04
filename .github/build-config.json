@@ -1,5 +1,5 @@
 {
-  "allowedBranch": "build",
+  "allowedBranch": "main",
   "major": 0,
   "unityVersion": "6000.6.8f1",
   "images": {
