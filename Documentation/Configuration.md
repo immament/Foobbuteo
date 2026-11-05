@@ -53,6 +53,38 @@ Online users are available from the lobby; the room's Users tab also includes as
 who are elsewhere or disconnected. Administrator disconnect preserves claimed-player reservations and does
 not ban the account. User-list network contracts require matching client and server builds.
 
+## UI layout diagnostics
+
+Android and WebGL accept optional Boolean `uiLayoutDiagnostics` in their startup
+configuration (see [runtime environment selection](Footstar-Authentication.md#runtime-environment-selection)).
+It defaults to `false` and controls `UiLayoutDiagnostics` on
+LobbyScene's `PanelRenderer` and GameScene's `MainUI`, including after scene changes.
+Use `true` to enable layout snapshots; use `false` or omit it to disable them.
+
+For the Android developer override (`client-environment.json`):
+
+```json
+{ "environment": "dev", "uiLayoutDiagnostics": true }
+```
+
+For a custom WebGL hosting page:
+
+```javascript
+unityInstance.SendMessage(
+  "AppController",
+  "ReceiveClientConfig",
+  JSON.stringify({
+    environment: "prod",
+    uiLayoutDiagnostics: true,
+  }),
+);
+```
+
+The flag is locked with the startup environment. Later connection messages may
+omit it or repeat the selected value. A different value is rejected; reload the
+page or restart Android to change it. Diagnostics-only WebGL messages are not
+startup configuration: the initial message still requires an environment.
+
 ## Multiplayer roles
 
 Enter Play Mode from `Assets/Scenes/BootstrapScene.unity`. The Editor automatically starts the instance according to its active multiplayer role:

@@ -13,35 +13,29 @@ does not implement or deploy them.
 
 ## Build configuration
 
-Set the public HTTPS deployment URLs in
-the selected `dev` or `prod` section of `Assets/Resources/ClientSettings.json` before building:
+Public HTTPS authentication URLs are bundled from the `dev` and `prod` sections
+of `Assets/Resources/ClientSettings.json`. Update the relevant environment before
+building when deployment URLs change. Each section uses these fields:
 
 ```json
 {
-  "dev": {
-    "webSessionTokenUrl": "https://<footstar-host>/<website-session-token-endpoint>",
-    "loginUrl": "https://<footstar-host>/<login-endpoint>",
-    "refreshUrl": "https://<footstar-host>/<refresh-endpoint>",
-    "revokeUrl": "https://<footstar-host>/<revoke-endpoint>",
-    "signupUrl": "https://<footstar-host>/default.asp"
-  },
-  "prod": { "loginUrl": "", "refreshUrl": "", "revokeUrl": "", "signupUrl": "" }
+  "webSessionTokenUrl": "https://<footstar-host>/<website-session-token-endpoint>",
+  "loginUrl": "https://<footstar-host>/<login-endpoint>",
+  "refreshUrl": "https://<footstar-host>/<refresh-endpoint>",
+  "revokeUrl": "https://<footstar-host>/<revoke-endpoint>",
+  "signupUrl": "https://<footstar-host>/default.asp"
 }
 ```
 
-Build profiles no longer select the client environment. Both environments are
+Build profiles do not select the client environment. Both environments are
 bundled in the same artifacts; changing their URLs still requires rebuilding.
-Editor uses the
-`authentication` section of the profile selected by `currentProfile` in ignored root
-`editor.settings.json`. Profiles have unique names and contain authentication URLs
-and game connection settings; `devAuth` users remain shared. The file is initialized
-from `editor.settings.tmpl.json`, defaulting to `local`; changes to authentication
-URLs apply on the next Play Mode startup.
+Editor authentication uses the active profile in ignored `editor.settings.json`;
+see [Editor configuration](Configuration.md#configuration-files).
 
 API URLs cannot contain credentials, query parameters, or fragments. The HTTPS signup
 link may contain a query or registration fragment, but no credentials. URLs are bundled
-into the client; incoming browser configuration cannot change them. Committed
-empty values show an explanatory message without sending credentials. Do not add
+into the client; incoming browser configuration cannot change them. Missing or invalid
+endpoint URLs prevent authentication requests to those endpoints. Do not add
 passwords, tokens, or database connection strings to this file.
 
 ## Runtime environment selection
@@ -54,7 +48,6 @@ The hosting server must render an explicit environment before loading Unity:
 <script>
   window.foobbuteoClientConfig = {
     environment: "prod",
-    uiLayoutDiagnostics: false,
   };
 </script>
 ```
@@ -104,7 +97,7 @@ Android defaults to `prod`. Developers can place this optional file at
 `Path.Combine(Application.persistentDataPath, "client-environment.json")`:
 
 ```json
-{ "environment": "dev", "uiLayoutDiagnostics": true }
+{ "environment": "dev" }
 ```
 
 The startup log prints the resolved override path. On most Android devices it is
@@ -117,8 +110,9 @@ and [Android app-specific storage](https://developer.android.com/training/data-s
 
 Read the file once at startup. Restart the app after editing it; deleting it
 restores `prod` on the next launch. Only exact `prod`/`dev` names are accepted.
-The optional `uiLayoutDiagnostics` field must be a Boolean; omitted means `false`.
-No URLs, credentials, or other fields belong in this file. Existing but unreadable,
+The optional UI diagnostics flag is described under
+[UI layout diagnostics](Configuration.md#ui-layout-diagnostics).
+No URLs or credentials belong in this file. Existing but unreadable,
 malformed, or invalid files block authentication with a configuration error rather
 than silently switching to production. There is no environment-selector UI.
 
@@ -128,45 +122,19 @@ it. Switching environments therefore requires signing in again; a token is never
 sent to the other environment's refresh or revoke endpoint. Other native players
 use production without reading the Android override.
 
-Android now includes the client/main/shared assemblies and starts in the client
-role. Use the existing Android profile and minimum SDK 23 or newer. The secure
-storage bridge ships as a Java source plugin. If minification is enabled, include
-the shipped `Assets/Plugins/Android/proguard-user.txt` keep rule in the Gradle
-configuration. Remember Me is always requested on Android and has no visible
-checkbox. WebGL form login never requests remembered credentials.
-
-### UI layout diagnostics
-
-Both platforms accept optional Boolean `uiLayoutDiagnostics` in their startup
-configuration. It defaults to `false` and controls `UiLayoutDiagnostics` on
-LobbyScene's `PanelRenderer` and GameScene's `MainUI`, including after scene changes.
-Use `true` to enable layout snapshots; use `false` or omit it to disable them.
-
-For a custom WebGL hosting page:
-
-```javascript
-unityInstance.SendMessage(
-  "AppController",
-  "ReceiveClientConfig",
-  JSON.stringify({
-    environment: "prod",
-    uiLayoutDiagnostics: true,
-  }),
-);
-```
-
-The flag is locked with the startup environment. Later connection messages may
-omit it or repeat the selected value. A different value is rejected; reload the
-page or restart Android to change it. Diagnostics-only WebGL messages are not
-startup configuration: the initial message still requires an environment.
+The Android secure-storage bridge ships as a Java source plugin. If minification
+is enabled, include the shipped `Assets/Plugins/Android/proguard-user.txt` keep rule
+in the Gradle configuration. Remember Me is always requested on Android and has no
+visible checkbox. WebGL form login never requests remembered credentials.
 
 ## HTTPS request and response contract
 
 All requests use POST with UTF-8 `application/x-www-form-urlencoded` bodies.
 UnityWebRequest uses the platform certificate trust store, disables redirects,
-and applies a 15-second timeout. Authentication responses must be JSON, at most
-16 KiB. Browser cookies are not an authentication input: the website must ignore
-them for these operations. There is no embedded client secret or API key.
+and applies a 15-second timeout. Login and refresh responses must be JSON; the client
+rejects JSON strings longer than 16,384 characters. The same limit applies to the
+website-session token endpoint below. For credential login, refresh, and revoke,
+the website must ignore browser cookies. There is no embedded client secret or API key.
 
 | Operation | Body                                                     | Success              |
 | --------- | -------------------------------------------------------- | -------------------- |
@@ -174,10 +142,16 @@ them for these operations. There is no embedded client secret or API key.
 | Refresh   | `refreshToken=<encoded>`                                 | HTTP 200 JSON        |
 | Revoke    | `refreshToken=<encoded>`                                 | HTTP 204, empty body |
 
+Passwords are sent exactly as entered. Form encoding preserves spaces, `+`, `&`,
+`=`, and Unicode. The UI limits login to 256 characters and password to 1024;
+the website must enforce bounded request sizes and field validation too. The
+password field is cleared on submission. Credentials and request/response bodies
+are never logged by the client.
+
 ### WebGL website-session token endpoint
 
-Configure `webSessionTokenUrl` in each bundled environment in ClientSettings.json.
-The committed empty value disables requests until the external endpoint is deployed.
+The `webSessionTokenUrl` field in each bundled environment selects the website-session
+token endpoint. An empty or invalid URL prevents requests to it.
 This is a separate endpoint from the three credential-based operations above.
 It accepts POST with an empty form body and authenticates using the existing website
 session cookie. It must share the game HTML page's origin (scheme, hostname, port);
@@ -208,11 +182,7 @@ Only sessions started with a JavaScript-supplied token use this endpoint. The pr
 of a website cookie must never enable recovery after a WebGL login-form login.
 WebGL has no Logout button. No JavaScript recovery bridge is required.
 
-Passwords are sent exactly as entered. Form encoding preserves spaces, `+`, `&`,
-`=`, and Unicode. The UI limits login to 256 characters and password to 1024;
-the website must enforce bounded request sizes and field validation too. The
-password field is cleared on submission. Credentials and request/response bodies
-are never logged by the client.
+### Credential login and refresh responses
 
 Successful login without Remember Me:
 
@@ -237,11 +207,11 @@ Remembered login and refresh add the following fields to the same object:
 ```
 
 Use strings for secrets/dates, an integer for port, and a Boolean for encryption.
-Dates must be ISO 8601 UTC strings ending in `Z`. Game tokens expire 60 seconds
-after issuance. The client rejects expired tokens or expiry more than 60 seconds
-in the future; client and website clocks must be synchronized. Secrets must be
-nonempty, have no whitespace/control characters, and be at most 256 characters
-to match the existing SQL parameter limit.
+Dates must be ISO 8601 UTC strings ending in `Z`. Game tokens must expire 60 seconds
+after issuance. The client rejects expired tokens or expiry more than 61 seconds
+in the future, allowing one second of clock tolerance; client and website clocks
+must be synchronized. Secrets must be nonempty, have no whitespace/control
+characters, and be at most 256 characters to match the existing SQL parameter limit.
 
 Refresh fields must be absent for `rememberMe=0`; WebGL always sends that value.
 For `rememberMe=1`, create a session with a fixed 90-day expiry. Every refresh
@@ -322,50 +292,3 @@ Android Log Out is in the profile menu opened by the lobby username. It clears l
 networking immediately. If server revocation fails the UI reports that it could
 not be confirmed. Late responses cannot reconnect or save credentials after
 logout. WebGL persists no authentication secret.
-
-## Acceptance checks requiring the deployment
-
-Run focused authentication and full Edit Mode tests; build Android/WebGL. Verify
-actual website responses, special-character passwords, credential errors,
-throttling, certificate failure, redirects, timeout/cancellation, CORS/preflight,
-and service outages. Verify external-token WebGL login and the fallback form.
-
-On an Android device verify keyboard/masking, unchecked Remember Me, restart
-auto-login, rotation without expiry extension, revocation/logout, corrupt storage,
-and exclusion from backup/device transfer. Verify dedicated-server approval and
-atomic single-use consumption against SQL. These checks require the external
-website/database implementation and are not replaced by unit tests.
-
-## Local verification (2026-10-02)
-
-- Unity 6000.6.4f1 imported and compiled the client and UI assets successfully.
-- All 45 focused authentication Edit Mode tests passed.
-- Full Edit Mode suite: 224 passed out of 225. The existing
-  `GameRoomPresentationTests.Layout_ReflowsWithoutClippingAndPreservesFeedAcrossRotation`
-  failed because the unchanged game-room close-button style fixes its height at
-  32 pixels while the test requires at least 44 pixels.
-- Android APK and WebGL development builds succeeded with zero build errors.
-  The Android build includes the Java secure-storage bridge.
-- Login layout measurements at portrait and landscape sizes found no clipping;
-  the login button retains a 44-pixel minimum height.
-- `git diff --check` passed. Existing untracked Android build-profile files were
-  preserved.
-
-The bundled settings contain public dev/prod endpoint URLs. End-to-end
-website/CORS/server/SQL verification and Android device keyboard, restart,
-Keystore, and backup/transfer checks remain unavailable locally.
-
-## Runtime configuration verification
-
-- Serve identical WebGL build files from development and production hosting pages.
-  Confirm each page supplies its environment and login/signup target its bundled URLs.
-  Check environment-only initialization, full token-based connection, missing/invalid
-  configuration, repeated selection, and rejection of a changed environment until reload.
-- On an Android development device, record the logged override path and verify file
-  placement, default production, development override after restart, and production
-  restoration after removing the file. Confirm an invalid file blocks login.
-- Remember a session in each environment and switch via the file. Confirm the previous
-  session is cleared locally without a refresh/revoke request to the new environment.
-  Verify same-environment session rotation and a legacy session's one-time removal.
-
-These are deployment/device checks; Edit Mode tests do not establish their results.
