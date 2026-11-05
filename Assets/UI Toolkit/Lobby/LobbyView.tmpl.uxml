@@ -70,6 +70,14 @@
                                 </ui:Label>
                             </ui:VisualElement>
                             <ui:VisualElement class="details-container__row">
+                                <ui:Label text="Game type" class="details-container__label"/>
+                                <ui:Label name="details-container__game-type" class="details-container__value">
+                                    <Bindings>
+                                        <ui:DataBinding property="text" data-source-path="GameTypeText" binding-mode="ToTarget"/>
+                                    </Bindings>
+                                </ui:Label>
+                            </ui:VisualElement>
+                            <ui:VisualElement class="details-container__row">
                                 <ui:Label text="Status" class="details-container__label"/>
                                 <ui:Label class="details-container__value">
                                     <Bindings>
