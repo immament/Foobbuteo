@@ -181,9 +181,9 @@ namespace Tests.Editor.Client
             );
             var average = Rows()[0].Q<Label>(className: "player-table__cell--average");
             Assert.AreEqual(
-                FontStyle.Bold,
+                FontStyle.Normal,
                 average.resolvedStyle.unityFontStyleAndWeight,
-                "The average value must be visually emphasized with bold text."
+                "Table values must use regular body text; the average column is emphasized by its background."
             );
             Assert.Greater(average.resolvedStyle.backgroundColor.a, 0, "The average column needs its own background.");
             Assert.IsNotNull(Rows()[0].Q<Image>().image, "A known country's flag must bind to its row image.");

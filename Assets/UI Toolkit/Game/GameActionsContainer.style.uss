@@ -3,17 +3,14 @@
 } */
 
 #ActionsContainer #BoxWithBackground {
-  background-color: var(--panel-bg);
-  border-radius: 10px;
-  border-width: 1px;
-  border-color: var(--panel-border);
-  padding: 16px;
+  padding: 0;
 }
 
 #ActionsContainer #PlayerInfo {
   flex-direction: row-reverse;
   align-items: center;
   margin-bottom: 4px;
+  padding: 0 8px;
 }
 
 #ActionsContainer #PlayerName {
@@ -21,12 +18,11 @@
   flex-shrink: 1;
   flex-basis: 0;
   min-width: 0;
-  font-size: 18px;
-  -unity-font-style: bold;
+  padding: 2px 8px;
+  font-size: 24px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  margin-left: 8px;
 }
 
 #ActionsContainer #TeamShirt {
@@ -43,9 +39,6 @@
   padding: 0;
 }
 
-#ActionsContainer #Content {
-  flex-direction: column;
-}
 #ActionsContainer #Actions {
   flex-direction: row;
   flex-wrap: wrap;
@@ -72,20 +65,20 @@
   margin-bottom: 4px;
   -unity-text-align: lower-center;
   font-size: 12px;
-  background-color: rgba(38, 53, 69, 0);
+  background-color: transparent;
   color: var(--text-color);
-  border-radius: 8px;
+  border-radius: 4px;
   border-width: 0;
 }
 
 #ActionsContainer .btn-icon-rect.selected {
-  background-color: rgb(38, 53, 69);
+  background-color: var(--fbt-button-background);
   border-width: 1px;
-  border-color: rgb(9, 18, 31);
+  border-color: var(--fbt-button-border);
 }
 
 #ActionsContainer .btn-icon-rect:focus {
-  border-color: rgb(92, 173, 255);
+  border-color: var(--fbt-focus);
   border-width: 1px;
 }
 
@@ -140,11 +133,7 @@
   background-repeat: no-repeat;
   margin-right: 4px;
   margin-bottom: 4px;
-  background-color: rgb(38, 53, 69);
-  color: var(--text-color);
-  border-radius: 8px;
-  border-width: 1px;
-  border-color: var(--panel-border);
+  min-height: 36px;
   height: 36px;
   padding: 4px 8px 4px 38px;
   background-position-x: left 8px;
@@ -155,8 +144,7 @@
 
 #ActionsContainer .btn-icon-rect:hover,
 #ActionsContainer #Buttons .btn-icon-row:hover {
-  background-color: rgb(53, 73, 94);
-  scale: 1.02;
+  background-color: var(--fbt-button-hover);
 }
 
 #ActionsContainer #PlayerWithBallBtn {
@@ -173,11 +161,7 @@
 }
 
 #MainLayout.compact-landscape #ActionsContainer #BoxWithBackground {
-  padding: 12px;
-}
-
-#MainLayout.short-landscape #ActionsContainer #PlayerInfo {
-  margin-bottom: 4px;
+  padding: 0;
 }
 
 #MainLayout.short-landscape #ActionsContainer #Content .btn-icon-rect {
@@ -188,7 +172,7 @@
 }
 
 #MainLayout.short-landscape #ActionsContainer #BoxWithBackground {
-  padding: 8px;
+  padding: 0;
 }
 
 #MainLayout #ActionsContainer #Content {
@@ -212,4 +196,14 @@
   padding: 5px 8px;
   margin: 2px;
   border-radius: 4px;
+}
+
+#ActionsContainer #Content {
+  flex-direction: column;
+  padding: 4px 8px;
+}
+#MainLayout.short-landscape #ActionsContainer #PlayerInfo {
+  margin-bottom: 4px;
+  height: 36px;
+  min-height: 36px;
 }

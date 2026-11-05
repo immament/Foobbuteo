@@ -1,6 +1,10 @@
 #TooltipRoot {
   position: absolute;
-  background-color: rgba(12, 18, 26, 1);
+  background-color: var(--fbt-field-background);
+  border-width: 1px;
+  border-color: var(--fbt-panel-border);
+  -unity-font-definition: var(--fbt-font-body);
+  -unity-font-style: normal;
   padding-left: 8px;
   padding-right: 8px;
   padding-top: 4px;
@@ -14,15 +18,16 @@
 }
 
 #TitleLabel {
+  -unity-font-definition: var(--fbt-font-heading);
   font-size: 20px;
-  color: rgb(255, 255, 255);
+  color: var(--fbt-text);
   max-width: 100%;
   white-space: normal;
 }
 
 #DescriptionLabel {
   font-size: 16px;
-  color: rgb(255, 255, 255);
+  color: var(--fbt-text);
   white-space: normal;
   -unity-paragraph-spacing: 24px;
 }

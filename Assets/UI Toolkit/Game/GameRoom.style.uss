@@ -1,9 +1,15 @@
 :root {
-  --panel-bg: rgb(28, 38, 50);
-  --panel-border: rgb(52, 66, 82);
-  --text-color: rgb(243, 246, 250);
-  --muted: rgb(175, 189, 204);
-  --accent: rgb(99, 173, 255);
+  --panel-bg: var(--fbt-panel-background);
+  --panel-border: var(--fbt-panel-border);
+  --text-color: var(--fbt-text);
+  --muted: var(--fbt-text-muted);
+  --accent: var(--fbt-focus);
+}
+
+#game-room-root {
+  color: var(--fbt-text);
+  -unity-font-definition: var(--fbt-font-body);
+  -unity-font-style: normal;
 }
 
 #MainLayout {
@@ -79,13 +85,9 @@
   flex-grow: 1;
   flex-basis: 0;
   min-width: 0;
-  /* height: 52px; */
   padding: 1px 12px;
   margin: 0 8px;
-  background-color: var(--panel-bg);
-  border-radius: 10px;
-  border-width: 1px;
-  border-color: var(--panel-border);
+  color: #111d2f;
 }
 
 .team-name {
@@ -131,11 +133,7 @@
 
 #StatusPanel,
 #MessagePanel {
-  background-color: var(--panel-bg);
-  border-width: 1px;
-  border-color: var(--panel-border);
-  border-radius: 10px;
-  padding: 16px;
+  padding: 0;
 }
 #StatusPanel {
   padding: 8px 16px;
@@ -308,8 +306,8 @@
   width: 312px;
 }
 
-#MainLayout.compact-landscape #MessagePanel {
-  padding: 12px;
+#MainLayout.compact-landscape #MessagePanel > .fbt-card-body {
+  padding: 8px 12px;
 }
 #MainLayout.compact-landscape #StatusPanel {
   padding-left: 12px;
@@ -334,8 +332,8 @@
   padding: 7px;
 }
 
-#MainLayout.short-landscape #MessagePanel {
-  padding: 8px;
+#MainLayout.short-landscape #MessagePanel > .fbt-card-body {
+  padding: 4px 8px;
 }
 
 /* .compact-header */
@@ -368,7 +366,7 @@
 
 /* .portrait-screen */
 #MainLayout.stacked-layout #StatusPanel,
-#MainLayout.stacked-layout #MessagePanel,
+#MainLayout.stacked-layout #MessagePanel > .fbt-card-body,
 #MainLayout.stacked-layout #ActionsContainer #BoxWithBackground {
   padding: 4px 8px;
 }
@@ -394,10 +392,6 @@
   font-size: 24px;
 }
 
-#open-settings-btn {
-  background-image: url("SettingsGear.svg");
-}
-
 .room-settings-row {
   flex-direction: row;
   justify-content: space-between;
@@ -405,8 +399,9 @@
   min-height: 26px;
 }
 
-.btn-default.user-tab-selected {
-  background-color: rgb(52, 92, 130);
+.room-user-tabs > .fbt-btn.user-tab-selected {
+  background-color: var(--fbt-button-background);
+  color: var(--fbt-button-text);
 }
 .mvm-join-panel {
   display: none;
@@ -417,28 +412,6 @@
 .mvm-join-panel__error {
   color: rgb(240, 110, 110);
   white-space: normal;
-}
-
-/* DropdownField */
-.mvm-join-panel #mvm-join-team {
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.mvm-join-panel #mvm-join-team > .unity-label {
-  min-width: auto;
-}
-.mvm-join-panel #mvm-join-team > .unity-popup-field__input {
-  padding: 6px 10px;
-  background-color: rgb(38, 53, 69);
-  color: var(--text-color);
-  border-radius: 8px;
-  border-width: 1px;
-  border-color: var(--panel-border);
-  font-size: 14px;
-}
-.mvm-join-panel #mvm-join-team .unity-base-popup-field__arrow {
-  -unity-background-image-tint-color: var(--text-color);
 }
 
 #pitch-match-overlay {
@@ -515,6 +488,8 @@
 }
 
 #pitch-match-overlay .unity-button {
+  min-height: 24px;
+  font-size: 18px;
   margin: 0;
   height: 24px;
   min-width: 24px;
@@ -540,4 +515,44 @@
   margin-left: 4px;
   padding-bottom: 2px;
   padding-left: 1px;
+}
+
+.room-user-tabs > .fbt-btn {
+  min-height: 30px;
+  padding: 2px 10px;
+  font-size: 18px;
+  background-color: transparent;
+  color: #111d2f;
+  margin-right: 4px;
+}
+#MessagePanel > .room-settings-row {
+  padding-left: 8px;
+}
+#MessagePanel > .fbt-card-body {
+  flex-grow: 1;
+  padding: 8px 12px;
+}
+#open-settings-btn {
+  background-image: url("SettingsGear.svg");
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  background-size: 22px 22px;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+#MainHeader .lineup-editor__open {
+  min-height: 24px;
+  min-width: 24px;
+}
+
+#game-room-root .user-list-name,
+#game-room-root .match-report-row,
+#game-settings-panel .sound-volume-title,
+#game-settings-panel #sound-volume-label,
+.lineup-editor__instructions,
+.lineup-editor__touch-instructions,
+.lineup-editor__error,
+.lineup-editor .player-table__cell {
+  -unity-font-style: normal;
 }

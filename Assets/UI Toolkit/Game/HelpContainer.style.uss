@@ -1,19 +1,19 @@
 #help-panel .unity-tab__header {
-  background-color: #263545;
-  color: var(--muted);
+  background-color: var(--fbt-field-background);
+  color: var(--fbt-text-muted);
   -unity-font-style: bold;
   font-size: 16px;
   padding: 10px 16px;
-  border-radius: 10px 10px 0 0;
+  border-radius: 4px 4px 0 0;
 }
 
 #help-panel .unity-tab__header:checked {
-  background-color: #405b76;
-  color: var(--text-color);
+  background-color: var(--fbt-button-background);
+  color: var(--fbt-button-text);
 }
 
 #help-panel .unity-tab__header:hover {
-  background-color: #35495e;
+  background-color: var(--fbt-button-hover);
 }
 
 #help-panel .unity-tab__header-underline {
@@ -43,39 +43,19 @@
   white-space: pre-wrap;
 }
 
-#help-panel #HelpCloseButton {
-  right: 0;
-  top: 0;
-  background-image: url("project://database/Assets/ClientAssets/Buttons/closexxx.gif");
-  background-color: rgba(255, 255, 255, 0);
-  border-top-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
-  width: 24px;
-  height: 24px;
-}
-
-#help-panel #HelpCloseButton:hover {
-  scale: 1.05;
-}
-
 #HelpScreen {
   padding: 10px 15px;
 }
 
 .popup-container {
-  display: flex;
-
   align-self: center;
-
   width: 90%;
   height: 90%;
-  border-width: 16px;
-  border-radius: 10px;
-  border-color: rgba(187, 146, 255, 0);
-  background-color: #1c2632;
-  transition-duration: 0.15s;
-  transition-timing-function: ease;
   align-items: stretch;
+}
+
+.help-panel__content,
+#help-panel #TabView {
+  flex-grow: 1;
+  min-height: 0;
 }

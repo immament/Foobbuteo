@@ -1,24 +1,16 @@
 #game-settings-panel {
+  flex-shrink: 0;
   width: 90%;
   max-width: 420px;
-  padding: 15px 20px;
-  background-color: rgb(28, 38, 50);
-  border-width: 1px;
-  border-color: rgb(99, 173, 255);
-  border-radius: 8px;
-  color: rgb(243, 246, 250);
-}
-.game-settings-title {
-  font-size: 24px;
-  margin-bottom: 8px;
+  font-size: 18px;
 }
 #sound-volume-slider {
   min-height: 32px;
   flex-shrink: 0;
 }
 
-#close-game-settings-btn {
-  margin-top: 16px;
+#game-settings-panel .fbt-card-body {
+  padding-top: 16px;
 }
 
 #dev-network-gui-toggle {
@@ -74,7 +66,7 @@
 
 /* Enabled state */
 #dev-network-gui-toggle:checked > .unity-toggle__input {
-  background-color: rgb(45, 160, 100);
+  background-color: var(--fbt-button-background);
 }
 
 #dev-network-gui-toggle:checked .unity-toggle__checkmark {
@@ -96,4 +88,27 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+}
+
+#sound-volume-slider .unity-base-slider__tracker {
+  background-color: var(--fbt-field-background);
+  border-color: var(--fbt-field-border);
+}
+#sound-volume-slider .unity-base-slider__dragger {
+  background-color: var(--fbt-button-background);
+  border-color: var(--fbt-button-border);
+}
+#sound-volume-slider:focus .unity-base-slider__dragger,
+#dev-network-gui-toggle:focus > .unity-toggle__input {
+  border-width: 1px;
+  border-color: var(--fbt-focus);
+}
+
+#game-settings-panel > .fbt-card-content,
+#game-settings-panel .fbt-card-body {
+  flex-shrink: 0;
+}
+
+#game-settings-panel > .fbt-card-content {
+  flex-grow: 1;
 }

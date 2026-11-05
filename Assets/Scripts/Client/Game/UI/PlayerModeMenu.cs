@@ -82,7 +82,7 @@ namespace Imma.Foobbuteo.Client.Game.UI
                 PlayerModeEnum.GkFieldPlayer => "Field",
                 _ => tooltip,
             };
-            btn.AddToClassList("toggle-button", "btn-icon-rect");
+            btn.AddToClassList("toggle-button", "fbt-btn", "fbt-btn-solid", "fbt-theme-primary", "btn-icon-rect");
             btn.SetBinding("style.display", binding);
             return btn;
         }

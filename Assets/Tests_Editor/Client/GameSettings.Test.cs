@@ -269,6 +269,7 @@ namespace Tests.Editor.Client
             m_settings = new GameSettingsVM();
             m_controller = new GameSettingsUiController(m_settings);
             m_root = CloneUi();
+            m_root.style.flexGrow = 1;
             m_window.Show();
             m_window.rootVisualElement.Add(m_root);
             m_controller.Bind(m_root);

@@ -8,13 +8,12 @@
   margin-bottom: 8px;
 }
 .player-table__view {
+  -unity-font-definition: var(--fbt-font-button);
+  -unity-font-style: normal;
   margin-right: 8px;
   /* min-height: 36px; */
 }
-.player-table__view--selected {
-  background-color: rgb(45, 84, 115);
-  border-color: rgb(99, 173, 255);
-}
+
 .player-table__scroll {
   flex-grow: 1;
   min-height: 0;
@@ -64,7 +63,7 @@
 .player-table__cell--name {
   /* width: 220px; */
   flex-basis: 220px;
-  max-width: auto;
+  max-width: none;
   flex-grow: 1;
   -unity-text-align: middle-left;
   overflow: hidden;
@@ -73,13 +72,11 @@
   color: var(--muted);
 }
 .player-table__cell--user-name {
-  -unity-font-style: bold;
   color: var(--text-color);
 }
 .player-table__cell--average {
   /* width: 84px; */
   flex-basis: 64px;
-  -unity-font-style: bold;
   background-color: rgba(99, 173, 255, 0.01);
 }
 .player-table__cell--skill {
@@ -93,4 +90,10 @@
 .player-table__cell--position {
   flex-basis: 68px;
   max-width: 80px;
+}
+
+.player-table__view--selected {
+  background-color: var(--fbt-button-background);
+  border-color: var(--fbt-button-border);
+  color: var(--fbt-button-text);
 }
