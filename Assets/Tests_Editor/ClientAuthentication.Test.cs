@@ -664,6 +664,10 @@ namespace Tests.Editor
                 AppCtx.Client = client;
                 var manager = obj.AddComponent<NetworkManager>();
                 manager.NetworkConfig = new NetworkConfig();
+                // Edit Mode creation can leave Netcode's logger uninitialized.
+                typeof(NetworkManager)
+                    .GetMethod("OnValidate", BindingFlags.Instance | BindingFlags.NonPublic)
+                    .Invoke(manager, null);
                 controller = new ClientNetCtrl(manager);
                 controller.SetClientConfig(Success().Connection);
 

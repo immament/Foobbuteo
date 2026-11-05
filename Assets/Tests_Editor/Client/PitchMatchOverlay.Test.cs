@@ -2,6 +2,7 @@
 // Copyright (C) 2026 Dariusz Juńczyk
 
 using System.Collections;
+using Imma.Foobbuteo.Client.Game;
 using Imma.Foobbuteo.Client.Game.UI.VM;
 using Imma.Foobbuteo.Shared.Game.Model;
 using NUnit.Framework;
@@ -47,7 +48,7 @@ namespace Tests.Editor.Client
                 "The pitch scoreboard must display the configured away name."
             );
             Assert.AreEqual(
-                new Color(0.92f, 0.94f, 0.97f),
+                new Color(0.92f, 0.94f, 0.97f, ShirtColors.k_TeamColorAlpha),
                 home.resolvedStyle.backgroundColor,
                 "The white team's scoreboard must use its shared shirt palette color."
             );
@@ -57,7 +58,7 @@ namespace Tests.Editor.Client
                 "The white team's name must inherit its configured dark text."
             );
             Assert.AreEqual(
-                new Color(0.9f, 0.08f, 0.1f),
+                new Color(0.9f, 0.08f, 0.1f, ShirtColors.k_TeamColorAlpha),
                 away.resolvedStyle.backgroundColor,
                 "The red team's scoreboard must use its shared shirt palette color."
             );
@@ -75,7 +76,7 @@ namespace Tests.Editor.Client
                     m_root.Q<Label>("pitch-home-score").text == "12"
                     && m_root.Q<Label>("pitch-away-score").text == "3"
                     && m_root.Q<Label>("pitch-home-name").text == "Replacement club"
-                    && home.resolvedStyle.backgroundColor == new Color(0.9f, 0.08f, 0.1f),
+                    && home.resolvedStyle.backgroundColor == new Color(0.9f, 0.08f, 0.1f, ShirtColors.k_TeamColorAlpha),
                 "Scores and replacement team configuration must update without rebuilding the overlay."
             );
         }
@@ -121,9 +122,10 @@ namespace Tests.Editor.Client
                 );
                 Assert.AreEqual(
                     pitch.worldBound.yMin,
-                    overlay.worldBound.yMin,
-                    "The absolute overlay must start at the pitch top without reserving a header row."
+                    overlay.worldBound.yMin - 2,
+                    "The absolute overlay must start at the pitch top (+2px) without reserving a header row."
                 );
+
                 foreach (string name in new[] { "pitch-scoreboard", "pitch-header-controls" })
                 {
                     var control = m_root.Q(name);

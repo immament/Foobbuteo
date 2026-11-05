@@ -8,6 +8,8 @@ namespace Imma.Foobbuteo.Client.Game
 {
     internal static class ShirtColors
     {
+        public const float k_TeamColorAlpha = 0.8f;
+
         public static Color GetColor(ShirtColorEnum shirtColor, float alpha = 1f) =>
             shirtColor switch
             {

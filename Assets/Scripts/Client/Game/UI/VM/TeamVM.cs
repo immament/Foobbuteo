@@ -58,7 +58,7 @@ namespace Imma.Foobbuteo.Client.Game.UI.VM
         private ShirtColorEnum m_shirtColor;
 
         [CreateProperty]
-        public Color ShirtBackgroundColor => ShirtColors.GetColor(m_shirtColor, 0.8f);
+        public Color ShirtBackgroundColor => ShirtColors.GetColor(m_shirtColor, ShirtColors.k_TeamColorAlpha);
 
         public ShirtColorEnum ShirtColor
         {

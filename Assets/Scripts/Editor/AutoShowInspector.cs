@@ -17,6 +17,7 @@ namespace Imma.Foobbuteo.Editor
             typeof(Material),
             typeof(ScriptableObject),
             typeof(UnityEditorInternal.AssemblyDefinitionAsset),
+            typeof(Texture2D),
         };
 
         private static void OnSelectionChanged()
