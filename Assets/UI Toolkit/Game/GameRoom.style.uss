@@ -14,7 +14,7 @@
   font-size: 16px;
 }
 
-#MainLayout .unsafe-area-mask {
+#unsafe-area-masks .unsafe-area-mask {
   position: absolute;
   background-color: rgb(17, 24, 32);
 }
@@ -282,7 +282,6 @@
 #SelectedPlayerPopup {
   position: absolute;
   display: none;
-  translate: -50% -100%;
   padding-bottom: 12px;
 }
 
@@ -440,19 +439,6 @@
 }
 .mvm-join-panel #mvm-join-team .unity-base-popup-field__arrow {
   -unity-background-image-tint-color: var(--text-color);
-}
-
-#game-room-content {
-  flex-grow: 1;
-  height: 100%;
-  width: 100%;
-}
-.team-player-list-host {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
 }
 
 #pitch-match-overlay {

@@ -19,7 +19,6 @@ namespace Imma.Foobbuteo.Client.UI
         private VisualElement m_UnsafeAreaRight;
         private VisualElement m_UnsafeAreaBottom;
         private VisualElement m_UnsafeAreaLeft;
-        private int m_UiVersion = 0;
 
         private VisualElement m_MainLayout;
         private VisualElement m_PitchArea;
@@ -46,7 +45,9 @@ namespace Imma.Foobbuteo.Client.UI
             GetComponent<PanelRenderer>().UnregisterUIReloadCallback(OnUIReload);
             m_RootElement?.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
             m_PitchArea?.UnregisterCallback<GeometryChangedEvent>(OnPitchGeometryChanged);
-            m_UiVersion = 0;
+            m_RootElement = m_MainLayout = m_SafeAreaRoot = m_PitchArea = null;
+            m_UnsafeAreaTop = m_UnsafeAreaRight = m_UnsafeAreaBottom = m_UnsafeAreaLeft = null;
+            m_HasLayout = false;
         }
 
 #if UNITY_EDITOR
@@ -59,10 +60,7 @@ namespace Imma.Foobbuteo.Client.UI
 
         void OnUIReload(PanelRenderer panelRenderer, VisualElement rootElement, int version)
         {
-            if (version == m_UiVersion)
-                return; // UI already up-to-date, no need to reload
             // this.LogDebug($"+++ {rootElement.name}, {version}/{m_UiVersion}");
-            m_UiVersion = version;
             m_RootElement?.UnregisterCallback<GeometryChangedEvent>(OnGeometryChanged);
             m_PitchArea?.UnregisterCallback<GeometryChangedEvent>(OnPitchGeometryChanged);
             m_RootElement = rootElement;
@@ -82,6 +80,8 @@ namespace Imma.Foobbuteo.Client.UI
 
         private void OnGeometryChanged(GeometryChangedEvent evt)
         {
+            if (m_RootElement?.panel == null)
+                return;
             Rect rootRect = m_RootElement.contentRect;
             Rect safeArea = Screen.safeArea;
             Vector2 rootSize = rootRect.size;
@@ -132,6 +132,16 @@ namespace Imma.Foobbuteo.Client.UI
             m_SafeAreaRoot.style.top = safeTop;
             m_SafeAreaRoot.style.right = safeRight;
             m_SafeAreaRoot.style.bottom = safeBottom;
+            foreach (string name in new[] { "modal-safe-area", "notifications-safe-area" })
+            {
+                var surface = m_RootElement.Q(name);
+                if (surface == null)
+                    continue;
+                surface.style.left = safeLeft;
+                surface.style.top = safeTop;
+                surface.style.right = safeRight;
+                surface.style.bottom = safeBottom;
+            }
 
             if (m_UnsafeAreaTop != null)
                 m_UnsafeAreaTop.style.height = safeTop;
@@ -153,6 +163,8 @@ namespace Imma.Foobbuteo.Client.UI
 
         private void UpdatePitchLayout()
         {
+            if (m_RootElement?.panel == null)
+                return;
             float aspectRatio = m_PitchAspectRatio;
             if (m_RootElement != null && Screen.width > 0 && Screen.height > 0)
             {

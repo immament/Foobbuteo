@@ -13,7 +13,7 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
         public event EventHandler<BindablePropertyChangedEventArgs> propertyChanged;
         internal MvMLineupDraft Draft { get; private set; }
         internal TeamIndex? Team { get; private set; }
-        internal bool IsOpen { get; private set; }
+        internal bool IsEditing { get; private set; }
         internal bool Busy { get; private set; }
         internal PlayerTableVM Starting { get; } = new();
         internal PlayerTableVM Reserves { get; } = new();
@@ -76,16 +76,10 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
         public float ReservesFlexGrow => ReservesExpanded ? 1f : 0f;
 
         [CreateProperty]
-        public DisplayStyle Display => IsOpen ? DisplayStyle.Flex : DisplayStyle.None;
-
-        [CreateProperty]
         public DisplayStyle HomeDisplay => Team == TeamIndex.Home ? DisplayStyle.Flex : DisplayStyle.None;
 
         [CreateProperty]
         public DisplayStyle AwayDisplay => Team == TeamIndex.Away ? DisplayStyle.Flex : DisplayStyle.None;
-
-        [CreateProperty]
-        public bool BackgroundEnabled => !IsOpen;
 
         [CreateProperty]
         public bool InputsEnabled => !Busy;
@@ -116,7 +110,7 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
 
         internal void Open(string teamName, bool? smallScreen = null)
         {
-            if (!IsOpen && smallScreen.HasValue)
+            if (!IsEditing && smallScreen.HasValue)
             {
                 StartingExpanded = !smallScreen.Value;
                 ReservesExpanded = true;
@@ -125,7 +119,7 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
                     : PlayerTableViewDefinition.AllSkills;
                 SetView(view);
             }
-            IsOpen = true;
+            IsEditing = true;
             Title = teamName + " — Prepare lineup";
             Error = "";
             Notify();
@@ -157,7 +151,7 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
 
         internal bool Swap(int sourceId, int targetId)
         {
-            if (Busy || !IsOpen || Draft == null || !Draft.Swap(sourceId, targetId))
+            if (Busy || !IsEditing || Draft == null || !Draft.Swap(sourceId, targetId))
                 return false;
             RefreshRows();
             return true;
@@ -165,7 +159,7 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
 
         internal void Close()
         {
-            IsOpen = false;
+            IsEditing = false;
             Busy = false;
             Draft = null;
             Starting.SetRows(Array.Empty<PlayerListRowVM>());
@@ -195,10 +189,8 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
                     nameof(Title),
                     nameof(Error),
                     nameof(ErrorDisplay),
-                    nameof(Display),
                     nameof(HomeDisplay),
                     nameof(AwayDisplay),
-                    nameof(BackgroundEnabled),
                     nameof(InputsEnabled),
                     nameof(CanApply),
                 }

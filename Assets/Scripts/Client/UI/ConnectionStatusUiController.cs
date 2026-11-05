@@ -35,7 +35,7 @@ namespace Imma.Foobbuteo.Client.UI
                     bindingMode = BindingMode.ToTarget,
                 }
             );
-            (root.Q("SafeAreaRoot") ?? root.Q("main-view") ?? root).Add(m_element);
+            (root.Q("notifications-safe-area") ?? root.Q("SafeAreaRoot") ?? root.Q("main-view") ?? root).Add(m_element);
             m_client.ClientConnectionStateChanged += Refresh;
             m_client.AuthenticationStateChanged += Refresh;
         }

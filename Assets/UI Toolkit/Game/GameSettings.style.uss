@@ -1,13 +1,3 @@
-#game-settings-overlay {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.45);
-}
 #game-settings-panel {
   width: 90%;
   max-width: 420px;
@@ -100,4 +90,10 @@
   margin: 0;
   white-space: nowrap;
   -unity-text-align: middle-left;
+}
+
+.game-settings__volume-row {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

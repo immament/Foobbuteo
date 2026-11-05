@@ -1,20 +1,15 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
-    <ui:Template name="player-table" src="PlayerTable.tmpl.uxml"/>
-    <ui:Style src="TeamPlayerList.style.uss"/>
-    <ui:VisualElement name="team-player-list-overlay" class="team-player-list" picking-mode="Position" data-source-type="Imma.Foobbuteo.Client.Game.UI.Players.PlayerListVM, Foobbuteo.ClientLib">
-        <Bindings>
-            <ui:DataBinding property="style.display" data-source-path="Display" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-        </Bindings>
-        <ui:VisualElement name="team-player-list-panel" class="team-player-list__panel" picking-mode="Position">
-            <ui:VisualElement class="team-player-list__header">
-                <ui:Label name="team-player-list-title" class="team-player-list__title" enable-rich-text="false">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="Title" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-                    </Bindings>
-                </ui:Label>
-                <ui:Button name="team-player-list-close" text="Close" class="btn-default"/>
-            </ui:VisualElement>
-            <ui:Instance template="player-table" class="team-player-list__table"/>
+    <ui:Template name="player-table" src="PlayerTable.tmpl.uxml" />
+    <ui:Style src="TeamPlayerList.style.uss" />
+    <ui:VisualElement name="team-player-list-panel" class="team-player-list__panel" picking-mode="Position" data-source-type="Imma.Foobbuteo.Client.Game.UI.Players.PlayerListVM, Foobbuteo.ClientLib">
+        <ui:VisualElement class="team-player-list__header">
+            <ui:Label name="team-player-list-title" class="team-player-list__title" enable-rich-text="false">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="Title" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                </Bindings>
+            </ui:Label>
+            <ui:Button name="team-player-list-close" text="Close" class="btn-default" />
         </ui:VisualElement>
+        <ui:Instance template="player-table" class="team-player-list__table" />
     </ui:VisualElement>
 </ui:UXML>

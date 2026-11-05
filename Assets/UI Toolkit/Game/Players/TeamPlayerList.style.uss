@@ -1,17 +1,6 @@
-.team-player-list {
-  display: none;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  justify-content: center;
-  align-items: center;
-  background-color: rgba(0, 0, 0, 0.55);
+.team-player-list__panel {
   color: rgb(243, 246, 250);
   font-size: 16px;
-}
-.team-player-list__panel {
   width: 94%;
   max-height: 90%;
   max-width: 1360px;

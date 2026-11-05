@@ -11,6 +11,7 @@ using Imma.Foobbuteo.Client.Game.UI.Players;
 using Imma.Foobbuteo.Client.Game.UI.VM;
 using Imma.Foobbuteo.Client.Lobby;
 using Imma.Foobbuteo.Client.Lobby.UI;
+using Imma.Foobbuteo.Client.UI.Modals;
 using Imma.Foobbuteo.Client.Users;
 using Imma.Foobbuteo.Server;
 using Imma.Foobbuteo.Shared;
@@ -252,6 +253,195 @@ namespace Tests.Editor.Client
                 window.Close();
                 UnityEngine.Object.DestroyImmediate(window);
             }
+        }
+
+        [Test]
+        public void MatchStart_DoesNotDismissAnotherActivePanel()
+        {
+            var api = new TestRoomApi();
+            using var host = new ModalHostController(new ModalHostState());
+            using var settings = new ModalPanelController(host, "settings", () => true, _ => { });
+            using var lineup = new MvMLineupUiController(
+                api,
+                CreatePendingGame(),
+                () => null,
+                _ => null,
+                ClientImageCatalog.LoadForEditor(),
+                host
+            );
+            settings.TryOpen();
+
+            api.StartMatch();
+
+            Assert.IsTrue(
+                settings.State.IsVisible,
+                "A lineup lifecycle event must not dismiss an unrelated active settings panel."
+            );
+            lineup.Dispose();
+            api.StartMatch();
+            Assert.IsTrue(
+                settings.State.IsVisible,
+                "A disposed lineup controller must not react to a later match event."
+            );
+        }
+
+        [UnityTest]
+        public IEnumerator LineupEligibilityLoss_ClosesOnlyItsOwnModalAndIgnoresPendingLoad()
+        {
+            var game = CreatePendingGame();
+            var manager = new ServerUser(101, UserId + 1, 0, "Home manager", UserRoles.Player);
+            manager.RestoreGameSlot(GameSlot.ForManager(GameId, TeamIndex.Home));
+            var api = new TestRoomApi { DeferLineupResponses = true, SquadResult = Squad(game) };
+            using var host = new ModalHostController(new ModalHostState());
+            using var controller = new MvMLineupUiController(
+                api,
+                game,
+                () => manager,
+                _ => new TeamVM(TeamIndex.Home, UserId + 1, "Home", null, null, ShirtColorEnum.Blue),
+                ClientImageCatalog.LoadForEditor(),
+                host
+            );
+            var window = ScriptableObject.CreateInstance<EditorWindow>();
+            try
+            {
+                window.Show();
+                var root = LineupRoot(window);
+                host.Bind(root);
+                controller.Bind(root);
+                ClickButton(root.Q<Button>("home-edit-lineup"));
+                Assert.IsTrue(host.State.HasActivePanel, "An eligible manager must open the pending lineup.");
+                manager.RestoreGameSlot(GameSlot.ForManager(GameId + 1, TeamIndex.Home));
+                controller.Refresh();
+                Assert.IsFalse(
+                    host.State.HasActivePanel,
+                    "Revoking manager assignment must release the lineup modal and pitch gate."
+                );
+                var vm = (MvMLineupVM)root.Q("mvm-lineup-surface").dataSource;
+                api.DeliverLoad();
+                Assert.IsNull(vm.Draft, "A late squad response must not restore a revoked editing session.");
+                using var settings = new ModalPanelController(host, "settings", () => true, null);
+                settings.TryOpen();
+                controller.Refresh();
+                Assert.IsTrue(settings.State.IsVisible, "A revoked lineup must not close another active panel.");
+                yield return null;
+            }
+            finally
+            {
+                controller.Unbind();
+                window.Close();
+                UnityEngine.Object.DestroyImmediate(window);
+            }
+        }
+
+        [UnityTest]
+        public IEnumerator PendingSave_RebindRetainsDraftAndLateResponsesCannotAffectReplacementSession()
+        {
+            var game = CreatePendingGame();
+            var manager = new ServerUser(101, UserId + 1, 0, "Home manager", UserRoles.Player);
+            manager.RestoreGameSlot(GameSlot.ForManager(GameId, TeamIndex.Home));
+            var api = new TestRoomApi { DeferLineupResponses = true, SquadResult = Squad(game) };
+            var team = new TeamVM(TeamIndex.Home, UserId + 1, "Home", null, null, ShirtColorEnum.Blue);
+            using var host = new ModalHostController(new ModalHostState());
+            using var controller = new MvMLineupUiController(
+                api,
+                game,
+                () => manager,
+                _ => team,
+                ClientImageCatalog.LoadForEditor(),
+                host
+            );
+            var window = ScriptableObject.CreateInstance<EditorWindow>();
+            try
+            {
+                window.Show();
+                var root = LineupRoot(window);
+                host.Bind(root);
+                controller.Bind(root);
+                api.DeliverLoad();
+                ClickButton(root.Q<Button>("home-edit-lineup"));
+                var vm = (MvMLineupVM)root.Q("mvm-lineup-surface").dataSource;
+                vm.Swap(1, 2);
+                yield return TestUtils.WaitForUi(
+                    () => root.Q<Button>("mvm-lineup-apply").enabledInHierarchy,
+                    "Loaded lineup must permit submitting a changed draft."
+                );
+                ClickButton(root.Q<Button>("mvm-lineup-apply"));
+                var draft = vm.Draft;
+                controller.Unbind();
+                host.Unbind();
+                root.RemoveFromHierarchy();
+                root = LineupRoot(window);
+                host.Bind(root);
+                controller.Bind(root);
+                yield return TestUtils.WaitForUi(
+                    () => !root.Q<Button>("mvm-lineup-cancel").enabledInHierarchy,
+                    "Reloading during save must preserve pending input blocking."
+                );
+                Assert.AreSame(draft, vm.Draft, "Native tree replacement must retain the exact pending draft.");
+                Assert.AreEqual(2, vm.Draft.Starting[0], "Rebinding must preserve the changed goalkeeper.");
+                Assert.IsFalse(
+                    host.TryCloseActive(ModalCloseReason.Backdrop),
+                    "Pending save must reject backdrop dismissal."
+                );
+                api.DeliverSave(new MvMLineupResult { Error = "Retry save" });
+                Assert.IsTrue(host.State.HasActivePanel, "A rejected save must retain the editing session.");
+                Assert.AreEqual("Retry save", vm.Error, "The new tree must show the deferred save failure.");
+                controller.Dispose();
+                using var replacement = new MvMLineupUiController(
+                    new TestRoomApi { SquadResult = Squad(game) },
+                    game,
+                    () => manager,
+                    _ => team,
+                    ClientImageCatalog.LoadForEditor(),
+                    host
+                );
+                replacement.Bind(root);
+                ClickButton(root.Q<Button>("home-edit-lineup"));
+                var replacementVm = (MvMLineupVM)root.Q("mvm-lineup-surface").dataSource;
+                api.DeliverSave(new MvMLineupResult { Success = true });
+                api.DeliverLoad();
+                Assert.IsTrue(
+                    host.State.HasActivePanel,
+                    "Late callbacks captured by a disposed session must not close its replacement."
+                );
+                Assert.IsTrue(
+                    replacementVm.IsEditing,
+                    "The replacement session must remain editable after stale responses."
+                );
+                Assert.IsNull(vm.Draft, "Disposal must release the old pending draft even if callbacks arrive later.");
+            }
+            finally
+            {
+                controller.Unbind();
+                window.Close();
+                UnityEngine.Object.DestroyImmediate(window);
+            }
+        }
+
+        private static MvMLineupResult Squad(ClientGameState game) =>
+            new()
+            {
+                Success = true,
+                Squad = game.HomeTeam.Players.Select(player => player.ToContract()).ToArray(),
+                Lineup = game.HomeTeam.Players.Select(player => player.PlayerId).ToArray(),
+            };
+
+        private static VisualElement LineupRoot(EditorWindow window)
+        {
+            var root = AssetDatabase
+                .LoadAssetAtPath<VisualTreeAsset>("Assets/UI Toolkit/Game/GameRoomLayout.tmpl.uxml")
+                .CloneTree();
+            root.style.flexGrow = 1;
+            TestUtils.ClearBindingsExcept(
+                root,
+                root.Q("mvm-lineup-overlay"),
+                root.Q("home-edit-lineup"),
+                root.Q("away-edit-lineup"),
+                root.Q("mobile-home-edit-lineup"),
+                root.Q("mobile-away-edit-lineup")
+            );
+            window.rootVisualElement.Add(root);
+            return root;
         }
 
         [UnityTest]
@@ -674,14 +864,28 @@ namespace Tests.Editor.Client
             internal MvMLineupResult SquadResult;
             internal int[] SavedExpected;
             internal int[] SavedDesired;
+            internal bool DeferLineupResponses;
+            private Action<MvMLineupResult> m_pendingLoad;
+            private Action<MvMLineupResult> m_pendingSave;
 
-            public void LoadMvMLineup() => MvMLineupLoaded?.Invoke(SquadResult);
+            internal void DeliverLoad() => m_pendingLoad?.Invoke(SquadResult);
+
+            internal void DeliverSave(MvMLineupResult result) => m_pendingSave?.Invoke(result);
+
+            public void LoadMvMLineup()
+            {
+                m_pendingLoad = MvMLineupLoaded;
+                if (!DeferLineupResponses)
+                    DeliverLoad();
+            }
 
             public void SaveMvMLineup(int[] expected, int[] desired)
             {
                 SavedExpected = expected;
                 SavedDesired = desired;
-                MvMLineupSaved?.Invoke(new MvMLineupResult { Success = true });
+                m_pendingSave = MvMLineupSaved;
+                if (!DeferLineupResponses)
+                    DeliverSave(new MvMLineupResult { Success = true });
             }
 
             public bool IsHost => false;
@@ -689,15 +893,10 @@ namespace Tests.Editor.Client
             internal TeamKey Team { get; private set; }
             internal int Calls { get; private set; }
             public event Action<MvMJoinResult> MvMJoinCompleted;
-            public event Action<TurnStateChangedMessage> TurnStarted
-            {
-                add
-                { /* This test stub intentionally ignores subscriptions.*/
-                }
-                remove
-                { /*// This test stub does not retain handlers.*/
-                }
-            }
+            public event Action<TurnStateChangedMessage> TurnStarted;
+
+            internal void StartMatch() => TurnStarted?.Invoke(default);
+
             public event Action<TurnStateChangedMessage> ProcessingStarted
             {
                 add

@@ -33,7 +33,7 @@ namespace Imma.Foobbuteo.Client.Game.UI.VM
         }
 
         [CreateProperty]
-        public List<string> TeamChoices => m_teams.Select(team => team.Key.ToString()).ToList();
+        public List<string> TeamChoices { get; private set; } = new();
 
         internal string FormatTeamChoice(string value)
         {
@@ -95,6 +95,7 @@ namespace Imma.Foobbuteo.Client.Game.UI.VM
             m_selectedTeamIndex = Array.FindIndex(m_teams, team => team.Key == selected);
             if (m_selectedTeamIndex < 0 && m_teams.Length > 0)
                 m_selectedTeamIndex = 0;
+            TeamChoices = m_teams.Select(team => team.Key.ToString()).ToList();
             Notify(nameof(TeamChoices));
             Notify(nameof(SelectedTeamIndex));
             NotifyState();

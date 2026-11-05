@@ -1,13 +1,4 @@
-.lineup-editor-host,
-.lineup-editor__background {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-}
 .lineup-editor {
-  display: none;
   position: absolute;
   left: 0;
   right: auto;
@@ -18,7 +9,6 @@
   transform-origin: 0 0;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.65);
   color: rgb(243, 246, 250);
 }
 .lineup-editor__open {

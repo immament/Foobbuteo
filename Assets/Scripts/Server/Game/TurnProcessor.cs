@@ -490,7 +490,7 @@ namespace Imma.Foobbuteo.Server.Game
             var variationY = rand * maxVariationY;
             end.y = Mathf.Clamp(end.y + variationY, 5f, 415f);
 
-            this.LInfo(
+            this.LDebug(
                 $"{m_gameState.InfoTag} Shot {(new { inPenaltyArea, shootingSkill, distance, distanceFormula, rand, maxVariationY, variationY, end.y, targetY = target.ClampToPitch().y })}"
             );
 

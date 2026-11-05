@@ -174,7 +174,7 @@ namespace Tests.Editor.Client
             CollectionAssert.AreEqual(desired, vm.Draft.Starting, "Save failure must preserve the manager's draft.");
             Assert.IsTrue(vm.CanApply, "A failed save must allow a retry.");
             vm.SaveCompleted(new MvMLineupResult { Success = true });
-            Assert.AreEqual(DisplayStyle.None, vm.Display, "An accepted save must close the modal.");
+            Assert.IsFalse(vm.IsEditing, "An accepted save must complete the editing session.");
         }
 
         [TestCase(1, "GK")]
@@ -210,7 +210,7 @@ namespace Tests.Editor.Client
                     .CloneTree();
                 root.style.flexGrow = 1;
                 window.rootVisualElement.Add(root);
-                var overlay = root.Q("mvm-lineup-overlay");
+                var overlay = root.Q("mvm-lineup-surface");
                 overlay.AddToClassList("lineup-editor--short");
                 var vm = new MvMLineupVM(GameId, ClientImageCatalog.LoadForEditor());
                 overlay.dataSource = vm;

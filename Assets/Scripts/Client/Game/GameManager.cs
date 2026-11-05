@@ -77,6 +77,8 @@ namespace Imma.Foobbuteo.Client.Game
         internal ClientCmdManager CommandManager { get; private set; }
         internal ClientTeamsViewRegistry TeamsRegistry { get; private set; }
         private TeamSpawner m_teamSpawner;
+
+        [SerializeField]
         private PitchViewport m_pitchViewport;
         private Camera m_pitchCamera;
         private float m_viewportPixelsPerUnit;
@@ -115,7 +117,8 @@ namespace Imma.Foobbuteo.Client.Game
         {
             this.LogTrace("++");
 
-            m_matchSounds = new MatchSoundService(m_audioPlayer.Play, () => m_audioPlayer.Settings.Volume);
+            m_hud.EnsureInitialized();
+            m_matchSounds = new MatchSoundService(m_audioPlayer.Play, () => m_audioPlayer.Preferences.Volume);
             m_SpriteDB = GetComponent<PlayerSpriteDatabase>();
             var images = ClientAppCtrl.Instance.Images;
             m_SpriteDB.Init(images);
@@ -130,8 +133,7 @@ namespace Imma.Foobbuteo.Client.Game
 
             TeamsRegistry = new();
             AppCtx.Client.ClientConnectionStateChanged += OnConnectionChanged;
-            m_pitchViewport = FindAnyObjectByType<PitchViewport>();
-            m_pitchCamera = m_pitchViewport != null ? m_pitchViewport.PitchCamera : Camera.main;
+            m_pitchCamera = m_pitchViewport.PitchCamera;
             if (m_pitchViewport != null)
                 m_pitchViewport.ViewportChanged += UpdateViewportScale;
             UpdateViewportScale();
@@ -196,7 +198,8 @@ namespace Imma.Foobbuteo.Client.Game
             if (m_isLeavingRoom)
                 return;
             m_hasFreshDetails = false;
-            m_matchSounds = new MatchSoundService(m_audioPlayer.Play, () => m_audioPlayer.Settings.Volume);
+            m_hud.EnsureInitialized();
+            m_matchSounds = new MatchSoundService(m_audioPlayer.Play, () => m_audioPlayer.Preferences.Volume);
             if (m_audioPlayer != null)
                 m_audioPlayer.gameObject.SetActive(true);
             this.LDebug("onSpawn ++");

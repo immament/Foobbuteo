@@ -72,6 +72,9 @@ namespace Imma.Foobbuteo.Client
             }
         }
         internal ClientSettings ClientSettings { get; private set; }
+        private Preferences.ClientPreferences m_preferences;
+        internal Preferences.ClientPreferences Preferences =>
+            m_preferences ??= new Preferences.ClientPreferences(new Preferences.PlayerPrefsClientPreferencesStore());
         internal UiLayoutDiagnosticsController UiLayoutDiagnostics { get; } = new();
 
         public event Action<GameUser> UserInfoUpdated;

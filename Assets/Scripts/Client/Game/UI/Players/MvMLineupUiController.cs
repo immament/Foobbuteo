@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using Imma.Foobbuteo.Client.Game.Model;
 using Imma.Foobbuteo.Client.Game.UI.VM;
+using Imma.Foobbuteo.Client.UI.Modals;
 using Imma.Foobbuteo.Core;
 using Imma.Foobbuteo.Shared;
 using Imma.Foobbuteo.Shared.Game;
@@ -26,23 +27,40 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
         private readonly List<Button> m_triggers = new();
         private VisualElement m_root;
         private VisualElement m_overlay;
-        private VisualElement m_background;
+        private readonly ModalHostController m_host;
+        private readonly ModalPanelController m_modal;
+        private readonly bool m_ownsHost;
         private VisualElement m_pitch;
         private Button m_apply;
         private Button m_cancel;
         private VisualElement m_opener;
         private MvMLineupLayout m_layout;
         private LineupDragSession m_dragSession;
+        private bool m_disposed;
 
         internal MvMLineupUiController(
             IClientGameRoomNB api,
             ClientGameState game,
             Func<GameUser> user,
             Func<TeamIndex, TeamVM> team,
-            ClientImageCatalog images
+            ClientImageCatalog images,
+            ModalHostController host = null
         )
         {
             m_vm = new MvMLineupVM(game.GameId, images);
+            m_ownsHost = host == null;
+            m_host = host ?? new ModalHostController(new ModalHostState());
+            m_modal = new ModalPanelController(
+                m_host,
+                "mvm-lineup-overlay",
+                () => !m_vm.Busy,
+                _ =>
+                {
+                    if (m_vm.IsEditing)
+                        m_vm.Close();
+                    m_dragSession?.Cancel();
+                }
+            );
             m_vm.propertyChanged += OnLineupChanged;
             m_api = api;
             m_game = game;
@@ -63,16 +81,13 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
             if (root == null)
                 return;
             m_root = root;
-            m_overlay = root.Q("mvm-lineup-overlay");
-            m_background = root.Q("mvm-lineup-background");
+            if (m_ownsHost)
+                m_host.Bind(root);
+            m_overlay = root.Q("mvm-lineup-surface");
             m_pitch = m_overlay.Q("mvm-lineup-pitch");
             m_dragSession = new LineupDragSession(m_overlay);
             m_overlay.dataSource = m_vm;
             m_overlay.dataSourcePath = new PropertyPath();
-            m_background.SetBinding(
-                nameof(VisualElement.enabledSelf),
-                Binding(m_vm, nameof(MvMLineupVM.BackgroundEnabled))
-            );
             foreach (
                 string name in new[]
                 {
@@ -94,9 +109,6 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
             m_cancel = m_overlay.Q<Button>("mvm-lineup-cancel");
             m_apply.clicked += Apply;
             m_cancel.clicked += Cancel;
-            m_overlay.RegisterCallback<ClickEvent>(OnBackdrop);
-            m_overlay.RegisterCallback<KeyDownEvent>(OnKey, TrickleDown.TrickleDown);
-            m_overlay.RegisterCallback<DetachFromPanelEvent>(OnDetach);
             m_starting.Bind(
                 m_overlay.Q("mvm-lineup-starting"),
                 m_vm.Starting,
@@ -108,6 +120,7 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
                 m_vm.Reserves,
                 Array.Empty<PlayerTableViewDefinition>()
             );
+            m_modal.Bind(root.Q("mvm-lineup-overlay"), m_cancel);
             m_layout = new MvMLineupLayout(root, m_overlay, m_vm);
             Refresh();
             RenderPitch();
@@ -115,6 +128,8 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
 
         internal void Refresh()
         {
+            if (m_disposed)
+                return;
             var user = m_user();
             TeamIndex? side = null;
             if (
@@ -132,6 +147,8 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
                     side = slot.TeamIdx;
             }
             bool changed = side != m_vm.Team;
+            if (!side.HasValue && m_modal.State.IsVisible)
+                m_host.ForceCloseActive(ModalCloseReason.SessionEnded);
             m_vm.SetTeam(side);
             if (changed && side.HasValue)
                 RequestLoad();
@@ -157,16 +174,17 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
         private void Open()
         {
             Refresh();
-            if (!m_vm.Team.HasValue)
+            if (m_disposed || !m_vm.Team.HasValue)
                 return;
             m_opener ??= m_root.focusController.focusedElement as VisualElement;
             m_opener ??= m_triggers.Find(button => button.worldBound.width > 0 && button.worldBound.height > 0);
+            if (!m_modal.TryOpen(m_opener))
+                return;
             m_layout.Refresh();
             m_vm.Open(m_team(m_vm.Team.Value).Name, m_layout.IsSmall);
             if (m_vm.Draft == null)
                 RequestLoad();
             RenderPitch();
-            m_cancel.Focus();
         }
 
         private void Apply()
@@ -185,17 +203,11 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
             }
         }
 
-        private void Cancel()
-        {
-            if (m_vm.Busy)
-                return;
-            m_vm.Close();
-            m_opener?.Focus();
-        }
+        private void Cancel() => m_modal.TryClose(ModalCloseReason.CloseButton);
 
         private void OnLoaded(MvMLineupResult result)
         {
-            if (!m_vm.Team.HasValue)
+            if (m_disposed || !m_vm.Team.HasValue)
                 return;
             m_vm.Load(result);
             RenderPitch();
@@ -203,11 +215,11 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
 
         private void OnSaved(MvMLineupResult result)
         {
-            if (!m_vm.IsOpen)
+            if (m_disposed || !m_vm.IsEditing)
                 return;
             m_vm.SaveCompleted(result);
             if (result.Success)
-                m_opener?.Focus();
+                m_modal.TryClose(ModalCloseReason.Completed);
         }
 
         private void OnJoined(MvMJoinResult result)
@@ -218,8 +230,12 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
 
         private void OnStarted(TurnStateChangedMessage message)
         {
-            if (m_vm.IsOpen)
+            if (m_disposed)
+                return;
+            if (m_vm.IsEditing)
                 AppCtx.Client.ShowToast("The match has started. Lineup editing is closed.");
+            if (m_modal.State.IsVisible)
+                m_host.ForceCloseActive(ModalCloseReason.MatchStarted);
             m_vm.SetTeam(null);
         }
 
@@ -231,7 +247,9 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
 
         private void OnLineupChanged(object sender, BindablePropertyChangedEventArgs evt)
         {
-            if (!m_vm.IsOpen || m_vm.Busy || !m_vm.Team.HasValue)
+            if (evt.propertyName == nameof(MvMLineupVM.InputsEnabled) && m_vm.IsEditing && !m_vm.Busy)
+                m_modal.RequestInitialFocus();
+            if (!m_vm.IsEditing || m_vm.Busy || !m_vm.Team.HasValue)
                 m_dragSession?.Cancel();
         }
 
@@ -251,7 +269,7 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
                         int index = Array.IndexOf(m_vm.Draft.Starting, id);
                         return CreatePlayerCard(name, index >= 0 ? index + 1 : null, m_team(m_vm.Team.Value), true);
                     },
-                    () => m_vm.IsOpen && !m_vm.Busy && m_vm.Team.HasValue,
+                    () => m_vm.IsEditing && !m_vm.Busy && m_vm.Team.HasValue,
                     Swap
                 )
             );
@@ -310,48 +328,9 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
 
         private static MvMLineupResult Failure(string error) => new() { Error = error };
 
-        private void OnBackdrop(ClickEvent evt)
-        {
-            if (evt.target == m_overlay)
-                Cancel();
-        }
-
-        private void OnKey(KeyDownEvent evt)
-        {
-            if (evt.keyCode == KeyCode.Escape)
-            {
-                Cancel();
-                evt.StopPropagation();
-            }
-            else if (evt.keyCode == KeyCode.Tab)
-            {
-                var focusable = m_overlay
-                    .Query<VisualElement>()
-                    .ToList()
-                    .FindAll(element =>
-                        element.focusable
-                        && element.enabledInHierarchy
-                        && element.worldBound.width > 0
-                        && element.worldBound.height > 0
-                    );
-                if (focusable.Count == 0)
-                    return;
-                int current = focusable.IndexOf(m_overlay.focusController.focusedElement as VisualElement);
-                int next = (current + (evt.shiftKey ? -1 : 1) + focusable.Count) % focusable.Count;
-                focusable[next].Focus();
-                evt.StopPropagation();
-                m_overlay.focusController.IgnoreEvent(evt);
-            }
-        }
-
-        private void OnDetach(DetachFromPanelEvent evt)
-        {
-            if (evt.target == m_overlay)
-                Unbind();
-        }
-
         internal void Unbind()
         {
+            m_modal.Unbind();
             m_dragSession?.Dispose();
             m_dragSession = null;
             m_layout?.Dispose();
@@ -369,19 +348,22 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
                 return;
             m_apply.clicked -= Apply;
             m_cancel.clicked -= Cancel;
-            m_overlay.UnregisterCallback<ClickEvent>(OnBackdrop);
-            m_overlay.UnregisterCallback<KeyDownEvent>(OnKey, TrickleDown.TrickleDown);
-            m_overlay.UnregisterCallback<DetachFromPanelEvent>(OnDetach);
-            m_background.ClearBinding(nameof(VisualElement.enabledSelf));
-            m_background.SetEnabled(true);
             m_overlay.dataSource = null;
-            m_root = m_overlay = m_background = m_pitch = null;
+            m_root = m_overlay = m_pitch = null;
+            if (m_ownsHost)
+                m_host.Unbind();
             m_opener = null;
         }
 
         public void Dispose()
         {
+            if (m_disposed)
+                return;
+            m_disposed = true;
             Unbind();
+            m_modal.Dispose();
+            if (m_ownsHost)
+                m_host.Dispose();
             m_vm.propertyChanged -= OnLineupChanged;
             m_api.MvMLineupLoaded -= OnLoaded;
             m_api.MvMLineupSaved -= OnSaved;

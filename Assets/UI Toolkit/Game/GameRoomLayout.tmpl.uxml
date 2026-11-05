@@ -1,254 +1,224 @@
-<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:Template name="ActionsContainer" src="project://database/Assets/UI%20Toolkit/Game/GameActionsContainer.tmpl.uxml?fileID=9197481963319205126&amp;guid=dbdd8ab1dfcb38146905eeb4b67e2d39&amp;type=3#GameActionsContainer.tmpl"/>
-    <ui:Template name="mvm-lineup" src="project://database/Assets/UI%20Toolkit/Game/Players/MvMLineup.tmpl.uxml?fileID=9197481963319205126&amp;guid=5a86e61ee13aa9d4d8df78c734f9b7c6&amp;type=3#MvMLineup.tmpl"/>
-    <ui:Template name="room-user-list" src="project://database/Assets/UI%20Toolkit/Users/UserListView.tmpl.uxml?fileID=9197481963319205126&amp;guid=f137e80d677dc5a45b6c976d18ade83e&amp;type=3#UserListView.tmpl"/>
-    <ui:Template name="team-player-list" src="project://database/Assets/UI%20Toolkit/Game/Players/TeamPlayerList.tmpl.uxml?fileID=9197481963319205126&amp;guid=9a737d8813f34f94c8b7cae320b1705f&amp;type=3#TeamPlayerList.tmpl"/>
-    <Style src="project://database/Assets/UI%20Toolkit/Users/UserLists.style.uss?fileID=7433441132597879392&amp;guid=a663d49976fadf84eb861b1f86906ec6&amp;type=3#UserLists.style"/>
-    <Style src="project://database/Assets/UI%20Toolkit/Game/GameSettings.style.uss?fileID=7433441132597879392&amp;guid=a9176e5505b849e43846a9dde854b147&amp;type=3#GameSettings.style"/>
-    <Style src="project://database/Assets/UI%20Toolkit/Game/GameRoom.style.uss?fileID=7433441132597879392&amp;guid=a988cd52bfa4d2f418d091682b2dc080&amp;type=3#GameRoom.style"/>
-    <Style src="project://database/Assets/UI%20Toolkit/Game/HelpContainer.style.uss?fileID=7433441132597879392&amp;guid=558dd34c37f4bad4787d6d4e10c56c32&amp;type=3#HelpContainer.style"/>
-    <Style src="project://database/Assets/UI%20Toolkit/Common.style.uss?fileID=7433441132597879392&amp;guid=8361f49c9922b6142ac6723225d1e4a1&amp;type=3#Common.style"/>
-    <Style src="project://database/Assets/UI%20Toolkit/Game/Players/MvMLineup.style.uss?fileID=7433441132597879392&amp;guid=13c470010e05e7e41b331fd37636a6c7&amp;type=3#MvMLineup.style"/>
-    <ui:VisualElement picking-mode="Ignore" class="lineup-editor-host">
-        <ui:VisualElement name="mvm-lineup-background" picking-mode="Ignore" class="lineup-editor__background">
-            <ui:VisualElement name="game-room-content" picking-mode="Ignore">
-                <ui:VisualElement name="MainLayout" data-source="project://database/Assets/UI%20Toolkit/Game/GameHudVMData.asset?fileID=11400000&amp;guid=03084d53eb9aaf549a1a41e0a2647c0f&amp;type=2#GameHudVMData" data-source-type="Imma.Foobbuteo.Client.Game.UI.VM.GameHudVM, Foobbuteo.ClientLib" picking-mode="Ignore">
-                    <ui:VisualElement name="UnsafeAreaTop" picking-mode="Position" class="unsafe-area-mask"/>
-                    <ui:VisualElement name="UnsafeAreaRight" picking-mode="Position" class="unsafe-area-mask"/>
-                    <ui:VisualElement name="UnsafeAreaBottom" picking-mode="Position" class="unsafe-area-mask"/>
-                    <ui:VisualElement name="UnsafeAreaLeft" picking-mode="Position" class="unsafe-area-mask"/>
-                    <ui:VisualElement name="SafeAreaRoot" picking-mode="Ignore">
-                        <ui:VisualElement name="GameScreen" picking-mode="Ignore">
-                            <ui:VisualElement name="LeftSide" picking-mode="Ignore">
-                                <ui:VisualElement name="MainHeader" picking-mode="Ignore">
-                                    <ui:Button text="x" enable-rich-text="false" emoji-fallback-support="false" name="GameCloseButton" class="btn-default">
+<ui:UXML xmlns:ui="UnityEngine.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:Template name="help" src="Help.tmpl.uxml" />
+    <ui:Template name="game-settings" src="GameSettings.tmpl.uxml" />
+    <ui:Template name="ActionsContainer" src="project://database/Assets/UI%20Toolkit/Game/GameActionsContainer.tmpl.uxml?fileID=9197481963319205126&amp;guid=dbdd8ab1dfcb38146905eeb4b67e2d39&amp;type=3#GameActionsContainer.tmpl" />
+    <ui:Template name="mvm-lineup" src="project://database/Assets/UI%20Toolkit/Game/Players/MvMLineup.tmpl.uxml?fileID=9197481963319205126&amp;guid=5a86e61ee13aa9d4d8df78c734f9b7c6&amp;type=3#MvMLineup.tmpl" />
+    <ui:Template name="room-user-list" src="project://database/Assets/UI%20Toolkit/Users/UserListView.tmpl.uxml?fileID=9197481963319205126&amp;guid=f137e80d677dc5a45b6c976d18ade83e&amp;type=3#UserListView.tmpl" />
+    <ui:Template name="team-player-list" src="project://database/Assets/UI%20Toolkit/Game/Players/TeamPlayerList.tmpl.uxml?fileID=9197481963319205126&amp;guid=9a737d8813f34f94c8b7cae320b1705f&amp;type=3#TeamPlayerList.tmpl" />
+    <Style src="project://database/Assets/UI%20Toolkit/Users/UserLists.style.uss?fileID=7433441132597879392&amp;guid=a663d49976fadf84eb861b1f86906ec6&amp;type=3#UserLists.style" />
+    <Style src="project://database/Assets/UI%20Toolkit/Game/GameRoom.style.uss?fileID=7433441132597879392&amp;guid=a988cd52bfa4d2f418d091682b2dc080&amp;type=3#GameRoom.style" />
+    <Style src="project://database/Assets/UI%20Toolkit/Common.style.uss?fileID=7433441132597879392&amp;guid=8361f49c9922b6142ac6723225d1e4a1&amp;type=3#Common.style" />
+    <Style src="project://database/Assets/UI%20Toolkit/Game/Players/MvMLineup.style.uss?fileID=7433441132597879392&amp;guid=13c470010e05e7e41b331fd37636a6c7&amp;type=3#MvMLineup.style" />
+    <ui:Style src="../Modals/ModalHost.style.uss" />
+    <ui:VisualElement name="game-room-root" picking-mode="Ignore">
+        <ui:VisualElement name="unsafe-area-masks" picking-mode="Ignore">
+            <ui:VisualElement name="UnsafeAreaTop" picking-mode="Position" class="unsafe-area-mask" />
+            <ui:VisualElement name="UnsafeAreaRight" picking-mode="Position" class="unsafe-area-mask" />
+            <ui:VisualElement name="UnsafeAreaBottom" picking-mode="Position" class="unsafe-area-mask" />
+            <ui:VisualElement name="UnsafeAreaLeft" picking-mode="Position" class="unsafe-area-mask" />
+        </ui:VisualElement>
+        <ui:VisualElement name="screen-content" picking-mode="Ignore">
+            <ui:VisualElement name="MainLayout" data-source="project://database/Assets/UI%20Toolkit/Game/GameHudVMData.asset?fileID=11400000&amp;guid=03084d53eb9aaf549a1a41e0a2647c0f&amp;type=2#GameHudVMData" data-source-type="Imma.Foobbuteo.Client.Game.UI.VM.GameHudVM, Foobbuteo.ClientLib" picking-mode="Ignore">
+                <ui:VisualElement name="SafeAreaRoot" picking-mode="Ignore">
+                    <ui:VisualElement name="GameScreen" picking-mode="Ignore">
+                        <ui:VisualElement name="LeftSide" picking-mode="Ignore">
+                            <ui:VisualElement name="MainHeader" picking-mode="Ignore">
+                                <ui:Button text="x" enable-rich-text="false" emoji-fallback-support="false" name="GameCloseButton" class="btn-default">
+                                    <Bindings>
+                                        <ui:DataBinding property="style.display" data-source-path="CloseButtonDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                    </Bindings>
+                                </ui:Button>
+                                <ui:VisualElement name="ResultPanel">
+                                    <ui:Button name="home-edit-lineup" tooltip="Edit lineup" class="btn-default lineup-editor__open">
                                         <Bindings>
-                                            <ui:DataBinding property="style.display" data-source-path="CloseButtonDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
+                                            <ui:DataBinding property="style.display" data-source-path="HomeDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                                         </Bindings>
                                     </ui:Button>
-                                    <ui:VisualElement name="ResultPanel">
-                                        <ui:Button name="home-edit-lineup" tooltip="Edit lineup" class="btn-default lineup-editor__open">
-                                            <Bindings>
-                                                <ui:DataBinding property="style.display" data-source-path="HomeDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-                                            </Bindings>
-                                        </ui:Button>
-                                        <ui:Label name="TeamAName" text="Team A" class="team-name">
-                                            <Bindings>
-                                                <ui:DataBinding property="text" data-source-path="TeamA.Name" binding-mode="ToTarget"/>
-                                                <ui:DataBinding property="tooltip" data-source-path="TeamA.Name" binding-mode="ToTarget"/>
-                                            </Bindings>
-                                        </ui:Label>
-                                        <ui:Image name="TeamAColor" class="team-color">
-                                            <Bindings>
-                                                <ui:DataBinding property="style.backgroundImage" data-source-path="TeamA.Logo" binding-mode="ToTarget"/>
-                                            </Bindings>
-                                        </ui:Image>
-                                        <ui:Label name="Result" text="0:0" class="result">
-                                            <Bindings>
-                                                <ui:DataBinding property="text" data-source-path="ScoreText" binding-mode="ToTarget"/>
-                                            </Bindings>
-                                        </ui:Label>
-                                        <ui:Image name="TeamBColor" class="team-color">
-                                            <Bindings>
-                                                <ui:DataBinding property="style.backgroundImage" data-source-path="TeamB.Logo" binding-mode="ToTarget"/>
-                                            </Bindings>
-                                        </ui:Image>
-                                        <ui:Label name="TeamBName" text="Team B" class="team-name">
-                                            <Bindings>
-                                                <ui:DataBinding property="text" data-source-path="TeamB.Name" binding-mode="ToTarget"/>
-                                                <ui:DataBinding property="tooltip" data-source-path="TeamB.Name" binding-mode="ToTarget"/>
-                                            </Bindings>
-                                        </ui:Label>
-                                        <ui:Button name="away-edit-lineup" tooltip="Edit lineup" class="btn-icon lineup-editor__open">
-                                            <Bindings>
-                                                <ui:DataBinding property="style.display" data-source-path="AwayDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-                                            </Bindings>
-                                        </ui:Button>
-                                    </ui:VisualElement>
-                                    <ui:Button name="HelpButton" text="?" tooltip="Help" class="btn-default"/>
-                                </ui:VisualElement>
-                                <ui:VisualElement name="PitchArea" picking-mode="Ignore">
-                                    <ui:VisualElement name="PitchContainer" picking-mode="Ignore"/>
-                                    <ui:VisualElement name="pitch-match-overlay" picking-mode="Ignore">
-                                        <ui:VisualElement name="pitch-scoreboard" picking-mode="Ignore">
-                                            <ui:Button name="mobile-home-edit-lineup" tooltip="Edit lineup" class="btn-icon lineup-editor__open">
-                                                <Bindings>
-                                                    <ui:DataBinding property="style.display" data-source-path="HomeDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-                                                </Bindings>
-                                            </ui:Button>
-                                            <ui:VisualElement name="pitch-home-team" picking-mode="Ignore" class="pitch-scoreboard__team">
-                                                <Bindings>
-                                                    <ui:DataBinding property="style.backgroundColor" data-source-path="TeamA.ShirtBackgroundColor" binding-mode="ToTarget"/>
-                                                    <ui:DataBinding property="style.color" data-source-path="TeamA.ShirtTextColor" binding-mode="ToTarget"/>
-                                                </Bindings>
-                                                <ui:Label name="pitch-home-name" text="Home" class="pitch-scoreboard__name">
-                                                    <Bindings>
-                                                        <ui:DataBinding property="text" data-source-path="TeamA.Name" binding-mode="ToTarget"/>
-                                                        <ui:DataBinding property="tooltip" data-source-path="TeamA.Name" binding-mode="ToTarget"/>
-                                                    </Bindings>
-                                                </ui:Label>
-                                                <ui:Label name="pitch-home-score" text="0" picking-mode="Ignore" class="pitch-scoreboard__score">
-                                                    <Bindings>
-                                                        <ui:DataBinding property="text" data-source-path="ScoreA" binding-mode="ToTarget"/>
-                                                    </Bindings>
-                                                </ui:Label>
-                                            </ui:VisualElement>
-                                            <ui:VisualElement name="pitch-away-team" picking-mode="Ignore" class="pitch-scoreboard__team">
-                                                <Bindings>
-                                                    <ui:DataBinding property="style.backgroundColor" data-source-path="TeamB.ShirtBackgroundColor" binding-mode="ToTarget"/>
-                                                    <ui:DataBinding property="style.color" data-source-path="TeamB.ShirtTextColor" binding-mode="ToTarget"/>
-                                                </Bindings>
-                                                <ui:Label name="pitch-away-score" text="0" picking-mode="Ignore" class="pitch-scoreboard__score">
-                                                    <Bindings>
-                                                        <ui:DataBinding property="text" data-source-path="ScoreB" binding-mode="ToTarget"/>
-                                                    </Bindings>
-                                                </ui:Label>
-                                                <ui:Label name="pitch-away-name" text="Away" class="pitch-scoreboard__name">
-                                                    <Bindings>
-                                                        <ui:DataBinding property="text" data-source-path="TeamB.Name" binding-mode="ToTarget"/>
-                                                        <ui:DataBinding property="tooltip" data-source-path="TeamB.Name" binding-mode="ToTarget"/>
-                                                    </Bindings>
-                                                </ui:Label>
-                                            </ui:VisualElement>
-                                            <ui:Button name="mobile-away-edit-lineup" tooltip="Edit lineup" class="btn-icon lineup-editor__open">
-                                                <Bindings>
-                                                    <ui:DataBinding property="style.display" data-source-path="AwayDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-                                                </Bindings>
-                                            </ui:Button>
-                                        </ui:VisualElement>
-                                        <ui:VisualElement name="pitch-header-controls" picking-mode="Ignore">
-                                            <ui:Button name="pitch-help-button" text="?" tooltip="Help" class="btn-default"/>
-                                            <ui:Button name="pitch-close-button" text="x" class="btn-default">
-                                                <Bindings>
-                                                    <ui:DataBinding property="style.display" data-source-path="CloseButtonDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-                                                </Bindings>
-                                            </ui:Button>
-                                        </ui:VisualElement>
-                                    </ui:VisualElement>
-                                    <ui:VisualElement name="RotateDeviceMessage" picking-mode="Ignore">
-                                        <ui:Label name="RotateDeviceMessageLabel" text="Rotate device to play" picking-mode="Ignore"/>
-                                    </ui:VisualElement>
-                                </ui:VisualElement>
-                                <ui:VisualElement name="PitchBottomMask" picking-mode="Ignore"/>
-                            </ui:VisualElement>
-                            <ui:VisualElement name="RightSide" picking-mode="Ignore">
-                                <ui:VisualElement name="StatusCell">
-                                    <ui:VisualElement name="StatusPanel">
-                                        <ui:Label name="TurnText" text="Turn">
-                                            <Bindings>
-                                                <ui:DataBinding property="text" data-source-path="TurnText" binding-mode="ToTarget"/>
-                                            </Bindings>
-                                        </ui:Label>
-                                        <ui:Label name="PhaseText" text="Timer">
-                                            <Bindings>
-                                                <ui:DataBinding property="text" data-source-path="TimerText" binding-mode="ToTarget"/>
-                                            </Bindings>
-                                        </ui:Label>
-                                    </ui:VisualElement>
-                                </ui:VisualElement>
-                                <ui:VisualElement name="SidePanel" picking-mode="Ignore">
-                                    <ui:VisualElement name="mvm-join-panel" class="mvm-join-panel">
+                                    <ui:Label name="TeamAName" text="Team A" class="team-name">
                                         <Bindings>
-                                            <ui:DataBinding property="style.display" data-source-path="Display" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
+                                            <ui:DataBinding property="text" data-source-path="TeamA.Name" binding-mode="ToTarget" />
+                                            <ui:DataBinding property="tooltip" data-source-path="TeamA.Name" binding-mode="ToTarget" />
                                         </Bindings>
-                                        <ui:DropdownField name="mvm-join-team" label="My team">
+                                    </ui:Label>
+                                    <ui:Image name="TeamAColor" class="team-color">
+                                        <Bindings>
+                                            <ui:DataBinding property="style.backgroundImage" data-source-path="TeamA.Logo" binding-mode="ToTarget" />
+                                        </Bindings>
+                                    </ui:Image>
+                                    <ui:Label name="Result" text="0:0" class="result">
+                                        <Bindings>
+                                            <ui:DataBinding property="text" data-source-path="ScoreText" binding-mode="ToTarget" />
+                                        </Bindings>
+                                    </ui:Label>
+                                    <ui:Image name="TeamBColor" class="team-color">
+                                        <Bindings>
+                                            <ui:DataBinding property="style.backgroundImage" data-source-path="TeamB.Logo" binding-mode="ToTarget" />
+                                        </Bindings>
+                                    </ui:Image>
+                                    <ui:Label name="TeamBName" text="Team B" class="team-name">
+                                        <Bindings>
+                                            <ui:DataBinding property="text" data-source-path="TeamB.Name" binding-mode="ToTarget" />
+                                            <ui:DataBinding property="tooltip" data-source-path="TeamB.Name" binding-mode="ToTarget" />
+                                        </Bindings>
+                                    </ui:Label>
+                                    <ui:Button name="away-edit-lineup" tooltip="Edit lineup" class="btn-icon lineup-editor__open">
+                                        <Bindings>
+                                            <ui:DataBinding property="style.display" data-source-path="AwayDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                        </Bindings>
+                                    </ui:Button>
+                                </ui:VisualElement>
+                                <ui:Button name="HelpButton" text="?" tooltip="Help" class="btn-default" />
+                            </ui:VisualElement>
+                            <ui:VisualElement name="PitchArea" picking-mode="Ignore">
+                                <ui:VisualElement name="PitchContainer" picking-mode="Ignore" />
+                                <ui:VisualElement name="pitch-match-overlay" picking-mode="Ignore">
+                                    <ui:VisualElement name="pitch-scoreboard" picking-mode="Ignore">
+                                        <ui:Button name="mobile-home-edit-lineup" tooltip="Edit lineup" class="btn-icon lineup-editor__open">
                                             <Bindings>
-                                                <ui:DataBinding property="choices" data-source-path="TeamChoices" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-                                                <ui:DataBinding property="index" data-source-path="SelectedTeamIndex" binding-mode="TwoWay" update-trigger="OnSourceChanged"/>
-                                                <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-                                            </Bindings>
-                                        </ui:DropdownField>
-                                        <ui:Button name="mvm-join-button" text="Join as away manager" class="btn-default">
-                                            <Bindings>
-                                                <ui:DataBinding property="enabledSelf" data-source-path="CanJoin" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-                                                <ui:DataBinding property="text" data-source-path="JoinText" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
+                                                <ui:DataBinding property="style.display" data-source-path="HomeDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                                             </Bindings>
                                         </ui:Button>
-                                        <ui:Label name="mvm-join-error" class="mvm-join-panel__error">
+                                        <ui:VisualElement name="pitch-home-team" picking-mode="Ignore" class="pitch-scoreboard__team">
                                             <Bindings>
-                                                <ui:DataBinding property="text" data-source-path="Error" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
+                                                <ui:DataBinding property="style.backgroundColor" data-source-path="TeamA.ShirtBackgroundColor" binding-mode="ToTarget" />
+                                                <ui:DataBinding property="style.color" data-source-path="TeamA.ShirtTextColor" binding-mode="ToTarget" />
                                             </Bindings>
-                                        </ui:Label>
+                                            <ui:Label name="pitch-home-name" text="Home" class="pitch-scoreboard__name">
+                                                <Bindings>
+                                                    <ui:DataBinding property="text" data-source-path="TeamA.Name" binding-mode="ToTarget" />
+                                                    <ui:DataBinding property="tooltip" data-source-path="TeamA.Name" binding-mode="ToTarget" />
+                                                </Bindings>
+                                            </ui:Label>
+                                            <ui:Label name="pitch-home-score" text="0" picking-mode="Ignore" class="pitch-scoreboard__score">
+                                                <Bindings>
+                                                    <ui:DataBinding property="text" data-source-path="ScoreA" binding-mode="ToTarget" />
+                                                </Bindings>
+                                            </ui:Label>
+                                        </ui:VisualElement>
+                                        <ui:VisualElement name="pitch-away-team" picking-mode="Ignore" class="pitch-scoreboard__team">
+                                            <Bindings>
+                                                <ui:DataBinding property="style.backgroundColor" data-source-path="TeamB.ShirtBackgroundColor" binding-mode="ToTarget" />
+                                                <ui:DataBinding property="style.color" data-source-path="TeamB.ShirtTextColor" binding-mode="ToTarget" />
+                                            </Bindings>
+                                            <ui:Label name="pitch-away-score" text="0" picking-mode="Ignore" class="pitch-scoreboard__score">
+                                                <Bindings>
+                                                    <ui:DataBinding property="text" data-source-path="ScoreB" binding-mode="ToTarget" />
+                                                </Bindings>
+                                            </ui:Label>
+                                            <ui:Label name="pitch-away-name" text="Away" class="pitch-scoreboard__name">
+                                                <Bindings>
+                                                    <ui:DataBinding property="text" data-source-path="TeamB.Name" binding-mode="ToTarget" />
+                                                    <ui:DataBinding property="tooltip" data-source-path="TeamB.Name" binding-mode="ToTarget" />
+                                                </Bindings>
+                                            </ui:Label>
+                                        </ui:VisualElement>
+                                        <ui:Button name="mobile-away-edit-lineup" tooltip="Edit lineup" class="btn-icon lineup-editor__open">
+                                            <Bindings>
+                                                <ui:DataBinding property="style.display" data-source-path="AwayDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                            </Bindings>
+                                        </ui:Button>
                                     </ui:VisualElement>
-                                    <ui:ScrollView name="ActionsScroll" mode="Vertical" horizontal-scroller-visibility="Hidden">
-                                        <ui:Instance template="ActionsContainer" name="ActionsContainerTemplate" picking-mode="Ignore"/>
-                                    </ui:ScrollView>
-                                    <ui:VisualElement name="MessagePanel" picking-mode="Ignore">
-                                        <ui:VisualElement class="room-settings-row">
-                                            <ui:VisualElement class="room-user-tabs">
-                                                <ui:Button name="messagesTabButton" text="Messages" class="btn-default btn-sm user-tab-selected"/>
-                                                <ui:Button name="usersTabButton" text="Users" class="btn-default btn-sm"/>
-                                            </ui:VisualElement>
-                                            <ui:Button name="open-settings-btn" tooltip="Settings" class="btn-icon"/>
+                                    <ui:VisualElement name="pitch-header-controls" picking-mode="Ignore">
+                                        <ui:Button name="pitch-help-button" text="?" tooltip="Help" class="btn-default" />
+                                        <ui:Button name="pitch-close-button" text="x" class="btn-default">
+                                            <Bindings>
+                                                <ui:DataBinding property="style.display" data-source-path="CloseButtonDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                            </Bindings>
+                                        </ui:Button>
+                                    </ui:VisualElement>
+                                </ui:VisualElement>
+                                <ui:VisualElement name="RotateDeviceMessage" picking-mode="Ignore">
+                                    <ui:Label name="RotateDeviceMessageLabel" text="Rotate device to play" picking-mode="Ignore" />
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="PitchBottomMask" picking-mode="Ignore" />
+                        </ui:VisualElement>
+                        <ui:VisualElement name="RightSide" picking-mode="Ignore">
+                            <ui:VisualElement name="StatusCell">
+                                <ui:VisualElement name="StatusPanel">
+                                    <ui:Label name="TurnText" text="Turn">
+                                        <Bindings>
+                                            <ui:DataBinding property="text" data-source-path="TurnText" binding-mode="ToTarget" />
+                                        </Bindings>
+                                    </ui:Label>
+                                    <ui:Label name="PhaseText" text="Timer">
+                                        <Bindings>
+                                            <ui:DataBinding property="text" data-source-path="TimerText" binding-mode="ToTarget" />
+                                        </Bindings>
+                                    </ui:Label>
+                                </ui:VisualElement>
+                            </ui:VisualElement>
+                            <ui:VisualElement name="SidePanel" picking-mode="Ignore">
+                                <ui:VisualElement name="mvm-join-panel" class="mvm-join-panel">
+                                    <Bindings>
+                                        <ui:DataBinding property="style.display" data-source-path="Display" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                    </Bindings>
+                                    <ui:DropdownField name="mvm-join-team" label="My team">
+                                        <Bindings>
+                                            <ui:DataBinding property="choices" data-source-path="TeamChoices" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                            <ui:DataBinding property="index" data-source-path="SelectedTeamIndex" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+                                            <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                        </Bindings>
+                                    </ui:DropdownField>
+                                    <ui:Button name="mvm-join-button" text="Join as away manager" class="btn-default">
+                                        <Bindings>
+                                            <ui:DataBinding property="enabledSelf" data-source-path="CanJoin" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                            <ui:DataBinding property="text" data-source-path="JoinText" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                        </Bindings>
+                                    </ui:Button>
+                                    <ui:Label name="mvm-join-error" class="mvm-join-panel__error">
+                                        <Bindings>
+                                            <ui:DataBinding property="text" data-source-path="Error" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                                        </Bindings>
+                                    </ui:Label>
+                                </ui:VisualElement>
+                                <ui:ScrollView name="ActionsScroll" mode="Vertical" horizontal-scroller-visibility="Hidden">
+                                    <ui:Instance template="ActionsContainer" name="ActionsContainerTemplate" picking-mode="Ignore" />
+                                </ui:ScrollView>
+                                <ui:VisualElement name="MessagePanel" picking-mode="Ignore">
+                                    <ui:VisualElement class="room-settings-row">
+                                        <ui:VisualElement class="room-user-tabs">
+                                            <ui:Button name="messagesTabButton" text="Messages" class="btn-default btn-sm user-tab-selected" />
+                                            <ui:Button name="usersTabButton" text="Users" class="btn-default btn-sm" />
                                         </ui:VisualElement>
-                                        <ui:VisualElement name="roomMessagesContent">
-                                            <ui:Label name="MatchReportHeading" text="Match events"/>
-                                            <ui:ScrollView name="MatchReportScroll" mode="Vertical" horizontal-scroller-visibility="Hidden"/>
-                                        </ui:VisualElement>
-                                        <ui:VisualElement name="roomUsersContent" class="user-list-hidden">
-                                            <ui:Instance template="room-user-list" class="user-list-content"/>
-                                        </ui:VisualElement>
+                                        <ui:Button name="open-settings-btn" tooltip="Settings" class="btn-icon" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement name="roomMessagesContent">
+                                        <ui:Label name="MatchReportHeading" text="Match events" />
+                                        <ui:ScrollView name="MatchReportScroll" mode="Vertical" horizontal-scroller-visibility="Hidden" />
+                                    </ui:VisualElement>
+                                    <ui:VisualElement name="roomUsersContent" class="user-list-hidden">
+                                        <ui:Instance template="room-user-list" class="user-list-content" />
                                     </ui:VisualElement>
                                 </ui:VisualElement>
                             </ui:VisualElement>
                         </ui:VisualElement>
                     </ui:VisualElement>
-                    <ui:VisualElement name="SelectedPlayerPopup">
-                        <ui:Button text="Choose player" name="SelectedPlayerClaimBtn" class="btn-default"/>
-                        <Bindings>
-                            <ui:DataBinding property="style.display" data-source-path="CanClaimPlayer" binding-mode="ToTarget"/>
-                        </Bindings>
-                    </ui:VisualElement>
-                    <ui:VisualElement name="PopupBackground" class="popup-background popup-background-hidden"/>
-                    <ui:VisualElement name="HelpContainer" class="popup-container popup-container-hidden">
-                        <ui:TabView name="TabView" view-data-key="TabbedMenu">
-                            <ui:Tab label="Actions" view-data-key="ActionsTab">
-                                <ui:ScrollView>
-                                    <Imma.Foobbuteo.Client.UI.Help.HelpScreen name="HelpScreen" page-index="0"/>
-                                </ui:ScrollView>
-                            </ui:Tab>
-                            <ui:Tab label="Game Modes" view-data-key="GameModesTab">
-                                <ui:ScrollView>
-                                    <Imma.Foobbuteo.Client.UI.Help.HelpScreen name="HelpScreen" page-index="1"/>
-                                </ui:ScrollView>
-                            </ui:Tab>
-                        </ui:TabView>
-                        <ui:Button name="HelpCloseButton" class="btn-default"/>
-                    </ui:VisualElement>
                 </ui:VisualElement>
-                <ui:VisualElement name="game-settings-overlay" picking-mode="Position" data-source-type="Imma.Foobbuteo.Client.UI.GameSettingsVM, Foobbuteo.ClientLib" style="display: none;">
-                    <Bindings>
-                        <ui:DataBinding property="style.display" data-source-path="Display" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-                    </Bindings>
-                    <ui:VisualElement name="game-settings-panel" picking-mode="Position">
-                        <ui:Label text="Settings" class="game-settings-title"/>
-                        <ui:VisualElement style="justify-content: space-between; flex-direction: row; align-items: center;">
-                            <ui:Label text="Sound volume" class="sound-volume-title"/>
-                            <ui:Label text="50%" name="sound-volume-label">
-                                <Bindings>
-                                    <ui:DataBinding property="text" data-source-path="VolumeText" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-                                </Bindings>
-                            </ui:Label>
-                        </ui:VisualElement>
-                        <ui:SliderInt name="sound-volume-slider" low-value="0" high-value="100" value="50">
-                            <Bindings>
-                                <ui:DataBinding property="value" data-source-path="Volume" binding-mode="TwoWay" update-trigger="OnSourceChanged"/>
-                            </Bindings>
-                        </ui:SliderInt>
-                        <ui:Toggle name="dev-network-gui-toggle" text="Enable DevNetworkGUI" style="display: none;">
-                            <Bindings>
-                                <ui:DataBinding property="style.display" data-source-path="AdminOptionsDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-                                <ui:DataBinding property="value" data-source-path="DevNetworkGuiEnabled" binding-mode="TwoWay" update-trigger="OnSourceChanged"/>
-                            </Bindings>
-                        </ui:Toggle>
-                        <ui:Button name="close-game-settings-btn" text="Close" class="btn-default btn-sm"/>
-                    </ui:VisualElement>
-                </ui:VisualElement>
-                <ui:VisualElement name="toast-container" picking-mode="Ignore"/>
-                <ui:VisualElement name="banner-container" picking-mode="Ignore"/>
             </ui:VisualElement>
-            <ui:Instance template="team-player-list" picking-mode="Ignore" class="team-player-list-host"/>
+            <ui:VisualElement name="contextual-popup-layer" picking-mode="Ignore">
+                <ui:VisualElement name="SelectedPlayerPopup">
+                    <ui:Button text="Choose player" name="SelectedPlayerClaimBtn" class="btn-default" />
+                    <Bindings>
+                        <ui:DataBinding property="style.display" data-source-path="CanClaimPlayer" binding-mode="ToTarget" />
+                    </Bindings>
+                </ui:VisualElement>
+            </ui:VisualElement>
         </ui:VisualElement>
-        <ui:Instance template="mvm-lineup" picking-mode="Ignore" class="lineup-editor-host"/>
+        <ui:VisualElement name="modal-layer" picking-mode="Ignore">
+            <ui:VisualElement name="modal-backdrop" picking-mode="Position" />
+            <ui:VisualElement name="modal-safe-area" picking-mode="Ignore">
+                <ui:VisualElement name="modal-content" picking-mode="Ignore">
+                    <ui:Instance template="help" name="help-modal" picking-mode="Ignore" class="modal-panel-host" />
+                    <ui:Instance template="game-settings" name="game-settings-overlay" picking-mode="Ignore" class="modal-panel-host" />
+                    <ui:Instance template="team-player-list" name="team-player-list-overlay" picking-mode="Ignore" class="modal-panel-host" />
+                    <ui:Instance template="mvm-lineup" name="mvm-lineup-overlay" picking-mode="Ignore" class="modal-panel-host" />
+                </ui:VisualElement>
+            </ui:VisualElement>
+        </ui:VisualElement>
+        <ui:VisualElement name="notifications-safe-area" picking-mode="Ignore">
+            <ui:VisualElement name="toast-container" picking-mode="Ignore" />
+            <ui:VisualElement name="banner-container" picking-mode="Ignore" />
+        </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

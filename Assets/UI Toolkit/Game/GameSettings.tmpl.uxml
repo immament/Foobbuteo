@@ -1,0 +1,26 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="GameSettings.style.uss" />
+    <ui:VisualElement name="game-settings-panel" picking-mode="Position" data-source-type="Imma.Foobbuteo.Client.UI.GameSettingsVM, Foobbuteo.ClientLib">
+        <ui:Label text="Settings" class="game-settings-title" />
+        <ui:VisualElement class="game-settings__volume-row">
+            <ui:Label text="Sound volume" class="sound-volume-title" />
+            <ui:Label text="50%" name="sound-volume-label">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="VolumeText" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                </Bindings>
+            </ui:Label>
+        </ui:VisualElement>
+        <ui:SliderInt name="sound-volume-slider" low-value="0" high-value="100" value="50">
+            <Bindings>
+                <ui:DataBinding property="value" data-source-path="Volume" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+            </Bindings>
+        </ui:SliderInt>
+        <ui:Toggle name="dev-network-gui-toggle" text="Enable DevNetworkGUI" style="display: none;">
+            <Bindings>
+                <ui:DataBinding property="style.display" data-source-path="AdminOptionsDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                <ui:DataBinding property="value" data-source-path="DevNetworkGuiEnabled" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
+            </Bindings>
+        </ui:Toggle>
+        <ui:Button name="close-game-settings-btn" text="Close" class="btn-default btn-sm" />
+    </ui:VisualElement>
+</ui:UXML>

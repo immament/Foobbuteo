@@ -1,4 +1,4 @@
-#HelpContainer .unity-tab__header {
+#help-panel .unity-tab__header {
   background-color: #263545;
   color: var(--muted);
   -unity-font-style: bold;
@@ -7,44 +7,43 @@
   border-radius: 10px 10px 0 0;
 }
 
-#HelpContainer .unity-tab__header:checked {
+#help-panel .unity-tab__header:checked {
   background-color: #405b76;
   color: var(--text-color);
 }
 
-#HelpContainer .unity-tab__header:hover {
+#help-panel .unity-tab__header:hover {
   background-color: #35495e;
 }
 
-#HelpContainer .unity-tab__header-underline {
+#help-panel .unity-tab__header-underline {
   opacity: 0;
 }
 
-#HelpContainer .help-item {
+#help-panel .help-item {
   flex-direction: row;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
-#HelpContainer .help-item #image {
+#help-panel .help-item #image {
   width: 64px;
   height: 64px;
   margin-right: 12px;
 }
 
-#HelpContainer .help-item #title {
+#help-panel .help-item #title {
   font-size: 16px;
   -unity-font-style: bold;
   white-space: pre-wrap;
 }
 
-#HelpContainer .help-item #description {
+#help-panel .help-item #description {
   font-size: 16px;
   white-space: pre-wrap;
 }
 
-#HelpContainer #HelpCloseButton {
-  position: absolute;
+#help-panel #HelpCloseButton {
   right: 0;
   top: 0;
   background-image: url("project://database/Assets/ClientAssets/Buttons/closexxx.gif");
@@ -57,7 +56,7 @@
   height: 24px;
 }
 
-#HelpContainer #HelpCloseButton:hover {
+#help-panel #HelpCloseButton:hover {
   scale: 1.05;
 }
 
@@ -67,9 +66,9 @@
 
 .popup-container {
   display: flex;
-  position: absolute;
+
   align-self: center;
-  top: 5%;
+
   width: 90%;
   height: 90%;
   border-width: 16px;
@@ -79,26 +78,4 @@
   transition-duration: 0.15s;
   transition-timing-function: ease;
   align-items: stretch;
-}
-
-.popup-container-hidden {
-  translate: 0 -200%;
-  display: none;
-}
-
-.popup-background {
-  flex-grow: 1;
-  position: absolute;
-  min-width: 100%;
-  min-height: 100%;
-  background-color: rgba(59, 59, 59, 0.61);
-  transition-duration: 0.15s;
-}
-
-.popup-background-hidden {
-  display: none;
-  transition-property: all;
-  transition-duration: 0.25s;
-  transition-timing-function: ease;
-  transition-delay: 0s;
 }

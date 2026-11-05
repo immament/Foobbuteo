@@ -1,57 +1,54 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements">
-    <ui:Template name="player-table" src="PlayerTable.tmpl.uxml"/>
-    <ui:Style src="MvMLineup.style.uss"/>
-    <ui:VisualElement name="mvm-lineup-overlay" class="lineup-editor" picking-mode="Position">
-        <Bindings>
-            <ui:DataBinding property="style.display" data-source-path="Display" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-        </Bindings>
-        <ui:VisualElement name="mvm-lineup-panel" class="lineup-editor__panel">
+    <ui:Template name="player-table" src="PlayerTable.tmpl.uxml" />
+    <ui:Style src="MvMLineup.style.uss" />
+    <ui:VisualElement name="mvm-lineup-surface" class="lineup-editor" picking-mode="Ignore">
+        <ui:VisualElement name="mvm-lineup-panel" class="lineup-editor__panel" picking-mode="Position">
             <ui:VisualElement class="lineup-editor__header">
                 <ui:Label class="lineup-editor__title" enable-rich-text="false">
                     <Bindings>
-                        <ui:DataBinding property="text" data-source-path="Title" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
+                        <ui:DataBinding property="text" data-source-path="Title" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                     </Bindings>
                 </ui:Label>
-                <ui:Label text="Drag players between the pitch and either list. On touch, hold to drag; swipe to scroll. Apply saves the starting eleven." class="lineup-editor__instructions"/>
-             </ui:VisualElement>
-            <ui:Label text="Hold a player to drag. Swipe to scroll." class="lineup-editor__touch-instructions"/>
+                <ui:Label text="Drag players between the pitch and either list. On touch, hold to drag; swipe to scroll. Apply saves the starting eleven." class="lineup-editor__instructions" />
+            </ui:VisualElement>
+            <ui:Label text="Hold a player to drag. Swipe to scroll." class="lineup-editor__touch-instructions" />
             <ui:VisualElement class="lineup-editor__body">
                 <Bindings>
-                    <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
+                    <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                 </Bindings>
                 <ui:VisualElement name="mvm-lineup-pitch-frame" class="lineup-editor__pitch-frame">
-                    <ui:VisualElement name="mvm-lineup-pitch" class="lineup-editor__pitch"/>
+                    <ui:VisualElement name="mvm-lineup-pitch" class="lineup-editor__pitch" />
                 </ui:VisualElement>
                 <ui:VisualElement class="lineup-editor__squad">
-                    <ui:VisualElement name="mvm-lineup-views" class="lineup-editor__views player-table__views"/>
+                    <ui:VisualElement name="mvm-lineup-views" class="lineup-editor__views player-table__views" />
                     <ui:VisualElement class="lineup-editor__lists">
                         <ui:VisualElement class="lineup-editor__list">
                             <Bindings>
-                                <ui:DataBinding property="style.flexGrow" data-source-path="StartingFlexGrow" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
+                                <ui:DataBinding property="style.flexGrow" data-source-path="StartingFlexGrow" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                             </Bindings>
                             <ui:Toggle name="mvm-lineup-starting-toggle" text="Starting XI" tooltip="Expand or collapse Starting XI" class="lineup-editor__list-toggle">
                                 <Bindings>
-                                    <ui:DataBinding property="value" data-source-path="StartingExpanded" binding-mode="TwoWay" update-trigger="OnSourceChanged"/>
+                                    <ui:DataBinding property="value" data-source-path="StartingExpanded" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
                                 </Bindings>
                             </ui:Toggle>
                             <ui:Instance name="mvm-lineup-starting" template="player-table" class="lineup-editor__table">
                                 <Bindings>
-                                    <ui:DataBinding property="style.display" data-source-path="StartingDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
+                                    <ui:DataBinding property="style.display" data-source-path="StartingDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                                 </Bindings>
                             </ui:Instance>
                         </ui:VisualElement>
                         <ui:VisualElement class="lineup-editor__list">
                             <Bindings>
-                                <ui:DataBinding property="style.flexGrow" data-source-path="ReservesFlexGrow" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
+                                <ui:DataBinding property="style.flexGrow" data-source-path="ReservesFlexGrow" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                             </Bindings>
                             <ui:Toggle name="mvm-lineup-reserves-toggle" text="Other players" tooltip="Expand or collapse Other players" class="lineup-editor__list-toggle">
                                 <Bindings>
-                                    <ui:DataBinding property="value" data-source-path="ReservesExpanded" binding-mode="TwoWay" update-trigger="OnSourceChanged"/>
+                                    <ui:DataBinding property="value" data-source-path="ReservesExpanded" binding-mode="TwoWay" update-trigger="OnSourceChanged" />
                                 </Bindings>
                             </ui:Toggle>
                             <ui:Instance name="mvm-lineup-reserves" template="player-table" class="lineup-editor__table">
                                 <Bindings>
-                                    <ui:DataBinding property="style.display" data-source-path="ReservesDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
+                                    <ui:DataBinding property="style.display" data-source-path="ReservesDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                                 </Bindings>
                             </ui:Instance>
                         </ui:VisualElement>
@@ -60,19 +57,19 @@
             </ui:VisualElement>
             <ui:Label name="mvm-lineup-error" class="lineup-editor__error" enable-rich-text="false">
                 <Bindings>
-                    <ui:DataBinding property="text" data-source-path="Error" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-                    <ui:DataBinding property="style.display" data-source-path="ErrorDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
+                    <ui:DataBinding property="text" data-source-path="Error" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                    <ui:DataBinding property="style.display" data-source-path="ErrorDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                 </Bindings>
             </ui:Label>
             <ui:VisualElement class="lineup-editor__footer">
                 <ui:Button name="mvm-lineup-cancel" text="Cancel" class="btn-default">
                     <Bindings>
-                        <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
+                        <ui:DataBinding property="enabledSelf" data-source-path="InputsEnabled" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                     </Bindings>
                 </ui:Button>
                 <ui:Button name="mvm-lineup-apply" text="Apply" class="btn-default">
                     <Bindings>
-                        <ui:DataBinding property="enabledSelf" data-source-path="CanApply" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
+                        <ui:DataBinding property="enabledSelf" data-source-path="CanApply" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
                     </Bindings>
                 </ui:Button>
             </ui:VisualElement>

@@ -3,12 +3,14 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Imma.Common;
 using Imma.Foobbuteo.Client.Game.Model;
 using Imma.Foobbuteo.Client.Game.UI.Players;
 using Imma.Foobbuteo.Client.Game.UI.VM;
 using Imma.Foobbuteo.Client.UI;
 using Imma.Foobbuteo.Client.UI.Help;
+using Imma.Foobbuteo.Client.UI.Modals;
 using Imma.Foobbuteo.Client.UI.Tooltip;
 using Imma.Foobbuteo.Client.Users;
 using Imma.Foobbuteo.Common;
@@ -18,6 +20,7 @@ using Imma.Foobbuteo.Shared.Game;
 using Imma.Foobbuteo.Shared.Game.Contract;
 using Imma.Foobbuteo.Shared.Game.Model;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UIElements;
 
 namespace Imma.Foobbuteo.Client.Game.UI
@@ -32,11 +35,26 @@ namespace Imma.Foobbuteo.Client.Game.UI
         private PlayerSpriteDatabase m_spriteDB;
 
         [SerializeField]
+        [UnityEngine.Serialization.FormerlySerializedAs("m_vm")]
+        private GameHudVM m_vmTemplate;
         private GameHudVM m_vm;
+        private GameSettingsVM m_settings;
 
         private VisualElement m_rootElement;
-        private int m_UiVersion = 0;
+
+        [SerializeField]
         private Camera m_pitchCamera;
+
+        [SerializeField]
+        private Physics2DRaycaster m_pitchRaycaster;
+
+        [SerializeField]
+        private TooltipService m_tooltipService;
+        private ModalHostController m_modals;
+        private HelpUiController m_helpUi;
+        private bool m_pitchBlocked;
+        private bool m_pitchWasEnabled;
+        private readonly List<Action> m_unbindClicks = new();
         private readonly MatchReportSession m_reportSession = new();
         private readonly MatchReportView m_reportView = new();
         private UserListsUiController m_usersUi;
@@ -66,7 +84,8 @@ namespace Imma.Foobbuteo.Client.Game.UI
                 game,
                 getUser,
                 team => team == TeamIndex.Home ? HomeTeam : AwayTeam,
-                m_images
+                m_images,
+                m_modals
             );
             m_lineupUi.Bind(m_rootElement);
             m_managerJoinUi.Bind(m_rootElement);
@@ -92,6 +111,7 @@ namespace Imma.Foobbuteo.Client.Game.UI
 
         internal void StopUserLists()
         {
+            m_modals?.ForceCloseActive(ModalCloseReason.SessionEnded);
             m_usersUi?.Unbind();
             m_managerJoinUi?.Dispose();
             m_managerJoinUi = null;
@@ -115,7 +135,8 @@ namespace Imma.Foobbuteo.Client.Game.UI
 
         private void OnHudPropertyChanged(object sender, BindablePropertyChangedEventArgs evt)
         {
-            RefreshTimerStyle();
+            if (evt.propertyName == nameof(GameHudVM.IsTimerUrgent))
+                RefreshTimerStyle();
         }
 
         private void RefreshTimerStyle()
@@ -140,31 +161,24 @@ namespace Imma.Foobbuteo.Client.Game.UI
         private const string k_playerWithBallBtnName = "PlayerWithBallBtn";
         private Button m_playerWithBallBtn;
 
-        private const string k_helpBtnName = "HelpButton";
-        private Button m_helpBtn;
-        private const string k_mobileHelpBtnName = "pitch-help-button";
-        private Button m_mobileHelpBtn;
-
-        private const string k_helpCloseBtnName = "HelpCloseButton";
-        private Button m_helpCloseBtn;
-
-        private const string k_helpContainerName = "HelpContainer";
-        private VisualElement m_helpContainer;
-        private const string k_popupBackgroundName = "PopupBackground";
-        private VisualElement m_helpBackground;
-
-        // private const string k_actionsContainerActionsName = "Actions";
-        // private VisualElement m_actionsContainerActions;
-
-        private const string k_PopupHiddenClass = "popup-container-hidden";
-        private const string k_PopupBackgroundClass = "popup-background-hidden";
+        internal void EnsureInitialized()
+        {
+            if (m_vm != null)
+                return;
+            m_vm = GameHudVM.CreateRuntime(m_vmTemplate);
+            var preferences = ClientAppCtrl.Instance.Preferences;
+            m_audioPlayer.Initialize(preferences);
+            m_settings = new GameSettingsVM(preferences);
+            m_modals = new ModalHostController(new ModalHostState());
+            m_modals.State.propertyChanged += OnModalChanged;
+            m_helpUi = new HelpUiController(m_modals);
+            m_soundSettingsUi = new GameSettingsUiController(m_settings, m_modals);
+        }
 
         new void Awake()
         {
             this.LogDebug("+++");
-            this.LogAssert(m_vm != null, "m_vm==null");
-            m_soundSettingsUi = new GameSettingsUiController(m_audioPlayer.Settings);
-            GetComponent<PanelRenderer>().RegisterUIReloadCallback(OnUIReload);
+            EnsureInitialized();
             m_vm.propertyChanged += OnHudPropertyChanged;
             m_vm.SwitchPlayer(null);
             m_vm.IsSessionReady = false;
@@ -172,9 +186,39 @@ namespace Imma.Foobbuteo.Client.Game.UI
             m_vm.OnePlayerHasBall = false;
         }
 
+        new void OnEnable()
+        {
+            EnsureInitialized();
+            GetComponent<PanelRenderer>().RegisterUIReloadCallback(OnUIReload);
+        }
+
+        new void OnDisable()
+        {
+            GetComponent<PanelRenderer>().UnregisterUIReloadCallback(OnUIReload);
+            UnbindHud();
+            m_helpUi?.Unbind();
+            m_soundSettingsUi?.Unbind();
+            m_playerListUi?.Unbind();
+            m_lineupUi?.Unbind();
+            m_usersUi?.Unbind();
+            m_managerJoinUi?.Unbind();
+            m_reportView.Dispose();
+            if (m_pitchBlocked && m_pitchRaycaster != null)
+                m_pitchRaycaster.enabled = m_pitchWasEnabled;
+            m_pitchBlocked = false;
+            if (m_tooltipService != null)
+                m_tooltipService.SetModalScope(null);
+        }
+
         new void OnDestroy()
         {
+            UnbindHud();
+            m_helpUi?.Dispose();
+            m_modals.ForceCloseActive(ModalCloseReason.SessionEnded);
+            m_modals.State.propertyChanged -= OnModalChanged;
+            m_modals.Dispose();
             m_vm.propertyChanged -= OnHudPropertyChanged;
+            m_settings?.Dispose();
             m_reportView.Dispose();
             m_usersUi?.Dispose();
             m_managerJoinUi?.Dispose();
@@ -183,14 +227,18 @@ namespace Imma.Foobbuteo.Client.Game.UI
             m_playerListUi?.Dispose();
             m_reportSession.Clear();
             GetComponent<PanelRenderer>().UnregisterUIReloadCallback(OnUIReload);
+            if (m_vm != null)
+                Destroy(m_vm);
         }
 
         void OnUIReload(PanelRenderer panelRenderer, VisualElement rootElement, int version)
         {
-            if (version == m_UiVersion)
+            if (rootElement.Q("game-room-root") == null)
                 return;
-            m_UiVersion = version;
+            UnbindHud();
             m_rootElement = rootElement;
+            m_modals.Bind(rootElement);
+            m_helpUi.Bind(rootElement);
             InitializeHelpImages();
             rootElement.Q("MainLayout").dataSource = m_vm;
             m_vm.RefreshRoomPermissions();
@@ -200,6 +248,7 @@ namespace Imma.Foobbuteo.Client.Game.UI
             m_soundSettingsUi.Bind(rootElement);
             m_playerListUi?.Bind(rootElement);
             RefreshTimerStyle();
+            RefreshModalScope();
             AppCtx.Client.SetRootElement(rootElement);
             m_reportView.Bind(Q<ScrollView>("MatchReportScroll"), m_reportSession);
 
@@ -207,41 +256,25 @@ namespace Imma.Foobbuteo.Client.Game.UI
             m_actionsContainer.dataSource = m_vm;
 
             m_claimPlayerBtn = Q<Button>(k_claimPlayerBtnName);
-            m_claimPlayerBtn?.RegisterCallback<ClickEvent>(OnClaimPlayerBtnClick);
+            BindClick(m_claimPlayerBtn, OnClaimPlayerBtnClick);
 
             m_selectedPlayerPopup = Q<VisualElement>(k_selectedPlayerPopupName);
             m_selectedPlayerPopup.dataSource = m_vm;
 
             m_selectedPlayerClaimBtn = Q<Button>(k_selectedPlayerClaimBtnName);
-            m_selectedPlayerClaimBtn?.RegisterCallback<ClickEvent>(OnClaimPlayerBtnClick);
+            BindClick(m_selectedPlayerClaimBtn, OnClaimPlayerBtnClick);
 
             m_currentUserPlayerBtn = Q<Button>(k_currentUserPlayerBtnName);
-            m_currentUserPlayerBtn?.RegisterCallback<ClickEvent>(OnCurrentUserPlayerBtnClick);
+            BindClick(m_currentUserPlayerBtn, OnCurrentUserPlayerBtnClick);
 
             m_playerWithBallBtn = Q<Button>(k_playerWithBallBtnName);
-            m_playerWithBallBtn?.RegisterCallback<ClickEvent>(OnPlayerWithBallBtnClick);
+            BindClick(m_playerWithBallBtn, OnPlayerWithBallBtnClick);
 
             m_gameCloseBtn = Q<Button>(k_gameCloseBtnName);
-            m_gameCloseBtn?.RegisterCallback<ClickEvent>(OnGameCloseBtnClick);
+            BindClick(m_gameCloseBtn, OnGameCloseBtnClick);
 
             m_mobileGameCloseBtn = Q<Button>(k_mobileGameCloseBtnName);
-            m_mobileGameCloseBtn?.RegisterCallback<ClickEvent>(OnGameCloseBtnClick);
-
-            m_helpBtn = Q<Button>(k_helpBtnName);
-            m_helpBtn?.RegisterCallback<ClickEvent>(OnHelpBtnClick);
-
-            m_mobileHelpBtn = Q<Button>(k_mobileHelpBtnName);
-            m_mobileHelpBtn?.RegisterCallback<ClickEvent>(OnHelpBtnClick);
-
-            m_helpContainer = Q<VisualElement>(k_helpContainerName);
-
-            m_helpBackground = Q<VisualElement>(k_popupBackgroundName);
-            m_helpBackground.RegisterCallback<ClickEvent>(OnCloseHelpClick);
-
-            m_helpCloseBtn = Q<Button>(k_helpCloseBtnName);
-            m_helpCloseBtn.RegisterCallback<ClickEvent>(OnCloseHelpClick);
-
-            // m_actionsContainerActions = Q<VisualElement>(k_actionsContainerActionsName);
+            BindClick(m_mobileGameCloseBtn, OnGameCloseBtnClick);
 
             InitTooltip();
 
@@ -256,26 +289,72 @@ namespace Imma.Foobbuteo.Client.Game.UI
 #endif      // -- DEV: TEST BUTTON --
         }
 
+        private void BindClick(Button button, EventCallback<ClickEvent> handler)
+        {
+            if (button == null)
+                return;
+            button.RegisterCallback(handler);
+            m_unbindClicks.Add(() => button.UnregisterCallback(handler));
+        }
+
+        private void UnbindHud()
+        {
+            foreach (var release in m_unbindClicks)
+                release();
+            m_unbindClicks.Clear();
+            m_rootElement?.UnregisterCallback<PointerOverEvent>(OnPointerOver, TrickleDown.TrickleDown);
+            m_rootElement?.UnregisterCallback<PointerOutEvent>(OnPointerOut, TrickleDown.TrickleDown);
+            StopTooltipTimer();
+            m_modals?.Unbind();
+        }
+
+        private void OnModalChanged(object sender, BindablePropertyChangedEventArgs change)
+        {
+            if (change.propertyName == nameof(ModalHostState.HasActivePanel))
+                RefreshModalScope();
+        }
+
+        private void RefreshModalScope()
+        {
+            bool blocked = isActiveAndEnabled && m_modals.State.HasActivePanel;
+            if (m_pitchRaycaster != null && blocked != m_pitchBlocked)
+            {
+                if (blocked)
+                {
+                    m_pitchWasEnabled = m_pitchRaycaster.enabled;
+                    m_pitchRaycaster.enabled = false;
+                }
+                else
+                    m_pitchRaycaster.enabled = m_pitchWasEnabled;
+            }
+            m_pitchBlocked = blocked;
+            StopTooltipTimer();
+            if (m_tooltipService != null)
+                m_tooltipService.SetModalScope(m_modals.Active?.Root);
+        }
+
         private void LateUpdate()
         {
             if (
                 m_selectedPlayerPopup?.panel == null
+                || m_modals.State.HasActivePanel
                 || m_selectedPlayerPopup.resolvedStyle.display == DisplayStyle.None
             )
                 return;
 
             PlayerMB selectedPlayer = GameManager.Instance.SelectedPlayer;
-            if (m_pitchCamera == null)
-                m_pitchCamera = Camera.main;
             if (selectedPlayer == null || m_pitchCamera == null)
                 return;
 
-            Vector2 screenPosition = m_pitchCamera.WorldToScreenPoint(selectedPlayer.PopupAnchorPosition);
-            Vector2 panelPosition = RuntimePanelUtils.ScreenToPanel(m_selectedPlayerPopup.panel, screenPosition);
-            float panelHeight = m_selectedPlayerPopup.panel.visualTree.resolvedStyle.height;
-
-            m_selectedPlayerPopup.style.left = panelPosition.x;
-            m_selectedPlayerPopup.style.top = panelHeight - panelPosition.y;
+            Vector3 screenPosition = m_pitchCamera.WorldToScreenPoint(selectedPlayer.PopupAnchorPosition);
+            if (screenPosition.z <= 0 || !UiViewportMetrics.TryRead(m_rootElement, out var metrics))
+                return;
+            Vector2 panelPosition = RuntimePanelUtils.ScreenToPanel(
+                m_selectedPlayerPopup.panel,
+                new Vector2(screenPosition.x, UnityEngine.Device.Screen.height - screenPosition.y)
+            );
+            Rect safeArea = m_rootElement.LocalToWorld(metrics.SafeAreaPanelUnits);
+            ContextualPopupPosition.Place(m_selectedPlayerPopup, panelPosition, safeArea);
         }
 
         private T Q<T>(string query)
@@ -324,35 +403,15 @@ namespace Imma.Foobbuteo.Client.Game.UI
             GameManager.Instance.LeaveGame();
         }
 
-        private void OnHelpBtnClick(ClickEvent evt)
-        {
-            if (!m_helpContainer.ClassListContains(k_PopupHiddenClass))
-            {
-                return;
-            }
-
-            m_helpContainer.RemoveFromClassList(k_PopupHiddenClass);
-            m_helpBackground.RemoveFromClassList(k_PopupBackgroundClass);
-        }
-
-        private void OnCloseHelpClick(ClickEvent evt)
-        {
-            if (m_helpContainer.ClassListContains(k_PopupHiddenClass))
-            {
-                return;
-            }
-
-            m_helpContainer.AddToClassList(k_PopupHiddenClass);
-            m_helpBackground.AddToClassList(k_PopupBackgroundClass);
-        }
-
         internal void InitializeMatch(BaseGameInfo baseGameInfo, GameUser user, ClientGameState gameState)
         {
+            m_vm.ResetRuntimeState();
             m_playerListUi?.Dispose();
             m_playerListUi = new PlayerListUiController(
                 team => m_vm.GameState?.Team(team),
                 team => (team == TeamIndex.Home ? HomeTeam : AwayTeam)?.Name ?? "Team",
-                m_images
+                m_images,
+                m_modals
             );
             if (m_rootElement != null)
                 m_playerListUi.Bind(m_rootElement);
@@ -360,7 +419,7 @@ namespace Imma.Foobbuteo.Client.Game.UI
             if (m_rootElement != null)
                 m_reportView.Bind(Q<ScrollView>("MatchReportScroll"), m_reportSession);
             m_vm.User = user;
-            m_audioPlayer.Settings.SetAdmin(user?.IsAdmin == true);
+            m_settings.SetAdmin(user?.IsAdmin == true);
             m_vm.GameState = gameState;
             m_vm.TeamA = CreateTeamVm(TeamIndex.Home, baseGameInfo.HomeTeam);
             m_vm.TeamB = CreateTeamVm(TeamIndex.Away, baseGameInfo.AwayTeam);
@@ -531,6 +590,7 @@ namespace Imma.Foobbuteo.Client.Game.UI
         [SerializeField]
         private float m_tooltipDelay = 0.5f;
         private Coroutine m_tooltipCoroutine;
+        private VisualElement m_tooltipOrigin;
 
         private void InitTooltip()
         {
@@ -548,6 +608,7 @@ namespace Imma.Foobbuteo.Client.Game.UI
             if (evt.target is VisualElement element && !string.IsNullOrEmpty(element.tooltip))
             {
                 // this.LogTrace($"{element.localBound}, {element.worldBound}, {GetTooltipPosition(element)}");
+                m_tooltipOrigin = element;
                 StartTooltipTimer(new TooltipData(string.Empty, element.tooltip), GetTooltipPosition(element));
             }
         }
@@ -582,13 +643,14 @@ namespace Imma.Foobbuteo.Client.Game.UI
         private IEnumerator ShowTooltipAfterDelay(TooltipData data, Vector2 position)
         {
             yield return new WaitForSeconds(m_tooltipDelay);
-            TooltipService.Instance.Show(data, position, false);
+            m_tooltipService.Show(data, position, false, m_tooltipOrigin);
             m_tooltipCoroutine = null;
         }
 
         private void HideTooltip()
         {
-            TooltipService.Instance.Hide();
+            if (m_tooltipService != null)
+                m_tooltipService.Hide();
         }
 
         internal void SetCaptainOfTeam(TeamIndex? teamIdx)
@@ -600,7 +662,7 @@ namespace Imma.Foobbuteo.Client.Game.UI
         internal void UpdateUser(GameUser user)
         {
             m_vm.User = user;
-            m_audioPlayer.Settings.SetAdmin(user?.IsAdmin == true);
+            m_settings.SetAdmin(user?.IsAdmin == true);
         }
 
         internal void RefreshRoomPermissions() => m_vm.RefreshRoomPermissions();

@@ -134,6 +134,8 @@ namespace Imma.Foobbuteo.Client.Game.UI.VM
                     return;
                 m_hasBall = value;
                 Notify();
+                Notify(nameof(ShowGkActions));
+                Notify(nameof(ShowGkFieldPlayerActions));
             }
         }
 

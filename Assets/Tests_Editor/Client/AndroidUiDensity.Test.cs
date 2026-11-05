@@ -310,6 +310,7 @@ namespace Tests.Editor.Client
                     panels++;
                     Assert.IsTrue(
                         renderer.GetComponent<AndroidUiDensity>() != null
+                            || HasSharedGameDensityOwner(scene, renderer)
                             || renderer.GetComponent<LobbyPanelScaling>() != null,
                         $"{scenePath}: panel {renderer.name} must use Android density configuration."
                     );
@@ -325,6 +326,22 @@ namespace Tests.Editor.Client
             {
                 EditorSceneManager.ClosePreviewScene(scene);
             }
+        }
+
+        private static bool HasSharedGameDensityOwner(UnityEngine.SceneManagement.Scene scene, PanelRenderer renderer)
+        {
+            foreach (var root in scene.GetRootGameObjects())
+            foreach (
+                var owner in root.GetComponentsInChildren<Imma.Foobbuteo.Client.Game.UI.GamePanelSettingsRuntime>(true)
+            )
+            {
+                var serialized = new SerializedObject(owner);
+                var main = serialized.FindProperty("m_mainRenderer").objectReferenceValue;
+                var tooltip = serialized.FindProperty("m_tooltipRenderer").objectReferenceValue;
+                if (owner.enabled && main != null && tooltip != null && (main == renderer || tooltip == renderer))
+                    return true;
+            }
+            return false;
         }
     }
 }

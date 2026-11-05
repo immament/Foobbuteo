@@ -217,7 +217,7 @@ namespace Tests.Editor.Client
             yield return TestUtils.WaitForUi(IsOpen, "The modal must open before dismissal checks.");
             SendClick(m_root.Q("team-player-list-title"));
             Assert.IsTrue(m_controller.VM.Team.HasValue, "Clicking inside the panel must not dismiss it.");
-            SendClick(m_root.Q("team-player-list-overlay"));
+            SendClick(m_root.Q("modal-backdrop"));
             yield return TestUtils.WaitForUi(() => !IsOpen(), "Clicking the backdrop must dismiss the modal.");
             SendClick(m_root.Q("TeamBColor"));
             var close = m_root.Q<Button>("team-player-list-close");
