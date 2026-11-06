@@ -7,7 +7,7 @@
   --fbt-field-border: #52657e;
   --fbt-divider: #3c4c62;
   --fbt-focus: #9dc5ff;
-  --fbt-header-height: 50px;
+  --fbt-header-height: 40px;
   --fbt-font-body: url("Fonts/BarlowCondensed/BarlowCondensed-Regular.ttf");
   --fbt-font-heading: url("Fonts/BarlowCondensed/BarlowCondensed-BlackItalic.ttf");
   --fbt-font-button: url("Fonts/BarlowCondensed/BarlowCondensed-ExtraBoldItalic.ttf");

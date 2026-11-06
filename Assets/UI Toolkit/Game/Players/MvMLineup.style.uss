@@ -11,26 +11,6 @@
   justify-content: center;
   color: rgb(243, 246, 250);
 }
-.lineup-editor__open {
-  display: none;
-  flex-shrink: 0;
-  padding: 0;
-  width: 32px;
-  height: 32px;
-  min-width: 24px;
-  min-height: 24px;
-  background-image: url("EditLineup.svg");
-  background-size: 18px 22px;
-  /* -unity-background-scale-mode: scale-to-fit; */
-}
-#MainHeader .btn-default.lineup-editor__open {
-  min-width: 24px;
-  min-height: 24px;
-}
-#SidePanel .lineup-editor__open {
-  rotate: 90deg;
-  margin: 0;
-}
 
 .lineup-editor__panel {
   width: 97%;

@@ -59,10 +59,10 @@ namespace Imma.Foobbuteo.Server.dev
                 }
                 : new()
                 {
-                    // CreateTestGame_Ended(++gameId),
-                    // CreateTestGame_Ongoing(++gameId),
-                    // CreateTestGame_Ongoing_EditorCaptain(++gameId),
-                    // CreateTestGame_Ongoing_BeforeEnd(++gameId),
+                    CreateTestGame_Ended(++gameId),
+                    CreateTestGame_Ongoing(++gameId),
+                    CreateTestGame_Ongoing_EditorCaptain(++gameId),
+                    CreateTestGame_Ongoing_BeforeEnd(++gameId),
                     CreateTestGame_Pending(++gameId, 1000, FoobbuteoGameType.MvM),
                 };
 

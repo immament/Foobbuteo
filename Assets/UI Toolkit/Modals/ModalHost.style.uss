@@ -14,9 +14,14 @@
   top: 0;
   bottom: 0;
 }
+#contextual-popup-layer,
+#notifications-safe-area,
 #modal-layer,
 .modal-panel-host {
   display: none;
+}
+#notifications-safe-area.notifications-safe-area--runtime {
+  display: flex;
 }
 #modal-layer {
   color: rgb(243, 246, 250);

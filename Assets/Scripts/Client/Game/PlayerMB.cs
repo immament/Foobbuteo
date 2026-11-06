@@ -206,7 +206,7 @@ namespace Imma.Foobbuteo.Client.Game
         public TooltipData GetTooltip()
         {
             const float skillRatio = 5f;
-            var title = $"<b>{m_playerVM.Name}</b> <size=-4>({m_playerState.UserId}/{m_playerState.PlayerId})</size>";
+            var title = $"{m_playerVM.Name} <size=-5>({m_playerState.UserId}/{m_playerState.PlayerId})</size>";
             var desc =
                 $@"{(m_playerState.IsInactive ? "Inactive" : string.Empty)}{(m_playerState.IsUser && !m_playerState.IsConnected ? " Disconnected" : string.Empty)}
                 Zone: {m_playerState.Zone}
@@ -238,7 +238,7 @@ namespace Imma.Foobbuteo.Client.Game
                     Out Of Area: {m_playerState.OutOfAreaSkill * skillRatio}%";
             }
 
-            // <b>Mahmood Abu-Turk(114172)</b>
+            // Mahmood Abu-Turk(114172)
             // Zone: 18 (350,250)
             // Ball Distance: 70
             // Action Points: 100

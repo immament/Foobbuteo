@@ -55,8 +55,10 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
             m_close = m_overlay.Q<Button>("team-player-list-close");
             m_close.clicked += Close;
             AddTrigger("TeamAColor", TeamIndex.Home);
+            AddTrigger("TeamAName", TeamIndex.Home);
             AddTrigger("pitch-home-name", TeamIndex.Home);
             AddTrigger("TeamBColor", TeamIndex.Away);
+            AddTrigger("TeamBName", TeamIndex.Away);
             AddTrigger("pitch-away-name", TeamIndex.Away);
             m_table.Bind(m_overlay, VM.Table);
             Refresh();
