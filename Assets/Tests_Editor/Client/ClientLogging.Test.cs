@@ -21,6 +21,7 @@ namespace Tests.Editor.Client
         [TestCase(true)]
         public void UserAlert_LogsItsTextEvenWhenUiIsUnavailable(bool banner)
         {
+            ImmLogger.Level = ImmLogger.LogLevel.Warn;
             var instance = new GameObject("User alert logging test");
             try
             {
