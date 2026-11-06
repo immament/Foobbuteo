@@ -1,6 +1,6 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { selectTargets, reserveVersion } = require('./release.cjs');
+const { selectTargets, reserveVersion, request } = require('./release.cjs');
 
 const context = { repo: { owner: 'owner', repo: 'game' }, runId: 123, runAttempt: 1, sha: 'a'.repeat(40) };
 const config = { allowedBranch: 'build', major: 0 };
@@ -44,13 +44,11 @@ test('only exact head markers on the allowed branch request automatic builds', (
   assert.deepEqual(selectTargets('push', 'refs/heads/build', { head_commit: { message: 'BUILD_ALL' } }, config), []);
 });
 
-test('both markers or all request both targets; manual selection uses the same branch gate', () => {
-  for (const message of ['[BUILD_WEBGL] [BUILD_SERVER]', '[BUILD_ALL]']) {
-    assert.deepEqual(selectTargets('push', 'refs/heads/build', { head_commit: { message } }, config), ['webgl', 'server']);
-  }
+test('combined markers request both targets; manual selection uses the same branch gate', () => {
+  assert.deepEqual(selectTargets('push', 'refs/heads/build', { head_commit: { message: '[BUILD_WEBGL] [BUILD_SERVER]' } }, config), ['webgl', 'server']);
   assert.deepEqual(selectTargets('workflow_dispatch', 'refs/heads/build', { inputs: { target: 'server' } }, config), ['server']);
   assert.deepEqual(selectTargets('workflow_dispatch', 'refs/heads/main', { inputs: { target: 'all' } }, config), []);
-  assert.throws(() => selectTargets('workflow_dispatch', 'refs/heads/build', { inputs: { target: 'android' } }, config));
+  assert.throws(() => selectTargets('workflow_dispatch', 'refs/heads/build', { inputs: { target: 'invalid' } }, config));
 });
 
 test('UTC reservation is shared across targets and reused by run ID after midnight', async () => {
@@ -117,4 +115,29 @@ test('interrupted-run recovery ignores unrelated JSON primitive tag messages', a
   github.tags.set('unrelated', { message: 'null', object: { type: 'commit', sha: context.sha } });
   const reservation = await reserveVersion(github, { ...context, runAttempt: 2 }, 0, new Date('2026-11-03T12:00Z'));
   assert.equal(reservation.version, '0.26.1103.1');
+});
+
+test('Android can be requested alone or with all release targets', () => {
+  for (const message of ['[BUILD_ANDROID]', '[BUILD_ALL]', '[BUILD_WEBGL] [BUILD_ANDROID]']) {
+    const expected = message === '[BUILD_ANDROID]' ? ['android'] : message === '[BUILD_ALL]' ? ['webgl', 'server', 'android'] : ['webgl', 'android'];
+    assert.deepEqual(selectTargets('push', 'refs/heads/build', { head_commit: { message } }, config), expected);
+  }
+  assert.deepEqual(selectTargets('workflow_dispatch', 'refs/heads/build', { inputs: { target: 'android' } }, config), ['android']);
+  assert.deepEqual(selectTargets('workflow_dispatch', 'refs/heads/build', { inputs: { target: 'all' } }, config), ['webgl', 'server', 'android']);
+});
+
+test('Android request uses the non-development profile and pinned Android image', async () => {
+  const fs = require('node:fs');
+  const outputs = {};
+  await request({
+    context: { ...context, eventName: 'workflow_dispatch', ref: 'refs/heads/main', payload: { inputs: { target: 'android' } } },
+    core: { setOutput(name, value) { outputs[name] = value; }, summary: { addRaw() {}, async write() {} } },
+  });
+  const [build] = JSON.parse(outputs.matrix).include;
+  assert.equal(build.target, 'android');
+  assert.equal(build.platform, 'Android');
+  assert.equal(build.profile, 'Assets/Settings/Build Profiles/Android™.asset');
+  assert.match(build.image, /-android-.*@sha256:[0-9a-f]{64}$/);
+  assert.match(fs.readFileSync(build.profile, 'utf8'), /m_Development: 0/);
+  assert.match(fs.readFileSync(build.profile, 'utf8'), /m_AllowDebugging: 0/);
 });

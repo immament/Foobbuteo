@@ -9,7 +9,7 @@ on:
         description: Build targets
         required: true
         type: choice
-        options: [webgl, server, all]
+        options: [webgl, server, android, all]
         default: all
 
 permissions:

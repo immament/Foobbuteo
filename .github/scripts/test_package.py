@@ -61,6 +61,31 @@ class PackageTests(unittest.TestCase):
         self.write('StandaloneWindows64/Foobbuteo_BackUpThisFolder_ButDontShipItWithYourGame/Foobbuteo.exe')
         self.assertEqual(package.find_distribution(self.source, 'server'), self.source / 'StandaloneWindows64')
 
+    def test_android_archive_contains_apk_and_preserves_provenance(self):
+        self.write('Foobbuteo.apk')
+        manifest = self.package('android')
+        self.assertEqual(manifest['file'], 'Foobbuteo-Android-0.26.1103.1.zip')
+        self.assertEqual(manifest['target'], 'android')
+        with zipfile.ZipFile(self.output / manifest['file']) as archive:
+            self.assertEqual(archive.read('Foobbuteo.apk'), b'build content')
+
+    def test_android_discovery_requires_exactly_one_apk_distribution(self):
+        with self.assertRaises(ValueError):
+            package.find_distribution(self.source, 'android')
+        self.write('Android/Foobbuteo.apk')
+        self.assertEqual(package.find_distribution(self.source, 'android'), self.source / 'Android')
+        self.write('other/Foobbuteo.apk')
+        with self.assertRaises(ValueError):
+            package.find_distribution(self.source, 'android')
+
+    def test_android_rejects_missing_apk_and_loose_keystores(self):
+        with self.assertRaises(ValueError):
+            self.package('android')
+        self.write('Foobbuteo.apk')
+        self.write('release.keystore')
+        with self.assertRaises(ValueError):
+            self.package('android')
+
     def test_missing_output_or_secret_configuration_is_rejected(self):
         with self.assertRaises(ValueError):
             self.package()

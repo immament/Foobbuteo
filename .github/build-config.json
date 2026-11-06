@@ -4,6 +4,7 @@
   "unityVersion": "6000.6.8f1",
   "images": {
     "webgl": "unityci/editor:ubuntu-6000.6.8f1-webgl-3.2.2@sha256:d986a658887f6befe23612ef1ca5433d1b1093b271b8fdf5a85224e4bf8a85db",
-    "server": "unityci/editor:ubuntu-6000.6.8f1-windows-mono-3.2.2@sha256:1631e4a1b4a654ea46e12e04c055681ec54273efb7abf6df2d81a5c952cdf89a"
+    "server": "unityci/editor:ubuntu-6000.6.8f1-windows-mono-3.2.2@sha256:1631e4a1b4a654ea46e12e04c055681ec54273efb7abf6df2d81a5c952cdf89a",
+    "android": "unityci/editor:ubuntu-6000.6.8f1-android-3.2.2@sha256:0b336c306d887be257e8503ee79e51ba94e025d58e39929fb62fc0333640b98c"
   }
 }

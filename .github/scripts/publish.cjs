@@ -12,7 +12,7 @@ function collectPackages(root, context, options) {
     candidates.push({ folder: root, label: 'download root' });
   }
   for (const entry of fs.readdirSync(root, { withFileTypes: true })) {
-    const match = /^release-(webgl|server)-(\d+)-(\d+)$/.exec(entry.name);
+    const match = /^release-(webgl|server|android)-(\d+)-(\d+)$/.exec(entry.name);
     if (!entry.isDirectory() || !match || match[2] !== String(context.runId)) continue;
     const [, target, , attemptText] = match;
     const attempt = Number(attemptText);
@@ -24,11 +24,11 @@ function collectPackages(root, context, options) {
     const manifest = JSON.parse(fs.readFileSync(path.join(folder, 'manifest.json'), 'utf8'));
     const target = candidate.target ?? manifest?.target;
     const attempt = candidate.attempt ?? manifest?.attempt;
-    if (!['webgl', 'server'].includes(target) || !options.requested.includes(target) ||
+    if (!['webgl', 'server', 'android'].includes(target) || !options.requested.includes(target) ||
         !Number.isSafeInteger(attempt) || attempt < 1 || attempt > runAttempt) {
       throw new Error(`Invalid release target or attempt in ${label}.`);
     }
-    const expectedFile = `Foobbuteo-${target === 'webgl' ? 'WebGL' : 'Server'}-${options.version}.zip`;
+    const expectedFile = `Foobbuteo-${{ webgl: 'WebGL', server: 'Server', android: 'Android' }[target]}-${options.version}.zip`;
     if (manifest.target !== target || manifest.version !== options.version || manifest.sha !== context.sha ||
         manifest.runId !== String(context.runId) || manifest.attempt !== attempt ||
         manifest.unityVersion !== options.unityVersion || manifest.file !== expectedFile) {
