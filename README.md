@@ -28,6 +28,20 @@ Unity Editor; separate clients, dedicated servers, Android, and WebGL are also s
 - 🛠️ **Local development:** in-memory mock repositories, Editor authentication, and Edit Mode tests
 - 💾 **Optional persistence:** SQL Server integration through a private database API
 
+## Screenshots and gameplay
+
+### Lobby
+
+![Lobby showing available games and details for the selected match](Documentation/Images/lobby.png)
+
+### Match view
+
+![Match pitch with player actions, turn timer, and match messages](Documentation/Images/match.png)
+
+### Gameplay in action
+
+![Animated gameplay showing player movement and turn playback](Documentation/Images/gameplay.gif)
+
 ## Getting started
 
 **No database or [Footstar](https://www.footstar.org) account is required for local Editor development with mock data.**
