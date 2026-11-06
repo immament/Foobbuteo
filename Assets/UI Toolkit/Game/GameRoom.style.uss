@@ -377,6 +377,17 @@
 
 /* .portrait-screen */
 
+#MainLayout.portrait-screen #LeftSide,
+#MainLayout.portrait-screen #PitchArea {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
+
+#MainLayout.portrait-screen #RightSide {
+  flex-grow: 1;
+  min-height: 0;
+}
+
 #MainLayout.portrait-screen #RotateDeviceMessage {
   position: absolute;
   left: 50%;

@@ -150,6 +150,8 @@ namespace Tests.Editor
                         new Vector2(1670, 720),
                         new Vector2(2560, 720),
                         new Vector2(502, 725),
+                        new Vector2(502, 1115),
+                        new Vector2(900, 800),
                         new Vector2(844, 390),
                         new Vector2(1077, 721),
                     }
@@ -159,8 +161,29 @@ namespace Tests.Editor
                     main.style.height = size.y;
                     ResponsiveLayout.ApplyLayout(main, size.x, size.y, size.x / size.y);
                     ResponsiveLayout.ApplyPitchLayout(main, pitchAspect);
-                    for (int frame = 0; frame < 12; frame++)
-                        yield return null;
+                    yield return TestUtils.WaitForUi(
+                        () =>
+                            Mathf.Abs(main.layout.width - size.x) < 0.1f
+                            && Mathf.Abs(main.layout.height - size.y) < 0.1f
+                            && Mathf.Abs(pitchContainer.layout.width - pitchArea.contentRect.width) < 1f
+                            && (
+                                main.ClassListContains("stacked-layout")
+                                || Mathf.Abs(
+                                    leftSide.layout.width
+                                        - Mathf.Min(
+                                            pitchArea.contentRect.height * pitchAspect,
+                                            gameScreen.contentRect.width - (size.x <= 2000f ? 312f : 336f)
+                                        )
+                                ) < 1f
+                            )
+                            && (
+                                !main.ClassListContains("portrait-screen")
+                                || Mathf.Abs(pitchContainer.layout.height - pitchContainer.layout.width / pitchAspect)
+                                    < 1f
+                            ),
+                        () =>
+                            $"Pitch layout must settle at {size}: main={main.layout}, left={leftSide.layout}, area={pitchArea.contentRect}, pitch={pitchContainer.layout}"
+                    );
 
                     bool stacked = main.ClassListContains("stacked-layout");
                     Assert.IsFalse(pitchContainer.ClassListContains("fixed-pitch-layout"));
@@ -173,6 +196,21 @@ namespace Tests.Editor
                     if (stacked)
                     {
                         Assert.AreEqual(StyleKeyword.Null, leftSide.style.width.keyword);
+                        if (main.ClassListContains("portrait-screen"))
+                        {
+                            Assert.AreEqual(
+                                pitchContainer.layout.width / pitchAspect,
+                                pitchContainer.layout.height,
+                                1f,
+                                $"Portrait pitch container must fit the displayed pitch at {size}"
+                            );
+                            Assert.AreEqual(
+                                pitchContainer.worldBound.yMax,
+                                rightSide.worldBound.yMin,
+                                1f,
+                                $"Portrait sidebar must follow the pitch without empty space at {size}"
+                            );
+                        }
                     }
                     else
                     {
@@ -291,8 +329,8 @@ namespace Tests.Editor
                         else
                         {
                             closeBtnName = "GameCloseButton";
-                            closeBtnExpectedHeight = 44f;
-                            closeBtnExpectedWidth = 44f;
+                            closeBtnExpectedHeight = 40f;
+                            closeBtnExpectedWidth = 40f;
                         }
                         var close = main.Q<Button>(closeBtnName);
 

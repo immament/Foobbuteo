@@ -182,11 +182,12 @@ namespace Imma.Foobbuteo.Client.UI
             if (pitchArea == null || leftSide == null)
                 return;
 
-            bool fixedAspect =
-                !mainLayout.ClassListContains("stacked-layout")
-                && aspectRatio > 0f
-                && !float.IsNaN(aspectRatio)
-                && !float.IsInfinity(aspectRatio);
+            bool validAspect = aspectRatio > 0f && !float.IsNaN(aspectRatio) && !float.IsInfinity(aspectRatio);
+            pitchArea.style.aspectRatio =
+                mainLayout.ClassListContains("portrait-screen") && validAspect
+                    ? new StyleRatio(aspectRatio)
+                    : new StyleRatio(StyleKeyword.Null);
+            bool fixedAspect = !mainLayout.ClassListContains("stacked-layout") && validAspect;
             if (!fixedAspect)
             {
                 mainLayout.RemoveFromClassList("fixed-pitch-layout");
