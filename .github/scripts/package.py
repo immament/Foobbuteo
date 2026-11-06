@@ -18,7 +18,7 @@ def is_unity_backup_path(relative_path):
 
 def find_distribution(root, target):
     root = Path(root)
-    entry = 'index.html' if target == 'webgl' else 'Foobbuteo.exe'
+    entry = {'webgl': 'index.html', 'server': 'Foobbuteo.exe', 'android': 'Foobbuteo.apk'}[target]
     candidates = [file for file in root.rglob(entry)
                   if target != 'server' or not is_unity_backup_path(file.relative_to(root))]
     if len(candidates) != 1:
@@ -30,7 +30,7 @@ def package_build(source, output, target, version, sha, run_id, attempt, unity_v
     source, output = Path(source), Path(output)
     if not re.fullmatch(r'(0|[1-9]\d*)\.\d{2}\.\d{4}\.[1-9]\d*', version):
         raise ValueError('Invalid reserved version.')
-    if target not in ('webgl', 'server') or not re.fullmatch(r'[0-9a-f]{40}', sha):
+    if target not in ('webgl', 'server', 'android') or not re.fullmatch(r'[0-9a-f]{40}', sha):
         raise ValueError('Invalid target or source commit.')
     if not source.is_dir() or source.is_symlink():
         raise ValueError('Expected Unity output directory is missing or linked.')
@@ -46,6 +46,8 @@ def package_build(source, output, target, version, sha, run_id, attempt, unity_v
     names = [file.relative_to(source).as_posix() for file in files if file.is_file()]
     if target == 'webgl':
         valid = 'index.html' in names and any('.wasm' in name for name in names) and any('.data' in name for name in names)
+    elif target == 'android':
+        valid = 'Foobbuteo.apk' in names
     else:
         valid = 'Foobbuteo.exe' in names and 'UnityPlayer.dll' in names and any(name.startswith('Foobbuteo_Data/Managed/') for name in names)
     if not valid:
@@ -54,7 +56,7 @@ def package_build(source, output, target, version, sha, run_id, attempt, unity_v
     if template is not None and (template.is_symlink() or not template.is_file()):
         raise ValueError('Configuration template must be a regular, unlinked file.')
     output.mkdir(parents=True, exist_ok=True)
-    label = 'WebGL' if target == 'webgl' else 'Server'
+    label = {'webgl': 'WebGL', 'server': 'Server', 'android': 'Android'}[target]
     archive_path = output / f'Foobbuteo-{label}-{version}.zip'
     with zipfile.ZipFile(archive_path, 'w', zipfile.ZIP_DEFLATED) as archive:
         for name in names:

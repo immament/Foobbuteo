@@ -20,7 +20,7 @@ function fixture(t) {
 function artifact(root, target = 'webgl', attempt = 1, flat = false) {
   const folder = flat ? root : path.join(root, `release-${target}-123-${attempt}`);
   if (!flat) fs.mkdirSync(folder);
-  const file = `Foobbuteo-${target === 'webgl' ? 'WebGL' : 'Server'}-${options.version}.zip`;
+  const file = `Foobbuteo-${{ webgl: 'WebGL', server: 'Server', android: 'Android' }[target]}-${options.version}.zip`;
   const bytes = Buffer.from(`validated-${target}-${attempt}`);
   fs.writeFileSync(path.join(folder, file), bytes);
   const manifest = { target, version: options.version, sha: context.sha, runId: '123', attempt, unityVersion: options.unityVersion, file, sha256: createHash('sha256').update(bytes).digest('hex') };
@@ -93,4 +93,15 @@ test('one successful target publishes a downloadable Release and names the missi
   assert.equal(published.draft, false);
   assert.equal(published.make_latest, 'false');
   assert.deepEqual(uploads.sort(), ['Foobbuteo-WebGL-0.26.1103.1.zip', 'SHA256SUMS.txt', 'build-manifest.json'].sort());
+});
+
+test('Android artifacts are collected alongside WebGL and server across retries', t => {
+  const root = fixture(t);
+  artifact(root, 'webgl', 1);
+  artifact(root, 'server', 1);
+  artifact(root, 'android', 1);
+  artifact(root, 'android', 2);
+  const packages = collectPackages(root, context, { ...options, requested: ['webgl', 'server', 'android'] });
+  assert.deepEqual(packages.map(p => [p.target, p.attempt]), [['webgl', 1], ['server', 1], ['android', 2]]);
+  assert.equal(packages[2].file, `Foobbuteo-Android-${options.version}.zip`);
 });

@@ -6,14 +6,14 @@ function selectTargets(eventName, ref, event, config) {
   if (ref !== `refs/heads/${config.allowedBranch}`) return [];
   if (eventName === 'workflow_dispatch') {
     const target = event.inputs?.target;
-    if (target === 'all') return ['webgl', 'server'];
-    if (['webgl', 'server'].includes(target)) return [target];
-    throw new Error('Select webgl, server, or all.');
+    if (target === 'all') return ['webgl', 'server', 'android'];
+    if (['webgl', 'server', 'android'].includes(target)) return [target];
+    throw new Error('Select webgl, server, android, or all.');
   }
   if (eventName !== 'push') return [];
   const message = event.head_commit?.message ?? '';
-  if (message.includes('[BUILD_ALL]')) return ['webgl', 'server'];
-  return ['webgl', 'server'].filter(target => message.includes(`[BUILD_${target.toUpperCase()}]`));
+  if (message.includes('[BUILD_ALL]')) return ['webgl', 'server', 'android'];
+  return ['webgl', 'server', 'android'].filter(target => message.includes(`[BUILD_${target.toUpperCase()}]`));
 }
 
 async function optionalRef(github, repo, ref) {
@@ -102,6 +102,7 @@ async function request({ context, core }) {
   const profiles = {
     webgl: { platform: 'WebGL', profile: 'Assets/Settings/Build Profiles/Web - Desktop - Release.asset' },
     server: { platform: 'StandaloneWindows64', profile: 'Assets/Settings/Build Profiles/Windows Server.asset' },
+    android: { platform: 'Android', profile: 'Assets/Settings/Build Profiles/Android™.asset' },
   };
   core.setOutput('targets', JSON.stringify(targets));
   core.setOutput('matrix', JSON.stringify({ include: targets.map(target => ({ target, ...profiles[target], image: config.images[target] })) }));

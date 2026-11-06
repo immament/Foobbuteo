@@ -83,9 +83,6 @@ internal sealed class BuildVersionProcessor : IPreprocessBuildWithReport
         if (releaseVersion == null)
             return ReserveVersion(path, today, isAndroid, currentAndroidVersionCode);
 
-        if (isAndroid)
-            throw new ArgumentException("Android CI requires a separate monotonic versionCode allocator.");
-
         var match = Regex.Match(releaseVersion, @"^(0|[1-9]\d*)\.(\d{2})\.(\d{4})\.([1-9]\d*)$");
         if (
             !match.Success
@@ -101,12 +98,25 @@ internal sealed class BuildVersionProcessor : IPreprocessBuildWithReport
         )
             throw new ArgumentException("CI version must use major.yy.MMdd.dailyBuildIndex with a valid UTC date.");
 
+        var androidVersionCode = currentAndroidVersionCode;
+        if (isAndroid)
+        {
+            // Reserve 9,999 codes per UTC day. The release tag ledger also preserves codes on retries.
+            const int codesPerDay = 10000;
+            const int maxAndroidVersionCode = 2100000000;
+            var days = (date - new DateTime(2020, 1, 1)).Days;
+            var reservedCode = (long)days * codesPerDay + index;
+            if (days < 0 || index >= codesPerDay || reservedCode > maxAndroidVersionCode)
+                throw new ArgumentException("Android CI version is outside the supported date or daily index range.");
+            androidVersionCode = (int)reservedCode;
+        }
+
         return new BuildVersionState
         {
             major = major,
             lastBuildDate = date.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture),
             dailyBuildIndex = index,
-            androidVersionCode = currentAndroidVersionCode,
+            androidVersionCode = androidVersionCode,
         };
     }
 

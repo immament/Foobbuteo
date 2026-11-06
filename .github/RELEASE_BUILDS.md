@@ -1,8 +1,9 @@
 # GitHub release builds
 
-The release workflow builds the existing WebGL Release and Windows Server profiles
-on standard `ubuntu-24.04` GitHub-hosted runners. Windows Server uses the Windows
-Mono cross-compilation image; Android is not enabled.
+The release workflow builds the existing WebGL Release, Windows Server, and
+`Android™.asset` profiles on standard `ubuntu-24.04` GitHub-hosted runners. Windows
+Server uses the Windows Mono cross-compilation image; Android uses the Android
+image and its non-development profile, not `Android-dbg.asset`.
 
 ## Setup and requests
 
@@ -30,11 +31,12 @@ Use one of these exact markers in the **head commit message** of a push:
 | --- | --- |
 | `[BUILD_WEBGL]` | WebGL Release |
 | `[BUILD_SERVER]` | Windows dedicated server |
-| `[BUILD_ALL]` | Both |
+| `[BUILD_ANDROID]` | Android APK |
+| `[BUILD_ALL]` | All three |
 
-Both individual markers also request both targets. Markers on earlier commits in a
+Combine individual markers to request those targets. Markers on earlier commits in a
 multi-commit push are ignored. Alternatively, open **Actions → Release builds →
-Run workflow**, select the allowed branch, and choose `webgl`, `server`, or `all`.
+Run workflow**, select the allowed branch, and choose `webgl`, `server`, `android`, or `all`.
 The workflow always builds the event's exact commit, even if newer commits arrive.
 
 ## Versions and retries
@@ -43,6 +45,13 @@ Release versions use `major.yy.MMdd.dailyBuildIndex`, for example `0.26.1103.1`,
 without suffixes. `major` is configured in `build-config.json`; the date is UTC at
 reservation time. The index starts at 1 each day and is shared by the targets in
 one workflow run. Local development builds keep their separate local counter.
+
+Android CI derives `versionCode` as days since 2020-01-01 multiplied by 10,000,
+plus the reserved daily index (1–9,999). Codes increase across release dates and
+indices, and retries reuse the same code even after midnight. Android CI does not
+consume the tracked local Android counter. Keep the release major stable within
+a UTC day: the reservation index is scoped to major/date, while Android codes are
+scoped to date. Local and CI APKs use separate code sequences.
 
 Before Unity runs, the workflow reserves an annotated `v<version>` tag pointing at
 the source commit. A `ci-runs/<run-id>` tag points at the same annotated object for
@@ -57,16 +66,17 @@ new run. A new manual run always reserves a new version.
 
 If a Release is already published, retries leave its files and notes unchanged.
 For example, if only WebGL succeeded and was published, retrying Server will not
-add it to that existing Release. Start a new run to publish a new Release with both.
+add it to that existing Release. Start a new run to publish a new Release with all requested targets.
 
 ## Downloads and failure handling
 
 Successful builds appear under the repository's **Releases**, with complete
-`Foobbuteo-WebGL-<version>.zip` and/or `Foobbuteo-Server-<version>.zip` downloads,
+`Foobbuteo-WebGL-<version>.zip`, `Foobbuteo-Server-<version>.zip`, and/or
+`Foobbuteo-Android-<version>.zip` downloads,
 `SHA256SUMS.txt`, and `build-manifest.json`. Notes identify missing/failed targets,
 the source commit, Unity version, UTC date, and workflow run.
 
-One target failing does not cancel the other. Successful targets are published
+One target failing does not cancel the others. Successful targets are published
 while the overall workflow still reports the failure. No successful targets means
 no published Release. Failed uploads leave a draft that can be resumed on retry.
 Releases are published with `make_latest: false`; this workflow does not change
@@ -79,6 +89,10 @@ to the executable and supply the deployment's settings. Unity directories ending
 their original build files remain untouched. Actual local configuration,
 license files and private-key/keystore files are rejected during packaging. Each
 ZIP must be below GitHub's 2 GiB per-file limit. WebGL hosting/deployment is separate.
+
+The Android ZIP includes `Foobbuteo.apk`. The existing profile disables development
+builds, script debugging, and App Bundle export. Its default signing configuration
+is preserved (`androidUseCustomKeystore: 0`); these are not store-signed APKs.
 
 ## Caching, tests and upgrades
 

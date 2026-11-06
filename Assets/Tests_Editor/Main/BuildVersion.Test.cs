@@ -140,12 +140,35 @@ namespace Tests.Editor.Main
             Assert.AreEqual(original, File.ReadAllText(m_versionFile), "Rejected CI versions must preserve counters.");
         }
 
-        [Test]
-        public void AndroidCi_RequiresItsOwnVersionCodeAllocation()
+        [TestCase("0.26.1103.1", 24980001)]
+        [TestCase("0.26.1103.9999", 24989999)]
+        [TestCase("0.26.1104.1", 24990001)]
+        public void AndroidCi_UsesStableIncreasingCodesWithoutChangingLocalCounters(string version, int expectedCode)
+        {
+            var original = File.ReadAllText(m_versionFile);
+            var state = InvokeProcessor("ResolveVersion", m_versionFile, BuildDay, version, true, 5);
+            var retry = InvokeProcessor("ResolveVersion", m_versionFile, BuildDay.AddDays(1), version, true, 5);
+
+            Assert.AreEqual(
+                expectedCode,
+                state.GetType().GetField("androidVersionCode").GetValue(state),
+                "Android CI codes must increase with the reserved date and daily index."
+            );
+            Assert.AreEqual(
+                expectedCode,
+                retry.GetType().GetField("androidVersionCode").GetValue(retry),
+                "Retries must reuse their reserved Android code even after UTC midnight."
+            );
+            Assert.AreEqual(original, File.ReadAllText(m_versionFile), "CI must preserve local counters.");
+        }
+
+        [TestCase("0.26.1103.10000")]
+        [TestCase("0.19.1231.1")]
+        public void AndroidCi_RejectsCodesOutsideTheSupportedRange(string version)
         {
             Assert.Throws<ArgumentException>(
-                () => InvokeProcessor("ResolveVersion", m_versionFile, BuildDay, "0.26.1103.1", true, 1),
-                "Android CI must remain disabled until monotonic package codes are implemented."
+                () => InvokeProcessor("ResolveVersion", m_versionFile, BuildDay, version, true, 5),
+                "Android CI must reject dates and daily indices outside its monotonic code range."
             );
         }
 
