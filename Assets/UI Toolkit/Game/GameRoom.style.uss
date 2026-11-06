@@ -71,7 +71,7 @@
   flex-direction: row;
   align-items: center;
   background-color: rgb(17, 24, 32);
-  padding: 8px 0 8px 8px;
+  padding: 0 0 8px 0px;
 }
 /* #MainHeader #GameCloseButton, */
 #MainHeader #HelpButton {
@@ -136,6 +136,10 @@
   width: 336px;
   background-color: rgb(17, 24, 32);
   padding: 8px;
+}
+
+#RightSide > * > * > .unity-scroll-view__content-container {
+  flex-grow: 1;
 }
 
 #StatusPanel,
@@ -385,6 +389,7 @@
 
 #MainLayout.portrait-screen #RightSide {
   flex-grow: 1;
+  flex-shrink: 1;
   min-height: 0;
 }
 
@@ -406,6 +411,10 @@
 }
 #MainLayout.portrait-screen #MainHeader .team-color {
   display: none;
+}
+
+#MainLayout.portrait-screen #ActionsScroll {
+  /* max-height: 124px; */
 }
 
 .room-settings-row {

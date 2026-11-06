@@ -24,7 +24,6 @@
                         <ui:VisualElement name="LeftSide" picking-mode="Ignore">
                             <ui:VisualElement name="MainHeader" picking-mode="Ignore">
                                 <ui:VisualElement name="ResultPanel" class="fbt-card-header">
-                                    
                                     <ui:Label name="TeamAName" text="Team A" class="team-name">
                                         <Bindings>
                                             <ui:DataBinding property="text" data-source-path="TeamA.Name" binding-mode="ToTarget"/>
@@ -64,7 +63,7 @@
                                     </ui:Label>
                                     <ui:Button name="HelpButton" text="?" tooltip="Help" class="fbt-card-header-btn"/>
                                     <ui:Button name="GameCloseButton" class="fbt-card-close">
-                                        <ui:VisualElement class="fbt-card-close-icon" picking-mode="Ignore" />
+                                        <ui:VisualElement picking-mode="Ignore" class="fbt-card-close-icon"/>
                                         <Bindings>
                                             <ui:DataBinding property="style.display" data-source-path="CloseButtonDisplay" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
                                         </Bindings>
@@ -135,7 +134,7 @@
                             </ui:VisualElement>
                             <ui:VisualElement name="PitchBottomMask" picking-mode="Ignore"/>
                         </ui:VisualElement>
-                        <ui:VisualElement name="RightSide" picking-mode="Ignore">
+                        <ui:ScrollView name="RightSide" mode="Vertical" picking-mode="Ignore" horizontal-scroller-visibility="Hidden" >
                             <ui:VisualElement name="StatusCell">
                                 <ui:VisualElement name="StatusPanel" class="fbt-card fbt-card-content">
                                     <ui:Label name="TurnText" text="Turn">
@@ -194,7 +193,7 @@
                                     </ui:VisualElement>
                                 </ui:VisualElement>
                             </ui:VisualElement>
-                        </ui:VisualElement>
+                        </ui:ScrollView>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>
