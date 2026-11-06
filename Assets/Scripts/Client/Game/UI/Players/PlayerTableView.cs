@@ -42,7 +42,13 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
                         m_vm.SetView(view);
                 };
                 var button = new Button(click) { text = view.Name };
-                button.AddToClassList("btn-default", "player-table__view", "btn-sm");
+                button.AddToClassList(
+                    "fbt-btn",
+                    "fbt-btn-solid",
+                    "fbt-theme-primary",
+                    "fbt-btn-compact",
+                    "player-table__view"
+                );
                 m_views.Add(button);
                 m_buttons.Add((button, click));
             }

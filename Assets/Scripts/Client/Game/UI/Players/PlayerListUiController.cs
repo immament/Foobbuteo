@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Imma.Foobbuteo.Client.UI.Modals;
 using Imma.Foobbuteo.Shared.Game.Model;
 using Unity.Properties;
 using UnityEngine;
@@ -20,19 +21,23 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
         private readonly Dictionary<VisualElement, TeamIndex> m_triggers = new();
         private VisualElement m_root;
         private VisualElement m_overlay;
-        private VisualElement m_background;
+        private readonly ModalHostController m_host;
+        private readonly ModalPanelController m_modal;
+        private readonly bool m_ownsHost;
         private Button m_close;
-        private string m_openerName;
-        private IVisualElementScheduledItem m_focus;
 
         internal PlayerListVM VM { get; } = new();
 
         public PlayerListUiController(
             Func<TeamIndex, FoobbuteoTeamState<ClientPlayerState>> getTeam,
             Func<TeamIndex, string> getTeamName,
-            ClientImageCatalog images
+            ClientImageCatalog images,
+            ModalHostController host = null
         )
         {
+            m_ownsHost = host == null;
+            m_host = host ?? new ModalHostController(new ModalHostState());
+            m_modal = new ModalPanelController(m_host, "team-player-list-overlay", () => true, _ => VM.Close());
             m_getTeam = getTeam;
             m_getTeamName = getTeamName;
             m_flags = new CountryFlagCache(images);
@@ -42,33 +47,22 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
         {
             Unbind();
             m_root = root;
-            m_overlay = root.Q("team-player-list-overlay");
+            if (m_ownsHost)
+                m_host.Bind(root);
+            m_overlay = root.Q("team-player-list-panel");
             m_overlay.dataSource = VM;
             m_overlay.dataSourcePath = new PropertyPath();
-            m_background = root.Q("game-room-content");
-            m_background.SetBinding(
-                nameof(VisualElement.enabledSelf),
-                new DataBinding
-                {
-                    dataSource = VM,
-                    dataSourcePath = new PropertyPath(nameof(PlayerListVM.BackgroundEnabled)),
-                    bindingMode = BindingMode.ToTarget,
-                    updateTrigger = BindingUpdateTrigger.OnSourceChanged,
-                }
-            );
             m_close = m_overlay.Q<Button>("team-player-list-close");
             m_close.clicked += Close;
-            m_overlay.RegisterCallback<ClickEvent>(OnBackdrop);
-            m_overlay.RegisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
-            m_overlay.RegisterCallback<DetachFromPanelEvent>(OnDetach);
             AddTrigger("TeamAColor", TeamIndex.Home);
-            AddTrigger("MobileTeamAColor", TeamIndex.Home);
+            AddTrigger("TeamAName", TeamIndex.Home);
+            AddTrigger("pitch-home-name", TeamIndex.Home);
             AddTrigger("TeamBColor", TeamIndex.Away);
-            AddTrigger("MobileTeamBColor", TeamIndex.Away);
+            AddTrigger("TeamBName", TeamIndex.Away);
+            AddTrigger("pitch-away-name", TeamIndex.Away);
             m_table.Bind(m_overlay, VM.Table);
             Refresh();
-            if (VM.Team.HasValue)
-                FocusWhenReady(m_close);
+            m_modal.Bind(root.Q("team-player-list-overlay"), m_close);
         }
 
         private void AddTrigger(string name, TeamIndex team)
@@ -94,10 +88,10 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
 
         private void Open(VisualElement opener)
         {
-            m_openerName = opener.name;
+            if (!m_modal.TryOpen(opener))
+                return;
             VM.Open(m_triggers[opener]);
             Refresh();
-            FocusWhenReady(m_close);
         }
 
         public void Refresh()
@@ -113,65 +107,11 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
             );
         }
 
-        private void Close()
-        {
-            VM.Close();
-            var opener = m_root.Q(m_openerName);
-            if (
-                opener != null
-                && opener.resolvedStyle.display != DisplayStyle.None
-                && opener.worldBound.width > 0
-                && opener.worldBound.height > 0
-            )
-                FocusWhenReady(opener);
-            else
-                FocusWhenReady(
-                    m_triggers.Keys.FirstOrDefault(element =>
-                        element.worldBound.width > 0 && element.worldBound.height > 0
-                    )
-                );
-        }
+        private void Close() => m_modal.TryClose(ModalCloseReason.CloseButton);
 
-        private void FocusWhenReady(VisualElement target)
+        internal void Unbind()
         {
-            m_focus?.Pause();
-            if (target == null)
-                return;
-            m_focus = m_root
-                .schedule.Execute(() =>
-                {
-                    if (m_overlay.resolvedStyle.display != VM.Display || !target.enabledInHierarchy)
-                        return;
-                    target.Focus();
-                    m_focus.Pause();
-                })
-                .Every(1);
-        }
-
-        private void OnBackdrop(ClickEvent evt)
-        {
-            if (evt.target == m_overlay)
-                Close();
-        }
-
-        private void OnKeyDown(KeyDownEvent evt)
-        {
-            if (evt.keyCode != KeyCode.Escape)
-                return;
-            Close();
-            evt.StopPropagation();
-        }
-
-        private void OnDetach(DetachFromPanelEvent evt)
-        {
-            if (evt.target == m_overlay)
-                Unbind();
-        }
-
-        private void Unbind()
-        {
-            m_focus?.Pause();
-            m_focus = null;
+            m_modal.Unbind();
             m_table.Dispose();
             foreach (var trigger in m_triggers.Keys)
             {
@@ -182,19 +122,19 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
             if (m_overlay == null)
                 return;
             m_close.clicked -= Close;
-            m_overlay.UnregisterCallback<ClickEvent>(OnBackdrop);
-            m_overlay.UnregisterCallback<KeyDownEvent>(OnKeyDown, TrickleDown.TrickleDown);
-            m_overlay.UnregisterCallback<DetachFromPanelEvent>(OnDetach);
-            m_background.ClearBinding(nameof(VisualElement.enabledSelf));
-            m_background.SetEnabled(true);
             m_overlay.dataSource = null;
-            m_overlay = m_background = m_root = null;
+            m_overlay = m_root = null;
+            if (m_ownsHost)
+                m_host.Unbind();
             m_close = null;
         }
 
         public void Dispose()
         {
             Unbind();
+            m_modal.Dispose();
+            if (m_ownsHost)
+                m_host.Dispose();
             VM.Close();
         }
     }

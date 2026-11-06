@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Reflection;
+using Imma.Common;
 using Imma.Foobbuteo.Client.UI;
 using NUnit.Framework;
 using Tests.Editor.Utils;
@@ -18,6 +19,9 @@ namespace Tests.Editor.Client
         [UnityTest]
         public IEnumerator LateEnableLogsExistingUiAndDisableCancelsPendingSnapshots()
         {
+            ImmLogger.Level = ImmLogger.LogLevel.Info;
+            var logger = ImmLogger.GetLoggerByType<UiLayoutDiagnostics>();
+            var previousLevel = logger.minLevel;
             const string objectName = "diagnostics-lifecycle-test";
             var instance = new GameObject(objectName);
             instance.SetActive(false);
@@ -36,6 +40,7 @@ namespace Tests.Editor.Client
                 renderer.enabled = false;
                 var diagnostics = instance.AddComponent<UiLayoutDiagnostics>();
                 diagnostics.enabled = false;
+                diagnostics.SetLoggerLevel(ImmLogger.LogLevel.Info);
                 var rootField = typeof(PanelRenderer).GetField(
                     "m_RootVisualElement",
                     BindingFlags.Instance | BindingFlags.NonPublic
@@ -84,6 +89,7 @@ namespace Tests.Editor.Client
                 Object.DestroyImmediate(tree);
                 window.Close();
                 Object.DestroyImmediate(window);
+                logger.minLevel = previousLevel;
             }
         }
 

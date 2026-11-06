@@ -72,6 +72,9 @@ namespace Imma.Foobbuteo.Client
             }
         }
         internal ClientSettings ClientSettings { get; private set; }
+        private Preferences.ClientPreferences m_preferences;
+        internal Preferences.ClientPreferences Preferences =>
+            m_preferences ??= new Preferences.ClientPreferences(new Preferences.PlayerPrefsClientPreferencesStore());
         internal UiLayoutDiagnosticsController UiLayoutDiagnostics { get; } = new();
 
         public event Action<GameUser> UserInfoUpdated;
@@ -521,6 +524,7 @@ namespace Imma.Foobbuteo.Client
         {
             m_connectionStatus?.Dispose();
             m_rootElement = rootElement;
+            m_rootElement?.Q("notifications-safe-area")?.AddToClassList("notifications-safe-area--runtime");
             m_connectionStatus = new ConnectionStatusUiController(this, rootElement);
             m_toastContainer = m_rootElement?.Q<VisualElement>("toast-container");
             m_bannerContainer = m_rootElement?.Q<VisualElement>("banner-container");

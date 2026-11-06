@@ -581,7 +581,10 @@ namespace Tests.Editor
             );
         }
 
-        private static void ExpectConfigurationError() =>
+        private static void ExpectConfigurationError()
+        {
+            Imma.Common.ImmLogger.Level = Imma.Common.ImmLogger.LogLevel.Error;
             LogAssert.Expect(LogType.Error, new Regex("Invalid client configuration:"));
+        }
     }
 }

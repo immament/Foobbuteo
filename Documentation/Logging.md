@@ -2,7 +2,7 @@
 
 [Back to the README](../README.md) · [Configuration](Configuration.md)
 
-`ImmLogger` defaults to global `Trace` and per-type `Debug`. `Level` caps every logger;
+`ImmLogger` resets to global `Info` and per-type `Info` at runtime startup. `Level` caps every logger;
 `DefaultSubLogLevel` applies to types without configured category levels. These defaults
 live in code; the former `FoobbuteoAppSettings` ScriptableObject is no longer needed.
 
@@ -23,6 +23,8 @@ section in `Assets/Resources/ClientSettings.json`, or the root of `editor.settin
 
 ```json
 "logging": {
+  "logLevel": "Debug",
+  "defaultSubLogLevel": "Debug",
   "categories": {
     "Server": "Info",
     "Client": "Debug",
@@ -47,8 +49,22 @@ category map; the most recently loaded file wins for a shared category. Editor c
 logging defaults use `dev` for the `dev` profile and `prod` for other profiles; authentication
 and connection settings continue to use the selected Editor profile.
 
-Browser overrides merge by category above the file defaults, and Editor root overrides
-remain highest priority regardless of load order. Omitted categories retain earlier values.
+`logLevel` sets the global cap; `defaultSubLogLevel` sets the fallback for types without
+configured categories. Both accept named levels (case-insensitive), including `None`.
+Legacy root `LogLevel` / `DefaultSubLogLevel` in server `appsettings.json` remain supported,
+including Editor hosts; nested logging values take precedence over those legacy keys.
+Server appsettings deserialize `logging` into `LoggingSettings`; invalid levels or categories
+are rejected during deserialization, before configuration is applied.
+
+For server file output, set `logging.logDirectory` in `appsettings.json` (for example,
+`"logDirectory": "../Logs"`). The log writer reads `ServerConfig.Config.Logging.LogDirectory`
+directly. Missing, null, empty, or whitespace-only directories disable file logging; no directory
+is created and no file logging callbacks are registered. The legacy root `LogDirectory` is no
+longer used. Relative paths remain relative to the server executable directory. This server-only
+setting is not a browser logging override.
+
+Browser overrides merge by field/category above the file defaults, and Editor root overrides
+remain highest priority regardless of load order. Omitted fields/categories retain earlier values.
 For example, a logging-only message is accepted even while connected:
 
 ```javascript
@@ -56,12 +72,16 @@ unityInstance.SendMessage(
   "AppController",
   "ReceiveClientConfig",
   JSON.stringify({
-    logging: { categories: { Auth: "Trace" } },
+    logging: {
+      logLevel: "Trace",
+      defaultSubLogLevel: "Debug",
+      categories: { Auth: "Trace" },
+    },
   }),
 );
 ```
 
-Invalid logging settings reject the message without partially applying categories. Normal
+Invalid logging settings reject the message without partially applying levels or categories. Normal
 connection/environment messages retain their startup restrictions. Restart Play Mode to
 reload Editor JSON; static logger defaults, overrides, and registrations reset even with
 Domain Reload disabled.

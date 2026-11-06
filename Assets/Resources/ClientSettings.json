@@ -6,6 +6,8 @@
     "revokeUrl": "https://www.footstar.org/foobbuteo/api/fbt_login_revoke.asp",
     "signupUrl": "https://www.footstar.org/default.asp",
     "logging": {
+      "logLevel": "Info",
+      "defaultSubLogLevel": "Info",
       "categories": {}
     }
   },

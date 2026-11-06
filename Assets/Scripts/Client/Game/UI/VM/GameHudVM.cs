@@ -17,6 +17,52 @@ namespace Imma.Foobbuteo.Client.Game.UI.VM
     [CreateAssetMenu(fileName = "GameHudVMData", menuName = "Foobbuteo/GameHud View Model")]
     internal class GameHudVM : ScriptableObject, INotifyBindablePropertyChanged
     {
+        internal static GameHudVM CreateRuntime(GameHudVM template)
+        {
+            var runtime = Instantiate(template);
+            runtime.hideFlags = HideFlags.DontSave;
+            runtime.ResetRuntimeState();
+            return runtime;
+        }
+
+        internal void ResetRuntimeState()
+        {
+            m_user = null;
+            m_gameState = null;
+            m_selectedPlayer = null;
+            m_teamA = null;
+            m_teamB = null;
+            m_scoreA = m_scoreB = 0;
+            m_onePlayerHasBall = false;
+            m_isSessionReady = false;
+            m_timerValue = -1;
+            m_timerType = default;
+            m_turnText = "";
+            m_timerText = "";
+            IsTimerUrgent = false;
+            foreach (
+                string property in new[]
+                {
+                    nameof(SelectedPlayer),
+                    nameof(HasSelectedPlayer),
+                    nameof(TeamA),
+                    nameof(TeamB),
+                    nameof(ScoreA),
+                    nameof(ScoreB),
+                    nameof(ScoreText),
+                    nameof(OnePlayerHasBall),
+                    nameof(TurnText),
+                    nameof(TimerText),
+                    nameof(IsTimerUrgent),
+                    nameof(CanMoveSelectedPlayer),
+                    nameof(CanClaimPlayer),
+                    nameof(ShowCurrentUserPlayerBtn),
+                    nameof(CloseButtonDisplay),
+                }
+            )
+                Notify(property);
+        }
+
         [SerializeReference]
         private GameUser m_user;
         internal GameUser User
@@ -140,8 +186,7 @@ namespace Imma.Foobbuteo.Client.Game.UI.VM
                 if (hadSelectedPlayer != HasSelectedPlayer)
                     Notify(nameof(HasSelectedPlayer));
 
-                if (!User.GameSlot.HasValue)
-                    Notify(nameof(CanClaimPlayer));
+                Notify(nameof(CanClaimPlayer));
 
                 Notify(nameof(CanMoveSelectedPlayer));
             }
@@ -318,12 +363,7 @@ namespace Imma.Foobbuteo.Client.Game.UI.VM
 
         internal void SwitchPlayer(PlayerVM player)
         {
-            // if (CurrentPlayer != player)
-            // {
-            this.LogTrace(() => $"SwitchPlayer: {player}");
-            SelectedPlayer = player; //.Update(player, GetTeamForPlayer(player));
-            Notify(nameof(SelectedPlayer));
-            // }
+            SelectedPlayer = player;
         }
 
         internal void RefreshSelectedPlayer()

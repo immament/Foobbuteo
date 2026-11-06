@@ -18,6 +18,11 @@
         </ui:VisualElement>
         <ui:VisualElement class="lobby-game-row__metadata">
             <ui:VisualElement name="list-entry__id-col" class="list-entry__col list-entry__col--border">
+                <ui:Label text="MvM" name="list-entry__game-type">
+                    <Bindings>
+                        <ui:DataBinding property="text" data-source-path="GameTypeText" binding-mode="ToTarget"/>
+                    </Bindings>
+                </ui:Label>
                 <ui:Label text="#99001" name="list-entry__id">
                     <Bindings>
                         <ui:DataBinding property="text" data-source-path="GameIdText" binding-mode="ToTarget"/>

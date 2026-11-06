@@ -46,7 +46,7 @@ namespace Imma.Foobbuteo.Common.dev
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize() =>
-            ImmLogger.Configure(LoggingSettings.Parse(Config["logging"]), ImmLogger.ConfigurationSource.Editor);
+            ImmLogger.Configure(Config["logging"]?.ToObject<LoggingSettings>(), ImmLogger.ConfigurationSource.Editor);
 
         public static JObject ReadConnection() => (JObject)SelectProfile(Load(ProjectRoot))["connection"];
 
@@ -123,7 +123,9 @@ namespace Imma.Foobbuteo.Common.dev
         private static void Validate(JObject config)
         {
             _ = SelectProfile(config);
-            _ = LoggingSettings.Parse(config["logging"]);
+            if (config["logging"]?.Type == JTokenType.Null)
+                throw new InvalidOperationException("Logging settings must be an object.");
+            _ = config["logging"]?.ToObject<LoggingSettings>();
             if (config["devAuth"] is not JObject)
                 throw new InvalidOperationException("Editor settings requires an object section 'devAuth'.");
             if (config["devAuth"]?["users"] is not JArray users || users.Count == 0)

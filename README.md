@@ -143,7 +143,7 @@ hosting page. Configure trusted authentication endpoints before deployment; see 
 | [How to play](Documentation/How-To-Play.md) | Controls, actions, possession contests, and player/goalkeeper modes |
 | [Configuration](Documentation/Configuration.md) | Mock/SQL providers, Editor profiles, authentication, and multiplayer roles |
 | [Logging](Documentation/Logging.md) | Log levels, categories, runtime overrides, and platform output |
-| [Authentication](Documentation/Footstar-Authentication.md) | Android/WebGL login, runtime environments, and deployment checks |
+| [Authentication](Documentation/Footstar-Authentication.md) | Android/WebGL login, runtime environments, and endpoint contracts |
 | [Local builds](Build-Scripts/README.md) | PowerShell scripts, build modules, output paths, and version counters |
 | [GitHub release builds](.github/RELEASE_BUILDS.md) | Workflow requests, release versions, downloads, and diagnostics |
 | [Contributing](CONTRIBUTING.md) | Development conventions, verification, and pull requests |

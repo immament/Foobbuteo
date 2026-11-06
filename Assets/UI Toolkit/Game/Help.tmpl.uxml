@@ -1,0 +1,27 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
+    <ui:Style src="../Common.style.uss" />
+    <ui:Style src="HelpContainer.style.uss" />
+    <ui:VisualElement name="help-panel" class="popup-container fbt-card fbt-theme-primary" picking-mode="Position">
+        <ui:VisualElement class="fbt-card-header">
+            <ui:Label text="Help" class="fbt-card-title" />
+            <ui:Button name="HelpCloseButton" tooltip="Close help" class="fbt-card-close">
+                <ui:VisualElement class="fbt-card-close-icon" picking-mode="Ignore" />
+            </ui:Button>
+        </ui:VisualElement>
+        <ui:VisualElement class="fbt-card-content help-panel__content">
+            <ui:VisualElement class="fbt-card-decoration" picking-mode="Ignore" />
+            <ui:TabView name="TabView" view-data-key="TabbedMenu">
+                <ui:Tab label="Actions" view-data-key="ActionsTab">
+                    <ui:ScrollView>
+                        <Imma.Foobbuteo.Client.UI.Help.HelpScreen name="HelpScreen" page-index="0" />
+                    </ui:ScrollView>
+                </ui:Tab>
+                <ui:Tab label="Game Modes" view-data-key="GameModesTab">
+                    <ui:ScrollView>
+                        <Imma.Foobbuteo.Client.UI.Help.HelpScreen name="HelpScreen" page-index="1" />
+                    </ui:ScrollView>
+                </ui:Tab>
+            </ui:TabView>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>

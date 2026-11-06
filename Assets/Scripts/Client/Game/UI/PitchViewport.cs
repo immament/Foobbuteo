@@ -36,8 +36,6 @@ namespace Imma.Foobbuteo.Client.Game.UI
         [SerializeField]
         private Margins _pitchMargin = Margins.Zero;
 
-        private int m_UiVersion = 0;
-
         void OnEnable()
         {
             GetComponent<PanelRenderer>().RegisterUIReloadCallback(OnUIReload);
@@ -47,14 +45,10 @@ namespace Imma.Foobbuteo.Client.Game.UI
         {
             GetComponent<PanelRenderer>().UnregisterUIReloadCallback(OnUIReload);
             UnregisterGeometryCallbacks();
-            m_UiVersion = 0;
         }
 
         void OnUIReload(PanelRenderer panelRenderer, VisualElement rootElement, int version)
         {
-            if (version == m_UiVersion)
-                return; // UI already up-to-date, no need to reload
-            m_UiVersion = version;
             UnregisterGeometryCallbacks();
             m_RootElement = rootElement;
 

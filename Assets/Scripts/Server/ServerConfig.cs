@@ -6,10 +6,8 @@ using System.Collections.Generic;
 using System.IO;
 using Imma.Common;
 using Imma.Foobbuteo.Server.Repos;
-using Imma.Foobbuteo.Shared;
 using Imma.Foobbuteo.Shared.Users;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using UnityEngine;
 
 public sealed class ServerConfig
@@ -32,10 +30,9 @@ public sealed class ServerConfig
 
     internal ClientRuntimeSettings GetClientRuntimeSettings() => new(UserListRefreshIntervalSeconds);
 
-    public JObject Logging { get; set; }
+    public LoggingSettings Logging { get; set; } = new();
     public ImmLogger.LogLevel? LogLevel { get; set; }
     public ImmLogger.LogLevel? DefaultSubLogLevel { get; set; }
-    public string LogDirectory { get; set; } = "Logs";
     public DataAccessConfig DataAccess { get; set; } = new();
     public ConnectionStrings ConnectionStrings { get; set; } = new();
 
@@ -64,23 +61,24 @@ public sealed class ServerConfig
         loadedConfig.ConnectionStrings ??= new ConnectionStrings();
         _ = loadedConfig.GetClientRuntimeSettings();
         _ = loadedConfig.GetInactiveAfterTurns();
-        var logging = LoggingSettings.Parse(loadedConfig.Logging);
+        loadedConfig.ConfigureLogging();
         m_config = loadedConfig;
 
-        ImmLogger.Configure(logging);
-#if UNITY_SERVER && !UNITY_EDITOR
-        if (m_config.LogLevel.HasValue)
-        {
-            ImmLogger.Level = m_config.LogLevel.Value;
-        }
-
-        if (m_config.DefaultSubLogLevel.HasValue)
-        {
-            ImmLogger.DefaultSubLogLevel = m_config.DefaultSubLogLevel.Value;
-        }
-#endif
-
         return m_config;
+    }
+
+    internal void ConfigureLogging()
+    {
+        Logging ??= new LoggingSettings();
+        // Keep legacy server keys as fallbacks; nested settings and higher-priority sources take precedence.
+        ImmLogger.Configure(
+            new LoggingSettings(
+                categories: Logging?.Categories,
+                logLevel: Logging?.LogLevel ?? LogLevel,
+                defaultSubLogLevel: Logging?.DefaultSubLogLevel ?? DefaultSubLogLevel,
+                logDirectory: Logging.LogDirectory
+            )
+        );
     }
 
     internal DataProvider GetDataProvider()

@@ -21,6 +21,7 @@ namespace Tests.Editor.Client
         [TestCase(true)]
         public void UserAlert_LogsItsTextEvenWhenUiIsUnavailable(bool banner)
         {
+            ImmLogger.Level = ImmLogger.LogLevel.Warn;
             var instance = new GameObject("User alert logging test");
             try
             {
@@ -32,6 +33,26 @@ namespace Tests.Editor.Client
                     client.ShowBanner(message);
                 else
                     client.ShowToast(message);
+            }
+            finally
+            {
+                UnityEngine.Object.DestroyImmediate(instance);
+            }
+        }
+
+        [Test]
+        public void LoggingOnlyUpdate_AppliesGlobalAndDefaultLevels()
+        {
+            var instance = new GameObject("Logging levels test");
+            try
+            {
+                var client = instance.AddComponent<ClientAppCtrl>();
+                client.ReceiveClientConfig("{ 'logging': { 'logLevel':'Debug', 'defaultSubLogLevel':'Debug' } }");
+                Assert.IsTrue(
+                    ImmLogger.IsEnabled<ClientLoggingTests>(ImmLogger.LogLevel.Debug),
+                    "A received logging-only update must enable Debug through both global and default thresholds."
+                );
+                Assert.IsNull(client.ClientSettings, "A level-only update must not initialize authentication.");
             }
             finally
             {
@@ -62,7 +83,10 @@ namespace Tests.Editor.Client
         }
 
         [TestCase("{ 'logging': { 'categories': { 'Auth':'Unknown' } } }")]
+        [TestCase("{ 'logging': { 'logLevel':'Unknown' } }")]
+        [TestCase("{ 'logging': { 'defaultSubLogLevel':7 } }")]
         [TestCase("{ 'logging': null }")]
+        [TestCase("{ 'environment':'dev', 'logging': null }")]
         [TestCase("{ 'environment':'dev', 'logging': { 'categories': { 'Auth':7 } } }")]
         public void InvalidLogging_RejectsEntireBootstrapMessage(string json)
         {
@@ -79,13 +103,20 @@ namespace Tests.Editor.Client
         {
             const string urls = "'loginUrl':'', 'refreshUrl':'', 'revokeUrl':'', 'signupUrl':''";
             var settings = ClientSettings.Parse(
-                "{ 'prod': { " + urls + ", 'logging': { 'categories': { 'Auth':'Warn' } } } }",
+                "{ 'prod': { "
+                    + urls
+                    + ", 'logging': { 'logLevel':'Debug', 'defaultSubLogLevel':'Debug', 'categories': { 'Auth':'Warn' } } } }",
                 "prod"
             );
             Assert.AreEqual(
                 ImmLogger.LogLevel.Warn,
                 settings.Logging.Categories["Auth"],
                 "Logging defaults must come from the selected client environment."
+            );
+            ImmLogger.Configure(settings.Logging);
+            Assert.IsTrue(
+                ImmLogger.IsEnabled<ClientLoggingTests>(ImmLogger.LogLevel.Debug),
+                "Client file levels must enable Debug for types without a configured category."
             );
         }
 

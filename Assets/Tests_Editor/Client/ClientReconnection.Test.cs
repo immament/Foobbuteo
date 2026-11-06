@@ -38,6 +38,8 @@ namespace Tests.Editor.Client
             m_transport = m_object.AddComponent<UnityTransport>();
             m_manager = m_object.AddComponent<NetworkManager>();
             m_manager.NetworkConfig = new NetworkConfig { NetworkTransport = m_transport };
+            // Edit Mode creation can leave Netcode's logger uninitialized. (6.6.8f1)
+            typeof(NetworkManager).GetMethod("OnValidate", PrivateInstance).Invoke(m_manager, null);
             m_connections = GetField(m_manager, "ConnectionManager");
             SetField(m_connections, "Transport", m_transport);
             m_network = new ClientNetCtrl(m_manager);

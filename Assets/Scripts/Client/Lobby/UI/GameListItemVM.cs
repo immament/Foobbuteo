@@ -29,6 +29,7 @@ namespace Imma.Foobbuteo.Client.Lobby.UI
             {
                 GameId = game.GameId,
                 GameIdText = $"#{game.GameId}",
+                GameTypeText = game.MatchType.ToString(),
                 Status = game.Status,
                 StartDateTime = game.StartDateTime.LocalDateTime,
                 Turn = game.Turn,
@@ -57,6 +58,9 @@ namespace Imma.Foobbuteo.Client.Lobby.UI
 
         [CreateProperty(ReadOnly = true)]
         public string GameIdText;
+
+        [CreateProperty(ReadOnly = true)]
+        public string GameTypeText { get; private set; }
 
         private FoobbuteoGameStatus m_status;
         public FoobbuteoGameStatus Status

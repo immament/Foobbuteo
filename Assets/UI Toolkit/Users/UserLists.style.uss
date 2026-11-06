@@ -38,12 +38,7 @@
 .user-list-row-header {
   flex-grow: 1;
 }
-.user-list-actions {
-  /* flex-wrap: wrap; */
-}
-.room-user-tabs {
-  margin-bottom: 4px;
-}
+
 .room-user-tabs .btn-default {
   font-size: 12px;
   padding: 3px 6px;

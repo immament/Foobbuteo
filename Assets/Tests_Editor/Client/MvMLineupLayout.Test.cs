@@ -334,7 +334,7 @@ namespace Tests.Editor.Client
                 Root.style.fontSize = 14;
                 Root.styleSheets.Add(AssetDatabase.LoadAssetAtPath<StyleSheet>("Assets/UI Toolkit/Common.style.uss"));
                 m_window.rootVisualElement.Add(Root);
-                Overlay = Root.Q("mvm-lineup-overlay");
+                Overlay = Root.Q("mvm-lineup-surface");
                 Overlay.dataSource = VM;
                 VM.SetTeam(TeamIndex.Home);
                 VM.Load(
@@ -382,6 +382,10 @@ namespace Tests.Editor.Client
             internal bool IsSettled(Vector2 size) =>
                 Mathf.Abs(Root.layout.width - size.x) < 0.1f
                 && Mathf.Abs(Overlay.layout.height - size.y) < 0.1f
+                && Root.Q<Toggle>("mvm-lineup-starting-toggle").value == VM.StartingExpanded
+                && Root.Q<Toggle>("mvm-lineup-reserves-toggle").value == VM.ReservesExpanded
+                && Root.Q("mvm-lineup-starting").resolvedStyle.display == VM.StartingDisplay
+                && Root.Q("mvm-lineup-reserves").resolvedStyle.display == VM.ReservesDisplay
                 && Root.Q("mvm-lineup-pitch").layout.width > 0
                 && Root.Q("mvm-lineup-reserves").Q<ScrollView>().contentViewport.layout.height > 0;
 

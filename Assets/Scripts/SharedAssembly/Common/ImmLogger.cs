@@ -38,8 +38,10 @@ namespace Imma.Common
             new(StringComparer.OrdinalIgnoreCase),
             new(StringComparer.OrdinalIgnoreCase),
         };
-        private static volatile LogLevel s_level = LogLevel.Trace;
-        private static LogLevel s_defaultSubLogLevel = LogLevel.Debug;
+        private static volatile LogLevel s_level = LogLevel.Warn;
+        private static readonly LogLevel?[] GlobalLevels = new LogLevel?[CategoryLevels.Length];
+        private static readonly LogLevel?[] DefaultLevels = new LogLevel?[CategoryLevels.Length];
+        private static LogLevel s_defaultSubLogLevel = LogLevel.Warn;
         private static ILogHandler s_logHandler;
         private static int s_mainThreadId;
 
@@ -70,9 +72,11 @@ namespace Imma.Common
         {
             lock (Sync)
             {
-                s_level = LogLevel.Trace;
-                s_defaultSubLogLevel = LogLevel.Debug;
+                s_level = LogLevel.Info;
+                s_defaultSubLogLevel = LogLevel.Info;
                 Loggers.Clear();
+                Array.Clear(GlobalLevels, 0, GlobalLevels.Length);
+                Array.Clear(DefaultLevels, 0, DefaultLevels.Length);
                 foreach (var layer in CategoryLevels)
                     layer.Clear();
             }
@@ -142,10 +146,28 @@ namespace Imma.Common
                 return;
             lock (Sync)
             {
+                if (settings.LogLevel.HasValue)
+                {
+                    GlobalLevels[(int)source] = settings.LogLevel;
+                    s_level = ResolveConfiguredLevel(GlobalLevels);
+                }
+                if (settings.DefaultSubLogLevel.HasValue)
+                {
+                    DefaultLevels[(int)source] = settings.DefaultSubLogLevel;
+                    s_defaultSubLogLevel = ResolveConfiguredLevel(DefaultLevels);
+                }
                 foreach (var pair in settings.Categories)
                     CategoryLevels[(int)source][pair.Key] = pair.Value;
                 RefreshLevels();
             }
+        }
+
+        private static LogLevel ResolveConfiguredLevel(LogLevel?[] levels)
+        {
+            for (int layer = levels.Length - 1; layer >= 0; layer--)
+                if (levels[layer].HasValue)
+                    return levels[layer].Value;
+            throw new InvalidOperationException("No log level has been configured.");
         }
 
         private static void RefreshLevels()

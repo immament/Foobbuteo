@@ -12,8 +12,13 @@
   align-items: center;
   min-width: 0;
 }
+
+#list-entry:hover {
+  opacity: 0.7;
+}
+
 #main-view .unity-collection-view__item--selected > #list-entry {
-  background-color: var(--fbt-button-active);
+  scale: 1.01;
 }
 #list-entry .unity-label {
   font-size: 14px;

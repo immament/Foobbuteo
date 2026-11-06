@@ -298,7 +298,7 @@ namespace Imma.Foobbuteo.Server.Game
             }
 
             if (found)
-                this.LInfo($"bestPass: {bestAction}, {bestTarget}");
+                this.LDebug($"bestPass: {bestAction}, {bestTarget}");
 
             return found;
         }

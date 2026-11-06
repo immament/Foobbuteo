@@ -223,7 +223,7 @@ namespace Tests.Editor.Client
         public IEnumerator UiReload_RestoresOpenSettingsAndEscapeDismisses()
         {
             CreateUi();
-            m_settings.SetOpen(true);
+            Click(m_root, "open-settings-btn");
             m_root.RemoveFromHierarchy();
             m_root = CloneUi();
             m_window.rootVisualElement.Add(m_root);
@@ -255,11 +255,11 @@ namespace Tests.Editor.Client
             SendClick(m_root.Q("sound-volume-label"));
             Assert.AreEqual(
                 DisplayStyle.Flex,
-                m_settings.Display,
+                m_root.Q("game-settings-overlay").resolvedStyle.display,
                 "Clicking inside the panel must leave settings open."
             );
 
-            SendClick(m_root.Q("game-settings-overlay"));
+            SendClick(m_root.Q("modal-backdrop"));
             yield return TestUtils.WaitForUi(IsHidden, "Clicking the backdrop must dismiss settings.");
         }
 
@@ -269,6 +269,7 @@ namespace Tests.Editor.Client
             m_settings = new GameSettingsVM();
             m_controller = new GameSettingsUiController(m_settings);
             m_root = CloneUi();
+            m_root.style.flexGrow = 1;
             m_window.Show();
             m_window.rootVisualElement.Add(m_root);
             m_controller.Bind(m_root);
@@ -279,7 +280,7 @@ namespace Tests.Editor.Client
             var root = AssetDatabase
                 .LoadAssetAtPath<VisualTreeAsset>("Assets/UI Toolkit/Game/GameRoomLayout.tmpl.uxml")
                 .CloneTree();
-            TestUtils.ClearBindingsExcept(root, root.Q("game-settings-overlay"));
+            TestUtils.ClearBindingsExcept(root, root.Q("game-settings-panel"));
             return root;
         }
 

@@ -1,20 +1,21 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" editor-extension-mode="False">
-    <ui:Template name="player-table" src="PlayerTable.tmpl.uxml"/>
-    <ui:Style src="TeamPlayerList.style.uss"/>
-    <ui:VisualElement name="team-player-list-overlay" class="team-player-list" picking-mode="Position" data-source-type="Imma.Foobbuteo.Client.Game.UI.Players.PlayerListVM, Foobbuteo.ClientLib">
-        <Bindings>
-            <ui:DataBinding property="style.display" data-source-path="Display" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-        </Bindings>
-        <ui:VisualElement name="team-player-list-panel" class="team-player-list__panel" picking-mode="Position">
-            <ui:VisualElement class="team-player-list__header">
-                <ui:Label name="team-player-list-title" class="team-player-list__title" enable-rich-text="false">
-                    <Bindings>
-                        <ui:DataBinding property="text" data-source-path="Title" binding-mode="ToTarget" update-trigger="OnSourceChanged"/>
-                    </Bindings>
-                </ui:Label>
-                <ui:Button name="team-player-list-close" text="Close" class="btn-default"/>
-            </ui:VisualElement>
-            <ui:Instance template="player-table" class="team-player-list__table"/>
+    <ui:Template name="player-table" src="PlayerTable.tmpl.uxml" />
+    <ui:Style src="../../Common.style.uss" />
+    <ui:Style src="TeamPlayerList.style.uss" />
+    <ui:VisualElement name="team-player-list-panel" class="team-player-list__panel fbt-card fbt-theme-primary" picking-mode="Position" data-source-type="Imma.Foobbuteo.Client.Game.UI.Players.PlayerListVM, Foobbuteo.ClientLib">
+        <ui:VisualElement class="fbt-card-header">
+            <ui:Label name="team-player-list-title" class="fbt-card-title" enable-rich-text="false">
+                <Bindings>
+                    <ui:DataBinding property="text" data-source-path="Title" binding-mode="ToTarget" update-trigger="OnSourceChanged" />
+                </Bindings>
+            </ui:Label>
+            <ui:Button name="team-player-list-close" tooltip="Close player list" class="fbt-card-close">
+                <ui:VisualElement class="fbt-card-close-icon" picking-mode="Ignore" />
+            </ui:Button>
+        </ui:VisualElement>
+        <ui:VisualElement class="fbt-card-content team-player-list__content">
+            <ui:VisualElement class="fbt-card-decoration" picking-mode="Ignore" />
+            <ui:Instance template="player-table" class="team-player-list__table fbt-card-body" />
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

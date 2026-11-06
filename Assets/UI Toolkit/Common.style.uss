@@ -27,18 +27,18 @@
   flex-shrink: 1;
   min-width: 0;
   margin: 0;
-  padding: 7px 28px;
+  padding: 0px 24px;
   color: #111d2f;
   -unity-font-definition: var(--fbt-font-heading);
-  font-size: 32px;
+  font-size: 28px;
   -unity-text-align: middle-left;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.fbt-card-close {
-  width: 64px;
-  min-width: 64px;
+.fbt-card-close,
+.fbt-card-header-btn {
+  aspect-ratio: 1;
   flex-shrink: 0;
   margin: 0;
   padding: 0;
@@ -50,25 +50,29 @@
   justify-content: center;
 }
 
-.fbt-card-close:hover:enabled {
+.fbt-card-close:hover:enabled,
+.fbt-card-header-btn:hover:enabled {
   background-color: #1674ff;
 }
 
-.fbt-card-close:active:enabled {
+.fbt-card-close:active:enabled,
+.fbt-card-header-btn:active:enabled {
   background-color: #0047c4;
 }
 
-.fbt-card-close:focus:enabled {
+.fbt-card-close:focus:enabled,
+.fbt-card-header-btn:focus:enabled {
   border-color: var(--fbt-focus);
 }
 
-.fbt-card-close:disabled {
+.fbt-card-close:disabled,
+.fbt-card-header-btn:disabled {
   opacity: 0.45;
 }
 
 .fbt-card-close-icon {
-  width: 36px;
-  height: 36px;
+  width: 30px;
+  height: 30px;
   background-image: url("Images/FbtClose.svg");
   background-size: contain;
 }
@@ -208,7 +212,7 @@
 }
 
 .fbt-btn {
-  min-height: 46px;
+  /* min-height: 46px; */
   flex-shrink: 0;
   margin: 0;
   padding: 5px 24px;
@@ -218,6 +222,12 @@
   -unity-font-style: normal;
   font-size: 25px;
   -unity-text-align: middle-center;
+}
+
+.fbt-btn.fbt-btn-compact {
+  min-height: 30px;
+  padding: 2px 10px;
+  font-size: 18px;
 }
 
 .fbt-btn-solid {

@@ -217,7 +217,7 @@ namespace Imma.Foobbuteo.Shared.Game.Model
             );
             if ((pos - closestPoint).sqrMagnitude <= interceptDistanceSqr)
             {
-                this.LInfo($"Intercept {player.Tag()}");
+                this.LDebug($"Intercept {player.Tag()}");
                 return closestPoint;
             }
 

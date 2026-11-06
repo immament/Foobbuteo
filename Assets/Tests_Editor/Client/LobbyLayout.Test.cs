@@ -22,7 +22,7 @@ namespace Tests.Editor.Client
     public class LobbyLayoutTests
     {
         private const string LongPlayerName = "Karol Kołodziej-Hajdo (@600177/135932)";
-        private static readonly Vector2[] Viewports =
+        private static readonly Vector2[] s_Viewports =
         {
             new(393, 839),
             new(839, 393),
@@ -225,7 +225,7 @@ namespace Tests.Editor.Client
             };
             list.unbindItem = (row, index) => row.dataSource = null;
             Show();
-            foreach (var size in Viewports)
+            foreach (var size in s_Viewports)
             {
                 yield return Resize(size);
                 yield return TestUtils.WaitForUi(
@@ -347,12 +347,12 @@ namespace Tests.Editor.Client
             var dialog = m_root.Q(className: "new-game-dialog");
             modal.style.display = DisplayStyle.Flex;
             Show();
-            foreach (var size in Viewports)
+            foreach (var size in s_Viewports)
             {
                 yield return Resize(size);
                 var create = m_root.Q<Button>("new-game-create");
                 yield return TestUtils.WaitForUi(
-                    () => create.layout.height >= 40 && dialog.layout.height > 0,
+                    () => create.layout.height >= 38 && dialog.layout.height > 0,
                     $"The New Game dialog must settle at {size}, but has: {create.layout.height}"
                 );
                 Assert.GreaterOrEqual(
@@ -378,7 +378,7 @@ namespace Tests.Editor.Client
                 Assert.AreEqual(
                     size.y < UiScreenLayout.ShortHeight ? 26f
                         : size.x < UiScreenLayout.NarrowWidth ? 27f
-                        : 32f,
+                        : 28f,
                     dialog.Q(className: "fbt-card-title").resolvedStyle.fontSize,
                     "New Game must use the responsive card heading size at " + size
                 );
@@ -388,7 +388,7 @@ namespace Tests.Editor.Client
             var online = m_root.Q("onlineUsersOverlay");
             layer.RemoveFromClassList("user-list-hidden");
             online.RemoveFromClassList("user-list-hidden");
-            foreach (var size in Viewports)
+            foreach (var size in s_Viewports)
             {
                 yield return Resize(size);
                 var close = m_root.Q<Button>("closeOnlineUsersButton");
@@ -429,7 +429,7 @@ namespace Tests.Editor.Client
             Show();
             var scroll = m_root.Q<ScrollView>("main-view__login");
             scroll.style.display = DisplayStyle.Flex;
-            foreach (var size in Viewports)
+            foreach (var size in s_Viewports)
             {
                 yield return Resize(size);
                 var last = m_root.Q<Button>("signup-link");

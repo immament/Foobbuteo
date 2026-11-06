@@ -1,0 +1,36 @@
+#game-room-root,
+#screen-content,
+#unsafe-area-masks,
+#contextual-popup-layer,
+#modal-layer,
+#modal-backdrop,
+#modal-safe-area,
+#modal-content,
+#notifications-safe-area,
+.modal-panel-host {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+#contextual-popup-layer,
+#notifications-safe-area,
+#modal-layer,
+.modal-panel-host {
+  display: none;
+}
+#notifications-safe-area.notifications-safe-area--runtime {
+  display: flex;
+}
+#modal-layer {
+  color: rgb(243, 246, 250);
+  font-size: 16px;
+}
+#modal-backdrop {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+.modal-panel-host {
+  align-items: center;
+  justify-content: center;
+}

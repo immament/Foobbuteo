@@ -3,10 +3,10 @@
     <Style src="project://database/Assets/UI%20Toolkit/Game/GameActionsContainer.style.uss?fileID=7433441132597879392&amp;guid=8673d447385fc7b4998d6abf2e93ecab&amp;type=3#GameActionsContainer.style"/>
     <ui:VisualElement name="ActionsContainer" data-source="project://database/Assets/UI%20Toolkit/Game/GameHudVMData.asset?fileID=11400000&amp;guid=03084d53eb9aaf549a1a41e0a2647c0f&amp;type=2#GameHudVMData">
         <ui:VisualElement name="ChangePlayerToolbar"/>
-        <ui:VisualElement name="BoxWithBackground">
+        <ui:VisualElement name="BoxWithBackground" class="fbt-card fbt-card-content">
             <ui:VisualElement>
-                <ui:VisualElement name="PlayerInfo" data-source-path="SelectedPlayer">
-                    <ui:Label name="PlayerName" enable-rich-text="false" emoji-fallback-support="false" focusable="false">
+                <ui:VisualElement name="PlayerInfo" class="fbt-card-header" data-source-path="SelectedPlayer">
+                    <ui:Label name="PlayerName" class="fbt-card-title" enable-rich-text="false" emoji-fallback-support="false" focusable="false">
                         <Bindings>
                             <ui:DataBinding property="text" data-source-path="Name" binding-mode="ToTarget"/>
                             <ui:DataBinding property="tooltip" data-source-path="Name" binding-mode="ToTarget"/>
@@ -42,7 +42,7 @@
                         </Bindings>
                     </ui:VisualElement>
                     <ui:VisualElement name="ChoosePlayerContent">
-                        <ui:Button text="Choose Player" name="ClaimPlayerBtn" class="btn-default"/>
+                        <ui:Button text="Choose Player" name="ClaimPlayerBtn" class="fbt-btn fbt-btn-solid fbt-theme-primary"/>
                         <Bindings>
                             <ui:DataBinding property="style.display" data-source-path="CanClaimPlayer" binding-mode="ToTarget"/>
                         </Bindings>
@@ -52,18 +52,18 @@
                     </Bindings>
                 </ui:VisualElement>
                 <ui:VisualElement name="Buttons">
-                    <ui:Button text="My player" tooltip="Select my player" name="CurrentUserPlayerBtn" class="btn-icon-row">
+                    <ui:Button text="My player" tooltip="Select my player" name="CurrentUserPlayerBtn" class="fbt-btn fbt-btn-solid fbt-theme-primary btn-icon-row">
                         <Bindings>
                             <ui:DataBinding property="style.visibility" data-source-path="ShowCurrentUserPlayerBtn" binding-mode="ToTarget"/>
                         </Bindings>
                     </ui:Button>
-                    <ui:Button text="Ball carrier" tooltip="Select ball carrier" name="PlayerWithBallBtn" class="btn-icon-row">
+                    <ui:Button text="Ball carrier" tooltip="Select ball carrier" name="PlayerWithBallBtn" class="fbt-btn fbt-btn-solid fbt-theme-primary btn-icon-row">
                         <Bindings>
                             <ui:DataBinding property="style.display" data-source-path="OnePlayerHasBall" binding-mode="ToTarget"/>
                         </Bindings>
                     </ui:Button>
                     <ui:VisualElement name="DevButtons" style="display: none;">
-                        <ui:Button text="Test" name="TestButton" class="btn-default btn-sm" style="display: none;"/>
+                        <ui:Button text="Test" name="TestButton" class="fbt-btn fbt-btn-solid fbt-theme-primary fbt-btn-compact" style="display: none;"/>
                     </ui:VisualElement>
                 </ui:VisualElement>
             </ui:VisualElement>

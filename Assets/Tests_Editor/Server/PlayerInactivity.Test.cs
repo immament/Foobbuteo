@@ -18,7 +18,6 @@ using Imma.Foobbuteo.Shared;
 using Imma.Foobbuteo.Shared.Game;
 using Imma.Foobbuteo.Shared.Game.Contract;
 using Imma.Foobbuteo.Shared.Game.Model;
-using Imma.Foobbuteo.Shared.Users;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -43,13 +42,10 @@ namespace Tests.Editor.Server
         private RecordingRepository m_repository;
         private PlayerActivityTracker m_activity;
         private ServerUser m_captain;
-        private ImmLogger.LogLevel m_previousLogLevel;
 
         [SetUp]
         public void SetUp()
         {
-            m_previousLogLevel = ImmLogger.Level;
-            ImmLogger.Level = ImmLogger.LogLevel.None;
             ServiceLocator.Initialize();
             m_users = new UserRegistry();
             m_repository = new RecordingRepository();
@@ -88,7 +84,6 @@ namespace Tests.Editor.Server
             m_server.Dispose();
             m_engine.Dispose();
             ServiceLocator.ClearAll();
-            ImmLogger.Level = m_previousLogLevel;
         }
 
         [TestCase(2, false)]

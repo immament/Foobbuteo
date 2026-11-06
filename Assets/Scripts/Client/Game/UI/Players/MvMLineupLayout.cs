@@ -56,8 +56,8 @@ namespace Imma.Foobbuteo.Client.Game.UI.Players
             m_overlay.EnableInClassList("lineup-editor--small", IsSmall);
             m_overlay.EnableInClassList("lineup-editor--compact", m_vertical);
             m_overlay.EnableInClassList("lineup-editor--short", layout.IsShort);
-            m_overlay.style.left = metrics.SafeAreaPanelUnits.x;
-            m_overlay.style.top = metrics.SafeAreaPanelUnits.y;
+            m_overlay.style.left = 0;
+            m_overlay.style.top = 0;
             m_overlay.style.width = layout.LogicalSize.x;
             m_overlay.style.height = layout.LogicalSize.y;
             m_overlay.style.scale = new Scale(

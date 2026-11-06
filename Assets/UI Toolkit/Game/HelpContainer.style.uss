@@ -1,64 +1,46 @@
-#HelpContainer .unity-tab__header {
-  background-color: #263545;
-  color: var(--muted);
+#help-panel .unity-tab__header {
+  background-color: var(--fbt-field-background);
+  color: var(--fbt-text-muted);
   -unity-font-style: bold;
   font-size: 16px;
   padding: 10px 16px;
-  border-radius: 10px 10px 0 0;
+  border-radius: 4px 4px 0 0;
 }
 
-#HelpContainer .unity-tab__header:checked {
-  background-color: #405b76;
-  color: var(--text-color);
+#help-panel .unity-tab__header:checked {
+  background-color: var(--fbt-button-background);
+  color: var(--fbt-button-text);
 }
 
-#HelpContainer .unity-tab__header:hover {
-  background-color: #35495e;
+#help-panel .unity-tab__header:hover {
+  background-color: var(--fbt-button-hover);
 }
 
-#HelpContainer .unity-tab__header-underline {
+#help-panel .unity-tab__header-underline {
   opacity: 0;
 }
 
-#HelpContainer .help-item {
+#help-panel .help-item {
   flex-direction: row;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
-#HelpContainer .help-item #image {
+#help-panel .help-item #image {
   width: 64px;
   height: 64px;
   margin-right: 12px;
 }
 
-#HelpContainer .help-item #title {
+#help-panel .help-item #title {
   font-size: 16px;
   -unity-font-style: bold;
   white-space: pre-wrap;
 }
 
-#HelpContainer .help-item #description {
+#help-panel .help-item #description {
   font-size: 16px;
   white-space: pre-wrap;
-}
-
-#HelpContainer #HelpCloseButton {
-  position: absolute;
-  right: 0;
-  top: 0;
-  background-image: url("project://database/Assets/ClientAssets/Buttons/closexxx.gif");
-  background-color: rgba(255, 255, 255, 0);
-  border-top-width: 0;
-  border-right-width: 0;
-  border-bottom-width: 0;
-  border-left-width: 0;
-  width: 24px;
-  height: 24px;
-}
-
-#HelpContainer #HelpCloseButton:hover {
-  scale: 1.05;
 }
 
 #HelpScreen {
@@ -66,39 +48,14 @@
 }
 
 .popup-container {
-  display: flex;
-  position: absolute;
   align-self: center;
-  top: 5%;
   width: 90%;
   height: 90%;
-  border-width: 16px;
-  border-radius: 10px;
-  border-color: rgba(187, 146, 255, 0);
-  background-color: #1c2632;
-  transition-duration: 0.15s;
-  transition-timing-function: ease;
   align-items: stretch;
 }
 
-.popup-container-hidden {
-  translate: 0 -200%;
-  display: none;
-}
-
-.popup-background {
+.help-panel__content,
+#help-panel #TabView {
   flex-grow: 1;
-  position: absolute;
-  min-width: 100%;
-  min-height: 100%;
-  background-color: rgba(59, 59, 59, 0.61);
-  transition-duration: 0.15s;
-}
-
-.popup-background-hidden {
-  display: none;
-  transition-property: all;
-  transition-duration: 0.25s;
-  transition-timing-function: ease;
-  transition-delay: 0s;
+  min-height: 0;
 }

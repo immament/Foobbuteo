@@ -111,12 +111,12 @@ namespace Tests.Editor.Client
         }
 
         [UnityTest]
-        public IEnumerator EveryHeaderImage_OpensItsOwnTeamAndCloseRestoresFocus()
+        public IEnumerator EveryHeaderTrigger_OpensItsOwnTeamAndCloseRestoresFocus()
         {
             CreateUi();
-            foreach (string name in new[] { "TeamAColor", "MobileTeamAColor", "TeamBColor", "MobileTeamBColor" })
+            foreach (string name in new[] { "TeamAColor", "pitch-home-name", "TeamBColor", "pitch-away-name" })
             {
-                bool home = name.Contains("TeamA");
+                bool home = name == "TeamAColor" || name == "pitch-home-name";
                 SendClick(m_root.Q(name));
                 yield return TestUtils.WaitForUi(
                     () => IsOpen() && !m_root.Q("GameScreen").enabledInHierarchy,
@@ -131,7 +131,7 @@ namespace Tests.Editor.Client
                 Assert.AreEqual(
                     home ? k_homePlayerId : k_awayPlayerId,
                     m_controller.VM.Table.Rows[0].PlayerId,
-                    "The roster must belong to the clicked image: " + name
+                    "The roster must belong to the clicked team trigger: " + name
                 );
                 Assert.AreSame(
                     PlayerTableViewDefinition.AllSkills,
@@ -181,9 +181,9 @@ namespace Tests.Editor.Client
             );
             var average = Rows()[0].Q<Label>(className: "player-table__cell--average");
             Assert.AreEqual(
-                FontStyle.Bold,
+                FontStyle.Normal,
                 average.resolvedStyle.unityFontStyleAndWeight,
-                "The average value must be visually emphasized with bold text."
+                "Table values must use regular body text; the average column is emphasized by its background."
             );
             Assert.Greater(average.resolvedStyle.backgroundColor.a, 0, "The average column needs its own background.");
             Assert.IsNotNull(Rows()[0].Q<Image>().image, "A known country's flag must bind to its row image.");
@@ -217,7 +217,7 @@ namespace Tests.Editor.Client
             yield return TestUtils.WaitForUi(IsOpen, "The modal must open before dismissal checks.");
             SendClick(m_root.Q("team-player-list-title"));
             Assert.IsTrue(m_controller.VM.Team.HasValue, "Clicking inside the panel must not dismiss it.");
-            SendClick(m_root.Q("team-player-list-overlay"));
+            SendClick(m_root.Q("modal-backdrop"));
             yield return TestUtils.WaitForUi(() => !IsOpen(), "Clicking the backdrop must dismiss the modal.");
             SendClick(m_root.Q("TeamBColor"));
             var close = m_root.Q<Button>("team-player-list-close");

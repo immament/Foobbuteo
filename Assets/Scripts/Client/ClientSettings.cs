@@ -14,6 +14,7 @@ namespace Imma.Foobbuteo.Client
     [Serializable]
     internal sealed class ClientSettings
     {
+        [JsonProperty("logging")]
         public LoggingSettings Logging { get; private set; }
         public string loginUrl;
         public string refreshUrl;
@@ -65,7 +66,8 @@ namespace Imma.Foobbuteo.Client
                             $"Authentication settings requires a trusted HTTPS '{key}' / '{url}."
                         );
                 }
-                var logging = LoggingSettings.Parse(data["logging"]);
+                if (data["logging"]?.Type == JTokenType.Null)
+                    throw new InvalidOperationException("Logging settings must be an object.");
                 if (
                     data["webSessionTokenUrl"] != null
                     && (
@@ -75,9 +77,7 @@ namespace Imma.Foobbuteo.Client
                     )
                 )
                     throw new InvalidOperationException("Invalid webSessionTokenUrl; use a trusted HTTPS URL.");
-                var settings = data.ToObject<ClientSettings>();
-                settings.Logging = logging;
-                return settings;
+                return data.ToObject<ClientSettings>();
             }
             catch (JsonException ex)
             {
