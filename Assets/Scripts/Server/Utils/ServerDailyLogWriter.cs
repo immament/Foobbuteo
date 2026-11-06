@@ -28,12 +28,10 @@ namespace Imma.Foobbuteo.Server
         private static void Initialize()
         {
             var serverDirectory = Path.GetDirectoryName(Application.dataPath);
-            var configuredLogDirectory = ServerConfig.Config.LogDirectory;
+            var configuredLogDirectory = ServerConfig.Config.Logging.LogDirectory;
 
             if (string.IsNullOrWhiteSpace(configuredLogDirectory))
-            {
-                configuredLogDirectory = "Logs";
-            }
+                return;
 
             s_logDirectory = Path.IsPathRooted(configuredLogDirectory)
                 ? configuredLogDirectory

@@ -27,6 +27,8 @@ namespace Tests.Editor.SharedAssembly
             m_previousLevel = ImmLogger.Level;
             m_previousDefault = ImmLogger.DefaultSubLogLevel;
             ImmLogger.Reset();
+            ImmLogger.Level = ImmLogger.LogLevel.Trace;
+            ImmLogger.DefaultSubLogLevel = ImmLogger.LogLevel.Debug;
             m_handler = new RecordingHandler();
             UnityEngine.Debug.unityLogger.logHandler = m_handler;
             ImmLogger.Initialize();
@@ -306,6 +308,10 @@ namespace Tests.Editor.SharedAssembly
         }
 
         [TestCase("{ 'categories': { 'Auth':'7' } }")]
+        [TestCase("{ 'logLevel':'Unknown', 'categories': { 'Auth':'Trace' } }")]
+        [TestCase("{ 'logLevel':7 }")]
+        [TestCase("{ 'defaultSubLogLevel':'7' }")]
+        [TestCase("{ 'defaultSubLogLevel':null }")]
         [TestCase("{ 'categories': { 'Auth':7 } }")]
         [TestCase("{ 'categories': { 'Auth':'Unknown' } }")]
         [TestCase("{ 'categories': { 'Auth':'Debug', ' ':'Info' } }")]
@@ -327,26 +333,62 @@ namespace Tests.Editor.SharedAssembly
         }
 
         [Test]
+        public void ConfiguredLevels_RespectSourcePriorityAndPartialUpdates()
+        {
+            var caller = ImmLogger.GetLoggerByType<Caller>();
+            ImmLogger.Configure(
+                LoggingSettings.Parse(JObject.Parse("{ 'logLevel':'Debug', 'defaultSubLogLevel':'Debug' }")),
+                ImmLogger.ConfigurationSource.Editor
+            );
+            ImmLogger.Configure(
+                LoggingSettings.Parse(JObject.Parse("{ 'logLevel':'None', 'defaultSubLogLevel':'None' }")),
+                ImmLogger.ConfigurationSource.JavaScript
+            );
+            ImmLogger.Configure(LoggingSettings.Parse(JObject.Parse("{ 'logLevel':'Error' }")));
+            ImmLogger.Configure(LoggingSettings.Parse(JObject.Parse("{ 'categories': { 'Auth':'Warn' } }")));
+            Assert.IsTrue(
+                ImmLogger.IsEnabled<Caller>(ImmLogger.LogLevel.Debug),
+                "Editor levels must outrank later browser/file levels and survive category-only updates."
+            );
+            Assert.AreEqual(
+                ImmLogger.LogLevel.Debug,
+                caller.minLevel,
+                "Changing the configured default must refresh already registered loggers."
+            );
+        }
+
+        [Test]
         public void Reset_RestoresDefaultsAndDiscardsCategoriesAndOverrides()
         {
+            ImmLogger.Configure(
+                LoggingSettings.Parse(JObject.Parse("{ 'logLevel':'None', 'defaultSubLogLevel':'None' }")),
+                ImmLogger.ConfigurationSource.Editor
+            );
             ImmLogger.Level = ImmLogger.LogLevel.None;
             ImmLogger.DefaultSubLogLevel = ImmLogger.LogLevel.Error;
             ImmLogger.AddType(typeof(Caller), "Auth").minLevel = ImmLogger.LogLevel.Warn;
             Apply("{ 'Auth':'None' }");
             ImmLogger.Reset();
             Assert.AreEqual(
-                ImmLogger.LogLevel.Trace,
+                ImmLogger.LogLevel.Info,
                 ImmLogger.Level,
-                "A new play session must restore the former asset global default."
+                "A new play session must restore the runtime global default."
             );
             Assert.AreEqual(
-                ImmLogger.LogLevel.Debug,
+                ImmLogger.LogLevel.Info,
                 ImmLogger.GetLoggerByType<Caller>().minLevel,
                 "A new session must discard explicit overrides and category state."
             );
             Assert.IsEmpty(
                 ImmLogger.GetLoggerByType<Caller>().Categories,
                 "Explicit registration tags must not leak across sessions."
+            );
+            ImmLogger.Configure(
+                LoggingSettings.Parse(JObject.Parse("{ 'logLevel':'Debug', 'defaultSubLogLevel':'Debug' }"))
+            );
+            Assert.IsTrue(
+                ImmLogger.IsEnabled<Caller>(ImmLogger.LogLevel.Debug),
+                "Editor level overrides must not survive reset and block a new session's file settings."
             );
         }
 

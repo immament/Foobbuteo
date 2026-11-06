@@ -643,7 +643,7 @@ MonoBehaviour:
     NetworkProfilingMetrics: 0
     OldPrefabList: []
   RunInBackground: 1
-  LogLevel: 0
+  LogLevel: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
