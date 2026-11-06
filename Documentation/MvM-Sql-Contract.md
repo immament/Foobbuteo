@@ -4,7 +4,7 @@ MvM assigns one user to each team without a pitch-player claim. `GameSlot`
 index 0 represents a manager; pitch indices remain 1–11. A team is identified
 by `(source_game_id, team_type, team_id, age_category)`; its name is not identity.
 
-Only Footstar (`source_game_id = 1`) is implemented. Value 2 is reserved for a
+Only [Footstar](https://www.footstar.org) (`source_game_id = 1`) is implemented. Value 2 is reserved for a
 later source integration. That integration will retrieve teams through HTTP;
 source identity in persisted matches does not require SQL-based team retrieval.
 Its API client, authentication, roster retrieval, and snapshot persistence belong
@@ -43,7 +43,7 @@ accept four additional int parameters: `@source_game_id`, `@team_type`, `@team_i
 and `@age_category`. Existing `@creator_player_id` and `@creator_position` must be
 optional and are omitted for MvM. New team parameters must be optional for PvP.
 
-Validate current Footstar management permission and absence of another open-game
+Validate current [Footstar](https://www.footstar.org) management permission and absence of another open-game
 participation. Atomically persist the home manager, complete team key, and a
 snapshot of the actual starting eleven with their skills. No pitch player is
 assigned to the manager. The away side starts unassigned.
@@ -109,7 +109,7 @@ non-null `int` ratings on the 0–20 scale:
 SQL currently returns temporary values: 15 for slots with `user_id > 0`, 5 for
 other slots, and 5 for every squad row. No database table migration is required
 for this result-shape change. Unity stores and transmits these ratings directly;
-it neither reads nor converts Footstar skills. Mock roster snapshots use the same
+it neither reads nor converts [Footstar](https://www.footstar.org) skills. Mock roster snapshots use the same
 ten contract fields; old skill names must be migrated in local configuration.
 
 Gameplay uses `GkPassSkill` for both passes only when the goalkeeper is in

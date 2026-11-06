@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="Assets/ClientAssets/Images/fs_logo.png" alt="Footstar logo" width="640">
+  <img src="Assets/ClientAssets/Images/fbt_logo.png" alt="Foobbuteo logo" width="640">
 </p>
 
 # Foobbuteo 2D
@@ -30,7 +30,7 @@ Unity Editor; separate clients, dedicated servers, Android, and WebGL are also s
 
 ## Getting started
 
-**No database or Footstar account is required for local Editor development with mock data.**
+**No database or [Footstar](https://www.footstar.org) account is required for local Editor development with mock data.**
 
 ### Prerequisites
 
@@ -62,6 +62,7 @@ SQL Server is optional and requires a compatible private database API; its schem
    The template currently selects `SqlServer`, so change the provider explicitly. If
    `FOOBBUTEO_DATA_PROVIDER` is set in your environment, it overrides this setting; use `Mock`
    or clear that override for this walkthrough.
+
 4. The Editor creates the ignored `editor.settings.json` from its template on first use,
    generating local development tokens. Its default `local` profile connects to `127.0.0.1:7777`.
    If you already have this file, select `local` via `currentProfile` before starting Play Mode.
@@ -132,21 +133,21 @@ WebGL desktop. Select a profile under **File → Build Profiles**, or use the
 [PowerShell build scripts](Build-Scripts/README.md). Pass `-SkipGitUpdate` to build your current
 local checkout without fetching or pulling. Player builds reserve version numbers even if they fail.
 
-Android and WebGL support in-game Footstar login. WebGL requires runtime configuration from its
+Android and WebGL support in-game [Footstar](https://www.footstar.org) login. WebGL requires runtime configuration from its
 hosting page. Configure trusted authentication endpoints before deployment; see the
 [authentication guide](Documentation/Footstar-Authentication.md).
 
 ## Documentation
 
-| Guide | Contents |
-| --- | --- |
-| [How to play](Documentation/How-To-Play.md) | Controls, actions, possession contests, and player/goalkeeper modes |
-| [Configuration](Documentation/Configuration.md) | Mock/SQL providers, Editor profiles, authentication, and multiplayer roles |
-| [Logging](Documentation/Logging.md) | Log levels, categories, runtime overrides, and platform output |
-| [Authentication](Documentation/Footstar-Authentication.md) | Android/WebGL login, runtime environments, and endpoint contracts |
-| [Local builds](Build-Scripts/README.md) | PowerShell scripts, build modules, output paths, and version counters |
-| [GitHub release builds](.github/RELEASE_BUILDS.md) | Workflow requests, release versions, downloads, and diagnostics |
-| [Contributing](CONTRIBUTING.md) | Development conventions, verification, and pull requests |
+| Guide                                                      | Contents                                                                   |
+| ---------------------------------------------------------- | -------------------------------------------------------------------------- |
+| [How to play](Documentation/How-To-Play.md)                | Controls, actions, possession contests, and player/goalkeeper modes        |
+| [Configuration](Documentation/Configuration.md)            | Mock/SQL providers, Editor profiles, authentication, and multiplayer roles |
+| [Logging](Documentation/Logging.md)                        | Log levels, categories, runtime overrides, and platform output             |
+| [Authentication](Documentation/Footstar-Authentication.md) | Android/WebGL login, runtime environments, and endpoint contracts          |
+| [Local builds](Build-Scripts/README.md)                    | PowerShell scripts, build modules, output paths, and version counters      |
+| [GitHub release builds](.github/RELEASE_BUILDS.md)         | Workflow requests, release versions, downloads, and diagnostics            |
+| [Contributing](CONTRIBUTING.md)                            | Development conventions, verification, and pull requests                   |
 
 ## Contributing
 

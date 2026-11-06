@@ -1,7 +1,7 @@
-# Footstar client authentication
+# [Footstar](https://www.footstar.org) client authentication
 
 Android and WebGL clients can log in through the UI Toolkit form. Credentials go
-to the Footstar website over HTTPS; the website validates them and issues a game
+to the [Footstar](https://www.footstar.org) website over HTTPS; the website validates them and issues a game
 token in the existing database-backed format. The Unity server receives only that
 token through connection approval and `foobbuteo_api.consume_login_token`.
 

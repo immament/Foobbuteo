@@ -23,7 +23,7 @@ an issue first.
 
 Foobbuteo 2D currently uses Unity `6000.6.8f1`. Follow the setup instructions
 in the [README](README.md#getting-started). The local mock setup needs no database
-or Footstar account. See [configuration](Documentation/Configuration.md) for optional
+or [Footstar](https://www.footstar.org) account. See [configuration](Documentation/Configuration.md) for optional
 SQL Server integration and additional Editor/client settings.
 
 Create a branch from the repository's default branch. Use a short descriptive
