@@ -34,7 +34,7 @@ namespace Imma.Common
             LogDirectory = logDirectory;
         }
 
-        public static LoggingSettings Parse(JToken token)
+        internal static LoggingSettings Parse(JToken token)
         {
             if (token == null)
                 return null;

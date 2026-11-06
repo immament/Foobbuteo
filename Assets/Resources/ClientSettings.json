@@ -18,8 +18,6 @@
     "revokeUrl": "https://nd.footstar.org/foobbuteo/api/fbt_login_revoke.asp",
     "signupUrl": "https://nd.footstar.org/default.asp",
     "logging": {
-      "logLevel": "Debug",
-      "defaultSubLogLevel": "Debug",
       "categories": {}
     }
   }

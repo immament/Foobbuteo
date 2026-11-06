@@ -85,6 +85,7 @@ namespace Tests.Editor.Client
         [TestCase("{ 'logging': { 'logLevel':'Unknown' } }")]
         [TestCase("{ 'logging': { 'defaultSubLogLevel':7 } }")]
         [TestCase("{ 'logging': null }")]
+        [TestCase("{ 'environment':'dev', 'logging': null }")]
         [TestCase("{ 'environment':'dev', 'logging': { 'categories': { 'Auth':7 } } }")]
         public void InvalidLogging_RejectsEntireBootstrapMessage(string json)
         {

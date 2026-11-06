@@ -34,7 +34,9 @@ namespace Imma.Foobbuteo.Client
             LoggingSettings logging;
             try
             {
-                logging = LoggingSettings.Parse(data["logging"]);
+                if (data["logging"]?.Type == JTokenType.Null)
+                    throw new InvalidOperationException("Logging settings must be an object.");
+                logging = data["logging"]?.ToObject<LoggingSettings>();
             }
             catch (InvalidOperationException ex)
             {
